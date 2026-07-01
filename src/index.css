@@ -890,8 +890,8 @@ section,
 }
 .proj-text__body {
   font-family: var(--sans);
-  font-size: clamp(16px, 1.4vw, 20px);
-  line-height: 1.55;
+  font-size: clamp(17px, 1.6vw, 22px);
+  line-height: 1.35;
   font-weight: 400;
   max-width: 62ch;
   margin: 0;
@@ -913,7 +913,8 @@ section,
   letter-spacing: -0.03em;
   color: var(--ink);
   margin: clamp(24px, 3vw, 40px) 0;
-  max-width: 100%;
+  width: 110%;
+  max-width: none;
 }
 
 /* The Approach — labelled items */
@@ -1495,6 +1496,9 @@ section,
 @media (max-width: 560px) {
   :root {
     --pad: 16px;
+  }
+  .proj-callout {
+    width: 100%;
   }
   .hww__grid {
     grid-template-columns: 1fr;

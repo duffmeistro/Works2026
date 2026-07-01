@@ -12,7 +12,7 @@ const projects = [
     slug: 'hubspot-console',
     title: 'HubSpot. How mobile data capture became a Breeze.',
     description:
-      'Unstructured field data, turned into something HubSpot mobile users could leverage. AI call logging, meeting capture, and Breeze AI all built into mobile, with you on the move.',
+      'Unstructured field data, turned into something HubSpot mobile users could leverage. AI call logging, meeting capture, and Breeze AI all built into mobile.',
     year: '2026',
     tags: ['MOBILE', 'AI', 'CRM'],
     images: [
@@ -39,7 +39,7 @@ const projects = [
     slug: 'glofox',
     title: 'Glofox. Gym owners were losing leads while teaching spin class.',
     description:
-      'Gym owners were losing leads while on the gym floor. Amplify turned them into paying customers at 2.5x the rate with automated, personalised outreach. Crushing it!',
+      'Gym owners were losing leads while on the gym floor. Amplify turned them into paying customers at 2.5x the rate with automated, personalised outreach.',
     year: '2023',
     tags: ['WEB', 'GYM CRM'],
     images: [
