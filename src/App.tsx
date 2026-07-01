@@ -141,7 +141,7 @@ export default function App() {
 
       {/* ---------- Life Adventures ---------- */}
       <RevealSection className="journey" id="about">
-        <TextScramble as="h2" className="journey__heading">LIFE ADVENTURES</TextScramble>
+        <TextScramble as="h2" className="journey__heading">LIFE VERCEL TEST</TextScramble>
         <motion.p className="journey__placeholder" variants={rise(24)}>
           When I clock off, I'm outside, hiking <img className="inline-icon" src="/icons/mountain.svg" alt="" /> sea swimming <img className="inline-icon" src="/icons/swimming.svg" alt="" />
           or signing up for trail races I've probably under-trained for. <img className="inline-icon" src="/icons/sneaker.svg" alt="" />
