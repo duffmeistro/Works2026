@@ -60,7 +60,7 @@ export default function ProjectPage({ slug }: { slug: string }) {
 
   const { meta, subheadline, signal, constraint, approachIntro, approachItems, outcomeStats, outcomeIntro = [], quote, pageImages = [] } =
     project
-  const company = project.company.split(' — ')[0]
+  const company = project.company.split(': ')[0]
 
   // slot images: [0]=hero [1]=signal [2,3]=constraint [4]=approach [5,6,7]=bento after outcome
   const heroImg      = pageImages[0]

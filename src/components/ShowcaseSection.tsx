@@ -36,7 +36,7 @@ export function ShowcaseSection({
     const t = setTimeout(() => setHeadingReady(true), 600)
     return () => clearTimeout(t)
   }, [ready])
-  const dashIdx = title.indexOf(' — ')
+  const dashIdx = title.indexOf('. ')
   const company = dashIdx >= 0 ? title.slice(0, dashIdx) : title
 
   return (

@@ -10,7 +10,7 @@ import { HowWeWork } from './components/HowWeWork'
 const projects = [
   {
     slug: 'hubspot-console',
-    title: 'HubSpot — How mobile data capture became a Breeze',
+    title: 'HubSpot. How mobile data capture became a Breeze.',
     description:
       'Unstructured field data, turned into something HubSpot mobile users could leverage. AI call logging, meeting capture, and Breeze AI all built into mobile, with you on the move.',
     year: '2026',
@@ -23,7 +23,7 @@ const projects = [
   },
   {
     slug: 'hubspot-crm',
-    title: "HubSpot — Their CRM lived on a desk. Their leads didn't.",
+    title: "HubSpot. Their CRM lived on a desk. Their leads didn't.",
     description:
       'Field reps were qualifying 3 leads a month on web. How mobile pushed that to 7. Doubling their lead qualification.',
     year: '2025',
@@ -37,7 +37,7 @@ const projects = [
   },
   {
     slug: 'glofox',
-    title: 'Glofox — Gym owners were losing leads while teaching spin class.',
+    title: 'Glofox. Gym owners were losing leads while teaching spin class.',
     description:
       'Gym owners were losing leads while on the gym floor. Amplify turned them into paying customers at 2.5x the rate with automated, personalised outreach. Crushing it!',
     year: '2023',
@@ -51,7 +51,7 @@ const projects = [
   {
     slug: 'movember',
     title:
-      'Movember — One campaign. One month. And every 1% we moved on conversion was worth a million dollars.',
+      'Movember. One campaign. One month. Every 1% we moved on conversion was worth a million dollars.',
     description:
       'Every 1% on conversion worth a million dollars for the hairiest fundraising platform on earth. Designing for sign-up conversion, fundraiser retention, the moments that made people come back.',
     year: '2021',
