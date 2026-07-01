@@ -794,7 +794,7 @@ section,
 .proj-company {
   font-family: var(--display);
   font-weight: 400;
-  font-size: clamp(40px, 5vw, 66px);
+  font-size: clamp(48px, 5.5vw, 76px);
   line-height: 1;
   letter-spacing: -0.03em;
   text-transform: uppercase;
@@ -1121,6 +1121,14 @@ section,
   width: 18px;
   height: 2px;
   background: var(--ink);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: center;
+}
+.menu__burger[aria-expanded="true"] span:first-child {
+  transform: translateY(3px) rotate(45deg);
+}
+.menu__burger[aria-expanded="true"] span:last-child {
+  transform: translateY(-3px) rotate(-45deg);
 }
 .menu__panel {
   position: absolute;
@@ -1282,7 +1290,7 @@ section,
 .showcase__desc {
   font-family: var(--sans);
   font-weight: 400;
-  font-size: clamp(14px, 1.2vw, 18px);
+  font-size: clamp(16px, 1.4vw, 22px);
   line-height: 1.45;
   margin: 0;
   max-width: 62ch;
@@ -1475,15 +1483,8 @@ section,
     justify-self: start;
   }
   .showcase__row {
-    grid-template-columns: 1fr;
-    height: auto;
-    gap: 12px;
-  }
-  .showcase__cell {
-    aspect-ratio: 16 / 9;
-  }
-  .showcase__cell--narrow {
-    aspect-ratio: 3 / 2;
+    height: clamp(120px, 28vw, 260px);
+    gap: 6px;
   }
   .hww__grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1492,6 +1493,9 @@ section,
 }
 
 @media (max-width: 560px) {
+  :root {
+    --pad: 16px;
+  }
   .hww__grid {
     grid-template-columns: 1fr;
   }
@@ -1511,5 +1515,126 @@ section,
   }
   .archive__row {
     grid-template-columns: 1fr;
+  }
+  .photo-strip {
+    width: 100%;
+    margin-left: 0;
+    gap: 6px;
+  }
+  .photo-strip__cell,
+  .showcase__cell,
+  .card {
+    border-radius: 12px;
+  }
+  .proj-hero {
+    padding-top: 80px;
+  }
+  .proj-meta-chips {
+    margin-top: 16px;
+  }
+  .contact__tagline {
+    white-space: nowrap;
+    font-size: 13px;
+    max-width: none;
+  }
+  .proj-ocard {
+    min-height: 0;
+    padding: 16px 0;
+  }
+  .proj-ocard__value {
+    margin-top: 12px;
+    padding-top: 0;
+  }
+  .journey {
+    margin-top: 60px;
+  }
+  .journey__row {
+    gap: 8px;
+    padding: 6px 0;
+  }
+  .journey__co {
+    font-size: 19px;
+  }
+  .journey__role,
+  .journey__period {
+    font-size: 14px;
+  }
+  .journey__loc {
+    font-size: 12px;
+    padding: 2px 7px;
+  }
+  .showcase__desc {
+    font-size: 18px;
+  }
+  .showcase__tags {
+    margin-top: 12px;
+  }
+  .showcase__meta {
+    margin-bottom: 20px;
+  }
+  .showcase--v1 .showcase__cell--narrow,
+  .showcase--v1 .showcase__cell--photo {
+    display: none;
+  }
+  .showcase--v1 .showcase__cell--feature {
+    grid-column: 1 / -1;
+  }
+  .showcase--v2 .showcase__cell--feature,
+  .showcase--v2 .showcase__cell--photo,
+  .showcase--v3 .showcase__cell--feature,
+  .showcase--v3 .showcase__cell--photo {
+    display: none;
+  }
+  .showcase--v2 .showcase__cell--narrow,
+  .showcase--v3 .showcase__cell--narrow {
+    grid-column: 1 / -1;
+  }
+  .showcase--v4 .showcase__cell--narrow,
+  .showcase--v4 .showcase__cell--feature {
+    display: none;
+  }
+  .showcase--v4 .showcase__cell--photo {
+    grid-column: 1 / -1;
+  }
+  .showcase--v1 .showcase__row,
+  .showcase--v2 .showcase__row,
+  .showcase--v3 .showcase__row,
+  .showcase--v4 .showcase__row {
+    height: clamp(220px, 60vw, 400px);
+  }
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    padding-top: 0;
+  }
+  .hero__name-block {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+  .hero__about {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    font-size: 20px;
+    padding-top: 0;
+    text-align: left;
+  }
+  .hero__pill {
+    display: none;
+  }
+  .hero__cta {
+    grid-column: 1;
+    grid-row: 3;
+    justify-self: start;
+    align-self: center;
+    margin-top: 20px;
+  }
+  .hero__scroll-hint {
+    display: flex;
+    grid-column: 2;
+    grid-row: 3;
+    justify-self: end;
+    align-self: center;
+    margin-top: 20px;
   }
 }

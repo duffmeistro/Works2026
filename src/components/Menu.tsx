@@ -37,7 +37,7 @@ export function Menu() {
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
       >
-        <span /><span /><span />
+        <span /><span />
       </button>
 
       <AnimatePresence>
