@@ -1,9 +1,24 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { RevealSection } from './site'
 import { TextScramble } from './text-scramble'
 import { rise, stagger } from '../anim'
 import { SplashReady } from '../splash'
+
+function LoopVideo({ src, style }: { src: string; style: React.CSSProperties }) {
+  const ref = useRef<HTMLVideoElement>(null)
+  return (
+    <video
+      ref={ref}
+      src={src}
+      autoPlay
+      muted
+      playsInline
+      style={style}
+      onEnded={() => setTimeout(() => ref.current?.play(), 1000)}
+    />
+  )
+}
 
 
 export function ShowcaseSection({
@@ -17,6 +32,7 @@ export function ShowcaseSection({
   tags = ['WEB', 'SAAS', 'MOBILE'],
   images = [],
   imagePositions = [],
+  objectFits = [],
 }: {
   id?: string
   variant?: 1 | 2 | 3 | 4
@@ -28,6 +44,7 @@ export function ShowcaseSection({
   tags?: string[]
   images?: string[]
   imagePositions?: string[]
+  objectFits?: string[]
 }) {
   const ready = useContext(SplashReady)
   const [headingReady, setHeadingReady] = useState(false)
@@ -74,13 +91,9 @@ export function ShowcaseSection({
           return (
             <motion.span className={'showcase__cell ' + mod} data-cursor-view variants={rise(40)} key={i}>
               {isVideo ? (
-                <video
+                <LoopVideo
                   src={src}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: imagePositions[i] ?? 'top', display: 'block' }}
+                  style={{ width: '100%', height: '100%', objectFit: (objectFits[i] ?? 'cover') as React.CSSProperties['objectFit'], objectPosition: imagePositions[i] ?? 'top', display: 'block' }}
                 />
               ) : src ? (
                 <img src={src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: imagePositions[i] ?? 'top', display: 'block' }} />

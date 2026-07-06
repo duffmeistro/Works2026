@@ -148,7 +148,7 @@ export default function ProjectPage({ slug }: { slug: string }) {
       <Figure count={1} images={[approachImg]} />
 
       {preOutcomeMedia !== undefined && (
-        <RevealSection className="proj-figure">
+        <RevealSection className="proj-figure proj-figure--tight">
           <motion.div className="proj__media" variants={rise(40)}>
             {preOutcomeMedia && <MediaItem src={preOutcomeMedia} />}
           </motion.div>

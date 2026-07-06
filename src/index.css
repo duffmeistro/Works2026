@@ -837,6 +837,9 @@ section,
   gap: clamp(16px, 2.5vw, 28px);
   margin-top: clamp(40px, 7vw, 96px);
 }
+.proj-figure--tight {
+  margin-top: clamp(12px, 2vw, 24px);
+}
 .proj-bento {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;

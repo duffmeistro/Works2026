@@ -17,7 +17,7 @@ const projects = [
     tags: ['MOBILE', 'AI', 'CRM'],
     images: [
       '/images/hubspot-console/b.jpg',
-      '/images/hubspot-console/a.jpg',
+      '/images/hubspot-console/breezetrio.mp4',
       '/images/hubspot-console/c.jpg',
     ],
   },
@@ -30,10 +30,11 @@ const projects = [
     tags: ['MOBILE', 'CRM'],
     images: [
       '/images/hubspot-crm/2.jpg',
-      '/images/hubspot-crm/1.jpg',
+      '/images/hubspot-crm/leadsshort.mp4',
       '/images/hubspot-crm/3.jpg',
     ],
-    imagePositions: ['top', 'bottom', 'top'],
+    imagePositions: ['top', 'center', 'top'],
+    objectFits: ['cover', 'cover', 'cover'],
   },
   {
     slug: 'glofox',
@@ -133,6 +134,7 @@ export default function App() {
           tags={p.tags as string[]}
           images={'images' in p ? (p.images as string[]) : []}
           imagePositions={'imagePositions' in p ? (p.imagePositions as string[]) : []}
+          objectFits={'objectFits' in p ? (p.objectFits as string[]) : []}
         />
       ))}
 
