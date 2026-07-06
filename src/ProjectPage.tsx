@@ -8,12 +8,21 @@ const IMG_STYLE: React.CSSProperties = {
   width: '100%', height: 'auto', display: 'block',
 }
 
+function MediaItem({ src }: { src: string }) {
+  const isVideo = /\.(mp4|webm|mov)$/i.test(src)
+  return isVideo ? (
+    <video src={src} autoPlay muted loop playsInline style={{ width: '100%', height: 'auto', display: 'block' }} />
+  ) : (
+    <img src={src} alt="" style={IMG_STYLE} />
+  )
+}
+
 function Figure({ count, images = [] }: { count: number; images?: string[] }) {
   return (
     <RevealSection className="proj-figure">
       {Array.from({ length: count }).map((_, i) => (
         <motion.div className="proj__media" key={i} variants={rise(40)}>
-          {images[i] && <img src={images[i]} alt="" style={IMG_STYLE} />}
+          {images[i] && <MediaItem src={images[i]} />}
         </motion.div>
       ))}
     </RevealSection>
@@ -58,7 +67,7 @@ export default function ProjectPage({ slug }: { slug: string }) {
     )
   }
 
-  const { meta, subheadline, signal, constraint, approachIntro, approachItems, outcomeStats, outcomeIntro = [], quote, pageImages = [] } =
+  const { meta, subheadline, signal, constraint, approachIntro, approachItems, outcomeStats, outcomeIntro = [], quote, pageImages = [], preApproachMedia, preOutcomeMedia } =
     project
   const company = project.company.split(': ')[0]
 
@@ -104,6 +113,14 @@ export default function ProjectPage({ slug }: { slug: string }) {
       <TextSection name="The Constraint" paras={constraint} />
       <Figure count={2} images={constraintImgs} />
 
+      {preApproachMedia && (
+        <RevealSection className="proj-figure">
+          <motion.div className="proj__media" variants={rise(40)}>
+            <MediaItem src={preApproachMedia} />
+          </motion.div>
+        </RevealSection>
+      )}
+
       <RevealSection className="proj-section">
         <div className="proj-text">
           <TextScramble as="h2" className="proj-text__title">The Approach</TextScramble>
@@ -129,6 +146,14 @@ export default function ProjectPage({ slug }: { slug: string }) {
         </div>
       </RevealSection>
       <Figure count={1} images={[approachImg]} />
+
+      {preOutcomeMedia !== undefined && (
+        <RevealSection className="proj-figure">
+          <motion.div className="proj__media" variants={rise(40)}>
+            {preOutcomeMedia && <MediaItem src={preOutcomeMedia} />}
+          </motion.div>
+        </RevealSection>
+      )}
 
       <RevealSection className="proj-outcome">
         <TextScramble as="h2" className="proj-text__title proj-outcome__head">The Outcome</TextScramble>

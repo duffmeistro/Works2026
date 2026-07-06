@@ -102,6 +102,8 @@ export type ProjectContent = {
   outcomeIntro?: string[]
   quote?: { text: string; author: string }
   pageImages?: string[]
+  preApproachMedia?: string
+  preOutcomeMedia?: string
 }
 
 export const projectContent: Record<string, ProjectContent> = {
@@ -114,7 +116,7 @@ export const projectContent: Record<string, ProjectContent> = {
       "HubSpot's CRM is record-centric. Sound principle for a desk. Wrong one for a rep with thirty seconds before a meeting starts.",
     signal: [
       "HubSpot's CRM is record-centric: every action has to be anchored to a contact, a meeting, an engagement. Sound principle for a desk. Wrong one for a rep with thirty seconds before a meeting starts. The existing flow made them find or create a contact, book or log a meeting, then navigate into it just to tap \"start recording.\"",
-      '!! 10.1k weekly users were logging 85.6k post-meetings via Log Activity in a single month. Eight times more than booked meetings.',
+      '!! Over 10k weekly active users were manually logging around 85k post meeting activities on the app in a single month. Eight times more than booked meetings.',
       'Most field meetings aren\'t planned, they\'re ad hoc. 53% started from a company record, not a contact, because the meeting hadn\'t been pre-staged at all. Reps said it plainly: they expected a record button on the main screen, not buried behind a meeting they hadn\'t created yet. And once a meeting ended, the recording became a black box. No replay, no transcript, nothing to check.',
     ],
     constraint: [
@@ -148,6 +150,7 @@ export const projectContent: Record<string, ProjectContent> = {
       '/images/hubspot-console/page/7.jpg',
       '/images/hubspot-console/page/8.jpg',
     ],
+    preApproachMedia: '/images/hubspot-console/page/mobilenotetaker.webm',
   },
 
   'hubspot-crm': {
@@ -194,6 +197,7 @@ export const projectContent: Record<string, ProjectContent> = {
       '/images/hubspot-crm/page/7.jpg',
       '/images/hubspot-crm/page/8.jpg',
     ],
+    preOutcomeMedia: '/images/hubspot-crm/page/9.jpg',
   },
 
   glofox: {
