@@ -30,7 +30,7 @@ const projects = [
     tags: ['MOBILE', 'CRM'],
     images: [
       '/images/hubspot-crm/2.jpg',
-      '/images/hubspot-crm/leadsshort.mp4',
+      '/images/hubspot-crm/Leads2hero.mp4',
       '/images/hubspot-crm/3.jpg',
     ],
     imagePositions: ['top', 'center', 'top'],

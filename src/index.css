@@ -1586,13 +1586,13 @@ section,
   .showcase--v1 .showcase__cell--feature {
     grid-column: 1 / -1;
   }
-  .showcase--v2 .showcase__cell--feature,
+  .showcase--v2 .showcase__cell--narrow,
   .showcase--v2 .showcase__cell--photo,
   .showcase--v3 .showcase__cell--feature,
   .showcase--v3 .showcase__cell--photo {
     display: none;
   }
-  .showcase--v2 .showcase__cell--narrow,
+  .showcase--v2 .showcase__cell--feature,
   .showcase--v3 .showcase__cell--narrow {
     grid-column: 1 / -1;
   }
