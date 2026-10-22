@@ -269,7 +269,7 @@ export const projects: Project[] = [
     ],
     quote: '',
     quoteBy: '',
-    stage: { kind: 'solo', screen: { kind: 'image', src: '/work/home/breeze-ai-phone.jpg', alt: 'Breeze Assistant: Hi Gavan, how can I help you? with suggested prompts and an Ask Breeze Assistant anything input', width: 563, height: 1218 } },
+    stage: { kind: 'solo', screen: { kind: 'image', src: '/work/home/breeze-ai-phone.jpg', alt: 'Breeze Assistant: Hi Gavan, how can I help you? with suggested prompts and an Ask Breeze Assistant anything input', width: 750, height: 1624 } },
     hero: { kind: 'carousel', label: 'Breeze Assistant screens carousel', screens: [{ kind: 'image', src: '/work/breeze-ai/carousel-1-greeting.jpg', alt: 'Breeze Assistant greeting: Hi Gavan, how can I help you? with suggested prompts', width: 563, height: 1218 }, { kind: 'image', src: '/work/breeze-ai/carousel-2-menu.jpg', alt: 'Breeze Assistant overflow menu: New chat, Chats, Artifacts, Projects and Prompts', width: 563, height: 1215 }, { kind: 'image', src: '/work/breeze-ai/carousel-3-chats.jpg', alt: 'Chats list showing loading, selected, unread, scheduled and needs-reply thread states', width: 563, height: 1218 }, { kind: 'image', src: '/work/breeze-ai/carousel-4-agent-reply.jpg', alt: 'Breeze handing a request to the Prospecting agent and replying in the chat', width: 563, height: 1215 }] },
     afterMetrics: null,
     end: [],
