@@ -1,17 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Router from './Router'
+import { BrowserRouter } from 'react-router-dom'
+import AppRoutes from './AppRoutes'
 import './index.css'
-
-// Strip non-project hashes from the URL on load so the browser
-// doesn't scroll to a #works or #contact anchor on refresh
-if (window.location.hash && !/^#\/project\//.test(window.location.hash)) {
-  history.replaceState(null, '', window.location.pathname + window.location.search)
-}
-window.scrollTo(0, 0)
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Router />
+    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+      <AppRoutes />
+    </BrowserRouter>
   </React.StrictMode>,
 )
