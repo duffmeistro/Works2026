@@ -1,4 +1,6 @@
+import { Fragment } from 'react'
 import { projects, type Block, type Project } from '../projects'
+import { HeroBlock, MediaBlock, MediaGroup } from './Media'
 
 type CaseContentProps = {
   project: Project
@@ -7,9 +9,21 @@ type CaseContentProps = {
   onNext: () => void
 }
 
+const OUTCOME = 'The outcome'
+
 function kicker(project: Project, index: number) {
   if (index === 0) return 'About'
   return `Case study 0${index} / 0${projects.length - 1} · ${project.name}`
+}
+
+function List({ items }: { items: string[] }) {
+  return (
+    <ul>
+      {items.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+    </ul>
+  )
 }
 
 function BlockView({ block }: { block: Block }) {
@@ -17,24 +31,12 @@ function BlockView({ block }: { block: Block }) {
     case 'p':
       return <p>{block.text}</p>
     case 'list':
-      return (
-        <ul>
-          {block.items.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      )
+      return <List items={block.items} />
     case 'callout':
       return (
         <div className="hm-callout">
           <p>{block.title}</p>
-          {block.items.length > 0 && (
-            <ul>
-              {block.items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          )}
+          {block.items.length > 0 && <List items={block.items} />}
         </div>
       )
     case 'quote':
@@ -47,8 +49,18 @@ function BlockView({ block }: { block: Block }) {
   }
 }
 
+function ProjectQuote({ project }: { project: Project }) {
+  return (
+    <blockquote className="hm-quote">
+      <p>{project.quote}</p>
+      <footer>{project.quoteBy}</footer>
+    </blockquote>
+  )
+}
+
 export function CaseContent({ project, index, onNext }: CaseContentProps) {
   const next = projects[(index + 1) % projects.length]
+  const hasOutcome = project.sections.some((s) => s.title === OUTCOME)
 
   return (
     <>
@@ -58,7 +70,7 @@ export function CaseContent({ project, index, onNext }: CaseContentProps) {
           <span>{project.year}</span>
         </div>
         <h2 className="hm-case__title">{project.headline}</h2>
-        <p className="hm-case__sub">{project.intro}</p>
+        <p className="hm-case__intro">{project.intro}</p>
       </header>
 
       <dl className="hm-rise hm-r2 hm-meta">
@@ -69,6 +81,8 @@ export function CaseContent({ project, index, onNext }: CaseContentProps) {
           </div>
         ))}
       </dl>
+
+      {project.hero && <HeroBlock hero={project.hero} />}
 
       {project.metrics.length > 0 && (
         <section className="hm-rise hm-r4 hm-metrics">
@@ -81,23 +95,26 @@ export function CaseContent({ project, index, onNext }: CaseContentProps) {
         </section>
       )}
 
+      {project.afterMetrics && <MediaBlock media={project.afterMetrics} rise="hm-r4" />}
+
       {project.sections.map((s) => (
-        <section key={s.n} className="hm-rise hm-r5 hm-section">
-          <h3>{index === 0 ? s.title : `${s.n} — ${s.title}`}</h3>
-          <div className="hm-section__body">
-            {s.blocks.map((b, i) => (
-              <BlockView key={i} block={b} />
-            ))}
-          </div>
-        </section>
+        <Fragment key={s.n}>
+          <section className="hm-rise hm-r5 hm-section">
+            <h3>{index === 0 ? s.title : `${s.n} — ${s.title}`}</h3>
+            <div className="hm-section__body">
+              {s.blocks.map((b, i) => (
+                <BlockView key={i} block={b} />
+              ))}
+            </div>
+          </section>
+          {project.quote && s.title === OUTCOME && <ProjectQuote project={project} />}
+          <MediaGroup items={s.after} />
+        </Fragment>
       ))}
 
-      {project.quote && (
-        <blockquote className="hm-quote">
-          <p>{project.quote}</p>
-          <footer>{project.quoteBy}</footer>
-        </blockquote>
-      )}
+      <MediaGroup items={project.end} />
+
+      {project.quote && !hasOutcome && <ProjectQuote project={project} />}
 
       {index !== 0 && (
         <div className="hm-next">

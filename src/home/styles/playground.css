@@ -374,3 +374,73 @@
     font-size: 11px;
   }
 }
+
+/* ---------- Playground figures ---------- */
+.hm-fig {
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hm-fig figcaption {
+  position: absolute;
+  left: 20px;
+  bottom: 16px;
+  font-size: 14px;
+  color: #3d3a36;
+}
+.hm-fig--hero {
+  height: 560px;
+  border-radius: 20px;
+}
+.hm-fig--hero figcaption {
+  left: 24px;
+  bottom: 20px;
+}
+.hm-fig--figure {
+  height: 360px;
+  border-radius: 16px;
+}
+.hm-fig__pill {
+  width: 180px;
+  height: 420px;
+  border-radius: 90px;
+  background: linear-gradient(180deg, var(--accent) 0%, var(--accent) 50%, #ffffff 100%);
+}
+.hm-figs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 767px) {
+  .hm-fig--hero {
+    height: 320px;
+    border-radius: 18px;
+  }
+  .hm-fig--hero figcaption {
+    left: 16px;
+    bottom: 14px;
+    font-size: 12px;
+  }
+  .hm-fig__pill {
+    width: 100px;
+    height: 236px;
+    border-radius: 50px;
+  }
+  .hm-fig--figure {
+    height: 220px;
+    border-radius: 14px;
+  }
+  .hm-fig--figure figcaption {
+    left: 16px;
+    bottom: 14px;
+    font-size: 12px;
+  }
+  .hm-figs {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}

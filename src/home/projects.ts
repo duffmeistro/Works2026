@@ -223,8 +223,8 @@ export const projects: Project[] = [
           { type: 'p', text: 'We also had to figure out new interaction patterns across UI, speech to text and voice: ones that could make the product not only useful, but something customers came back to every day.' },
         ],
         after: [
-          { kind: 'image', src: '/work/breeze-ai/component-library.jpg', alt: 'Breeze Assistant component library: header, loading states, agent invoke, chat input, artifacts, tasks, text bubbles, overflow menu, notifications, blockers and nudges', width: 1512, height: 1047, caption: '[Breeze Assistant component library — the building blocks of chat on mobile]', frame: 'padded' },
-          { kind: 'image', src: '/work/breeze-ai/early-to-layered.jpg', alt: 'Early beginnings to layered improvements: the first Breeze Assistant screens beside the refined greeting and chat', width: 1512, height: 982, caption: '[From early beginnings to layered improvements]' },
+          { kind: 'image', src: '/work/breeze-ai/component-library.jpg', alt: 'Breeze Assistant component library: header, loading states, agent invoke, chat input, artifacts, tasks, text bubbles, overflow menu, notifications, blockers and nudges', width: 1512, height: 1047, caption: '[Breeze Assistant component library — the building blocks of chat on mobile]', frame: 'padded', bg: '#E8E4DB' },
+          { kind: 'image', src: '/work/breeze-ai/early-to-layered.jpg', alt: 'Early beginnings to layered improvements: the first Breeze Assistant screens beside the refined greeting and chat', width: 1512, height: 982, caption: '[From early beginnings to layered improvements]', bg: '#E8E4DB' },
         ],
       },
       {
@@ -236,8 +236,8 @@ export const projects: Project[] = [
           { type: 'p', text: 'So it wasn’t just prototypes. Customers were working with their own data and stress testing it in real life.' },
         ],
         after: [
-          { kind: 'image', src: '/work/breeze-ai/agent-invocation.jpg', alt: 'Breeze Assistant handing a request to the Prospecting agent: prompt, agent invoke, reply and a Breeze needs your reply notification', width: 1512, height: 982, caption: '[Agent invocation — Breeze handing a request to the Prospecting agent]', frame: 'padded' },
-          { kind: 'image', src: '/work/breeze-ai/task-completion.jpg', alt: 'Working on a task with Breeze: to-do list, task attached to a prompt, thinking state and a drafted email artifact', width: 1512, height: 982, caption: '[Automated task completion — Breeze working through a task and drafting the email]', frame: 'padded' },
+          { kind: 'image', src: '/work/breeze-ai/agent-invocation.jpg', alt: 'Breeze Assistant handing a request to the Prospecting agent: prompt, agent invoke, reply and a Breeze needs your reply notification', width: 1512, height: 982, caption: '[Agent invocation — Breeze handing a request to the Prospecting agent]', frame: 'padded', bg: '#E8E4DB' },
+          { kind: 'image', src: '/work/breeze-ai/task-completion.jpg', alt: 'Working on a task with Breeze: to-do list, task attached to a prompt, thinking state and a drafted email artifact', width: 1512, height: 982, caption: '[Automated task completion — Breeze working through a task and drafting the email]', frame: 'padded', bg: '#E8E4DB' },
         ],
       },
       {
@@ -250,7 +250,7 @@ export const projects: Project[] = [
           { type: 'p', text: 'None of this would have been possible without the strong foundations we set.' },
         ],
         after: [
-          { kind: 'image', src: '/work/breeze-ai/usage-chart.jpg', alt: 'Breeze on HubSpot mobile daily active users in 2026: pageviews climbing to 45.1k and messages sent to 17.9k', width: 2268, height: 1473, caption: '[Breeze on HubSpot mobile — daily pageviews and messages sent through 2026]', frame: 'padded' },
+          { kind: 'image', src: '/work/breeze-ai/usage-chart.jpg', alt: 'Breeze on HubSpot mobile daily active users in 2026: pageviews climbing to 45.1k and messages sent to 17.9k', width: 2268, height: 1473, caption: '[Breeze on HubSpot mobile — daily pageviews and messages sent through 2026]', frame: 'padded', bg: '#E8E4DB' },
         ],
       },
       {
@@ -317,8 +317,8 @@ export const projects: Project[] = [
           { type: 'p', text: 'AI Meeting Summary: by the time the rep’s back at the car, the notes are written, associated, and ready to review.' },
         ],
         after: [
-          { kind: 'image', src: '/work/mobile-crm/calling-flow.jpg', alt: 'Calling on mobile: a Calls due today widget, an in-call screen and a call record with an AI call summary', width: 2268, height: 1473 },
-          { kind: 'image', src: '/work/mobile-crm/notetaker-flow.jpg', alt: 'Mobile Notetaker: entry point on the Sales home, recording in progress and saved recordings ready to associate', width: 2268, height: 1473 },
+          { kind: 'image', src: '/work/mobile-crm/calling-flow.jpg', alt: 'Calling on mobile: a Calls due today widget, an in-call screen and a call record with an AI call summary', width: 2268, height: 1473, bg: '#E8E4DB' },
+          { kind: 'image', src: '/work/mobile-crm/notetaker-flow.jpg', alt: 'Mobile Notetaker: entry point on the Sales home, recording in progress and saved recordings ready to associate', width: 2268, height: 1473, bg: '#E8E4DB' },
         ],
       },
       {
@@ -329,7 +329,7 @@ export const projects: Project[] = [
         ],
         after: [
           { kind: 'image', src: '/work/mobile-crm/leads-qualified-chart.jpg', alt: 'Median leads qualified per month in Sales Hub Pro+ portals: portals using mobile lead management sit at 4 to 7, against 2 to 3 without it', width: 2268, height: 1329, bg: '#F9F4EE' },
-          { kind: 'image', src: '/work/mobile-crm/reaction-unbound.jpg', alt: 'Reaction to the Mobile Notetaker: a Slack shout-out, the Unbound 2026 keynote stage and a LinkedIn post from a HubSpot partner', width: 2268, height: 1473, caption: '[Getting a shout-out from Duncan, our CEO, at Unbound]' },
+          { kind: 'image', src: '/work/mobile-crm/reaction-unbound.jpg', alt: 'Reaction to the Mobile Notetaker: a Slack shout-out, the Unbound 2026 keynote stage and a LinkedIn post from a HubSpot partner', width: 2268, height: 1473, caption: '[Getting a shout-out from Duncan, our CEO, at Unbound]', bg: '#E8E4DB' },
         ],
       },
       {
@@ -341,15 +341,15 @@ export const projects: Project[] = [
           { type: 'p', text: 'Below you can see the progression from the early days in 2023 to today in 2026.' },
         ],
         after: [
-          { kind: 'image', src: '/work/mobile-crm/design-tokens.jpg', alt: 'Mobile design tokens system in Figma, with header, navigation, button, input and native Android and iOS component libraries', width: 2268, height: 1635, caption: '[Design system — semantic token setup]', frame: 'padded' },
-          { kind: 'image', src: '/work/mobile-crm/sales-home-evolution.jpg', alt: 'The HubSpot mobile Sales home evolving across three versions, ending with a Breeze-powered suggested actions view', width: 2268, height: 1473, caption: '[Progression over three global system token updates]', frame: 'padded' },
+          { kind: 'image', src: '/work/mobile-crm/design-tokens.jpg', alt: 'Mobile design tokens system in Figma, with header, navigation, button, input and native Android and iOS component libraries', width: 2268, height: 1635, caption: '[Design system — semantic token setup]', frame: 'padded', bg: '#E8E4DB' },
+          { kind: 'image', src: '/work/mobile-crm/sales-home-evolution.jpg', alt: 'The HubSpot mobile Sales home evolving across three versions, ending with a Breeze-powered suggested actions view', width: 2268, height: 1473, caption: '[Progression over three global system token updates]', frame: 'padded', bg: '#E8E4DB' },
         ],
       },
     ],
     quote: '“Prospecting on mobile was the missing piece for our team on the road.”',
     quoteBy: 'Jay, HubSpot Evangelist, USA',
     stage: { kind: 'pair', screens: [{ kind: 'image', src: '/work/home/mobile-crm-phone-back.jpg', alt: 'HubSpot mobile welcome screen: Making Productivity Easier, with Login and Sign Up', width: 563, height: 1218 }, { kind: 'image', src: '/work/home/mobile-crm-phone-front.jpg', alt: 'Mobile Notetaker recording a meeting at 00:23:12, with Delete, Pause and Finish', width: 563, height: 1218 }] },
-    hero: { kind: 'image', src: '/work/mobile-crm/hero-sales-leads-record.jpg', alt: 'Mobile Sales home, Leads pipeline board and a lead record with an AI lead summary', width: 2268, height: 1473 },
+    hero: { kind: 'image', src: '/work/mobile-crm/hero-sales-leads-record.jpg', alt: 'Mobile Sales home, Leads pipeline board and a lead record with an AI lead summary', width: 2268, height: 1473, bg: '#E8E4DB' },
     afterMetrics: null,
     end: [],
   },
