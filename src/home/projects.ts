@@ -351,7 +351,7 @@ export const projects: Project[] = [
     ],
     quote: '“Prospecting on mobile was the missing piece for our team on the road.”',
     quoteBy: 'Jay, HubSpot Evangelist, USA',
-    stage: { kind: 'pair', screens: [{ kind: 'image', src: '/work/home/mobile-crm-phone-back.jpg', alt: 'HubSpot mobile welcome screen: Making Productivity Easier, with Login and Sign Up', width: 563, height: 1218 }, { kind: 'image', src: '/work/home/mobile-crm-phone-front.jpg', alt: 'Mobile Notetaker recording a meeting at 00:23:12, with Delete, Pause and Finish', width: 750, height: 1624 }] },
+    stage: { kind: 'pair', screens: [{ kind: 'image', src: '/work/home/mobile-crm-phone-back.png', alt: 'HubSpot mobile welcome screen: Making Productivity Easier, with Login and Sign Up', width: 563, height: 1218 }, { kind: 'image', src: '/work/home/mobile-crm-phone-front.jpg', alt: 'Mobile Notetaker recording a meeting at 00:23:12, with Delete, Pause and Finish', width: 750, height: 1624 }] },
     hero: { kind: 'image', src: '/work/mobile-crm/hero-sales-leads-record.jpg', alt: 'Mobile Sales home, Leads pipeline board and a lead record with an AI lead summary', width: 2268, height: 1473, srcSet: '/work/mobile-crm/hero-sales-leads-record-800.jpg 800w, /work/mobile-crm/hero-sales-leads-record.jpg 2268w', bg: '#E8E4DB' },
     afterMetrics: null,
     end: [],
