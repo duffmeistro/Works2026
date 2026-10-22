@@ -1150,3 +1150,59 @@
     background: rgba(255, 255, 255, 0.92);
   }
 }
+
+/* ---------- Entrance after the loading screen ---------- */
+.hm-intro .hm-header,
+.hm-intro .hm-nav {
+  animation: hm-intro-down 0.8s cubic-bezier(0.2, 0.7, 0.1, 1) backwards;
+  animation-delay: var(--intro-delay, 0s);
+}
+.hm-intro .hm-nav {
+  animation-delay: calc(var(--intro-delay, 0s) + 0.05s);
+}
+.hm-intro .hm-desc,
+.hm-intro .hm-about__inner {
+  animation: hm-intro-rise 0.9s cubic-bezier(0.2, 0.7, 0.1, 1) backwards;
+  animation-delay: calc(var(--intro-delay, 0s) + 0.15s);
+}
+.hm-intro .hm-viewbtn {
+  animation: hm-intro-rise 0.9s cubic-bezier(0.2, 0.7, 0.1, 1) backwards;
+  animation-delay: calc(var(--intro-delay, 0s) + 0.1s);
+}
+.hm-intro .hm-tabbar,
+.hm-intro .hm-modebtn--grid {
+  animation: hm-intro-up 0.9s cubic-bezier(0.2, 0.7, 0.1, 1) backwards;
+  animation-delay: calc(var(--intro-delay, 0s) + 0.3s);
+}
+.hm-intro .hm-modebtn--grid {
+  animation-delay: calc(var(--intro-delay, 0s) + 0.36s);
+}
+@keyframes hm-intro-down {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+@keyframes hm-intro-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+@keyframes hm-intro-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hm-intro .hm-header,
+  .hm-intro .hm-nav,
+  .hm-intro .hm-desc,
+  .hm-intro .hm-about__inner,
+  .hm-intro .hm-viewbtn,
+  .hm-intro .hm-tabbar,
+  .hm-intro .hm-modebtn--grid {
+    animation: none;
+  }
+}

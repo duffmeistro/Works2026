@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState, type TouchEvent } from 'react'
+import { useCallback, useLayoutEffect, useRef, useState, type TouchEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useActiveProject } from './ActiveProject'
 import { useArrowKeys, useBodyClass, useDocumentTitle, useElementHeight, useMediaQuery } from './hooks'
@@ -7,6 +7,7 @@ import { desktopTiles, findTile, mobileTiles, type Tile } from './playground'
 import { projects } from './projects'
 import { AboutBlock } from './components/AboutBlock'
 import { CaseContent } from './components/CaseContent'
+import { introDelayMs } from './components/Loader'
 import { MobileMenu } from './components/MobileMenu'
 import { Panel } from './components/Panel'
 import { BackBar, PlaygroundGrid } from './components/PlaygroundGrid'
@@ -20,6 +21,8 @@ import { useTheme } from './Theme'
 import './styles/index.css'
 
 const SWIPE_THRESHOLD = 40
+
+let introPlayed = false
 const STAGE_HEIGHT_DESKTOP = 530
 const STAGE_HEIGHT_MOBILE = 340
 const STAGE_MAX_SCALE = 1.35
@@ -51,6 +54,13 @@ export default function HomePage({ panelIndex, playing, playId, onClosePanel }: 
     : 1
 
   useBodyClass('hm-body')
+
+  const rootRef = useRef<HTMLElement>(null)
+  const [intro] = useState(() => !introPlayed)
+  useLayoutEffect(() => {
+    if (intro) rootRef.current?.style.setProperty('--intro-delay', `${(introDelayMs() / 1000).toFixed(2)}s`)
+    introPlayed = true
+  }, [intro])
   useArrowKeys(step, !menuOpen && !panelOpen && !playing)
 
   const project = projects[active]
@@ -97,7 +107,7 @@ export default function HomePage({ panelIndex, playing, playId, onClosePanel }: 
   }
 
   return (
-    <main className={['hm-root', playing && 'is-play', dark && 'is-dark'].filter(Boolean).join(' ')}>
+    <main ref={rootRef} className={['hm-root', playing && 'is-play', dark && 'is-dark', intro && 'hm-intro'].filter(Boolean).join(' ')}>
       <div className="hm-halftone" aria-hidden="true" />
 
       <div className="hm-home" {...(panelOpen ? { inert: '' } : {})}>

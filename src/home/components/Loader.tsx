@@ -3,10 +3,23 @@ import { useReducedMotion } from '../hooks'
 
 const LOADER_TEXT = 'Gavan Duffy _ Product Designer'
 
+const LOADER_FADE_AT_MS = 1800
+const INTRO_LEAD_MS = 150
+
 let shownThisLoad = false
+let startedAt: number | null = null
+
+export function introDelayMs(): number {
+  if (startedAt === null) return 0
+  return Math.max(0, startedAt + LOADER_FADE_AT_MS - INTRO_LEAD_MS - performance.now())
+}
 
 export function Loader() {
-  const [visible, setVisible] = useState(() => !shownThisLoad)
+  const [visible, setVisible] = useState(() => {
+    if (shownThisLoad) return false
+    startedAt ??= performance.now()
+    return true
+  })
   const reduceMotion = useReducedMotion()
 
   useEffect(() => {
