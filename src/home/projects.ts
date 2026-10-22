@@ -1,3 +1,5 @@
+import type { ChartSpec } from './charts'
+
 export type Image = {
   kind: 'image'
   src: string
@@ -37,7 +39,7 @@ export type Stage =
   | { kind: 'monitor'; screen: Image }
 
 export type MetaItem = { k: string; v: string }
-export type Metric = { value: string; label: string; chart: string }
+export type Metric = { value: string; label: string; chart: string; viz: ChartSpec }
 
 export type Project = {
   slug: string
@@ -117,9 +119,9 @@ export const projects: Project[] = [
     intro: 'Creating a new modality to interact with your CRM while you’re on the move. No tapping necessary with Breeze Voice.',
     meta: [{ k: 'Company', v: 'HubSpot' }, { k: 'Project', v: 'Breeze Voice AI' }, { k: 'Timeline', v: '4 months' }, { k: 'Role', v: 'Senior Product Designer' }],
     metrics: [
-      { value: '+4k', label: 'Daily active Breeze users on voice, with ~10% of all Breeze users having tried Voice', chart: 'Dotted ring lit around 10 percent of its circumference: about one in ten Breeze users has tried Voice' },
-      { value: '+65%', label: 'Latency improvement since the first beta', chart: 'Two dot bars: response time now is about a third of the first beta, 65 percent faster' },
-      { value: '18%', label: 'Of users prompt through speech to text', chart: 'Grid of 100 dots with 18 lit: 18 percent of users prompt through speech to text' },
+      { value: '+4k', label: 'Daily active Breeze users on voice, with ~10% of all Breeze users having tried Voice', chart: 'Dotted ring lit around 10 percent of its circumference: about one in ten Breeze users has tried Voice', viz: { kind: 'ring', pct: 0.1 } },
+      { value: '+65%', label: 'Latency improvement since the first beta', chart: 'Two dot bars: response time now is about a third of the first beta, 65 percent faster', viz: { kind: 'bars', rows: [{ label: 'First beta', cols: 32 }, { label: 'Now · 65% faster', cols: 11, accent: 'last' }] } },
+      { value: '18%', label: 'Of users prompt through speech to text', chart: 'Grid of 100 dots with 18 lit: 18 percent of users prompt through speech to text', viz: { kind: 'share', n: 18, total: 100, cols: 10, note: '18 in every 100 users' } },
     ],
     sections: [
       {
@@ -200,9 +202,9 @@ export const projects: Project[] = [
     intro: 'When speed is key and sales reps are driving or rushing to the next meeting, they don’t have time to deep dive into their CRM. They need the answers straight away and in a concise format. This is where Breeze AI on mobile excels.',
     meta: [{ k: 'Company', v: 'HubSpot' }, { k: 'Project', v: 'Breeze AI' }, { k: 'Timeline', v: '6 months' }, { k: 'Role', v: 'Senior Product Designer' }],
     metrics: [
-      { value: '48,120', label: 'Unique users, 9% of all mobile customers', chart: 'Grid of 100 dots with 9 lit: 9 percent of mobile customers use Breeze AI' },
-      { value: '+50.29%', label: 'Week-on-week page view growth since August 2026', chart: 'Two dot bars: this week is 50 percent longer than last week, the growth shown in orange' },
-      { value: '13.2k', label: 'Prompts submitted daily: 6.44k on iOS and 6.73k on Android', chart: 'Two dot stacks, each dot about 100 prompts: 64 for iOS and 67 for Android, nearly level' },
+      { value: '48,120', label: 'Unique users, 9% of all mobile customers', chart: 'Grid of 100 dots with 9 lit: 9 percent of mobile customers use Breeze AI', viz: { kind: 'share', n: 9, total: 100, cols: 10, note: '9 in every 100 mobile customers' } },
+      { value: '+50.29%', label: 'Week-on-week page view growth since August 2026', chart: 'Two dot bars: this week is 50 percent longer than last week, the growth shown in orange', viz: { kind: 'bars', rows: [{ label: 'Previous week', cols: 20 }, { label: 'This week · +50%', cols: 30, accent: 20 }] } },
+      { value: '13.2k', label: 'Prompts submitted daily: 6.44k on iOS and 6.73k on Android', chart: 'Two dot stacks, each dot about 100 prompts: 64 for iOS and 67 for Android, nearly level', viz: { kind: 'pair', a: 64, b: 67, labelA: 'iOS · 6.44k', labelB: 'Android · 6.73k' } },
     ],
     sections: [
       {
@@ -283,9 +285,9 @@ export const projects: Project[] = [
     intro: 'HubSpot’s field reps were closing deals on the road and logging them on a prayer. We fixed that, leads, calls, meetings, AI notes. All mobile. All in flow.',
     meta: [{ k: 'Company', v: 'HubSpot' }, { k: 'Project', v: 'Mobile Sales CRM' }, { k: 'Timeline', v: '10 months' }, { k: 'Role', v: 'Senior Product Designer' }],
     metrics: [
-      { value: '+120%', label: 'More leads qualified per week: 7.2 on mobile vs. 3 on web', chart: 'Two dot bars: 3 leads qualified a week on web against 7.2 on mobile' },
-      { value: '13,071', label: 'Portals adopted mobile lead management in the first 3 months', chart: 'Grid of dots, 131 filled, each about 100 portals: 13,071 portals in three months' },
-      { value: '45.7%', label: 'Of desktop lead users moved to mobile, without being pushed', chart: 'Dotted ring lit around 45.7 percent of its circumference' },
+      { value: '+120%', label: 'More leads qualified per week: 7.2 on mobile vs. 3 on web', chart: 'Two dot bars: 3 leads qualified a week on web against 7.2 on mobile', viz: { kind: 'bars', rows: [{ label: 'Web · 3 a week', cols: 13 }, { label: 'Mobile · 7.2 a week', cols: 31, accent: 'last' }] } },
+      { value: '13,071', label: 'Portals adopted mobile lead management in the first 3 months', chart: 'Grid of dots, 131 filled, each about 100 portals: 13,071 portals in three months', viz: { kind: 'waffle', n: 131, total: 160, note: 'Each dot ≈ 100 portals' } },
+      { value: '45.7%', label: 'Of desktop lead users moved to mobile, without being pushed', chart: 'Dotted ring lit around 45.7 percent of its circumference', viz: { kind: 'ring', pct: 0.457 } },
     ],
     sections: [
       {
@@ -365,9 +367,9 @@ export const projects: Project[] = [
     intro: 'Glofox had thousands of gym owners generating leads and losing them in the follow-up gap. Amplify was the fix, their first automated communication tool, designed from scratch.',
     meta: [{ k: 'Company', v: 'Glofox' }, { k: 'Project', v: 'Amplify — Gym Management CRM' }, { k: 'Timeline', v: '6 months' }, { k: 'Role', v: 'Senior Product Designer' }],
     metrics: [
-      { value: '2.7×', label: 'More leads converted for studios using Amplify (BikeRowSki pilot, 5 locations, 6 months)', chart: 'Two dotted discs: the one for studios using Amplify holds 2.7 times the area, the extra shown in orange' },
-      { value: '+24%', label: 'Higher lead conversion vs. studios not using the tool', chart: 'Two dot bars: lead conversion 24 percent higher with the tool, the extra shown in orange' },
-      { value: '8,471', label: 'Hours saved across the operator base, at an average of 3 minutes per message', chart: 'Grid of dots, 169 filled, each about 50 hours: 8,471 hours saved' },
+      { value: '2.7×', label: 'More leads converted for studios using Amplify (BikeRowSki pilot, 5 locations, 6 months)', chart: 'Two dotted discs: the one for studios using Amplify holds 2.7 times the area, the extra shown in orange', viz: { kind: 'discs', k: 2.7, labelA: 'Without · 1×', labelB: 'With Amplify · 2.7×' } },
+      { value: '+24%', label: 'Higher lead conversion vs. studios not using the tool', chart: 'Two dot bars: lead conversion 24 percent higher with the tool, the extra shown in orange', viz: { kind: 'bars', rows: [{ label: 'Without the tool', cols: 25 }, { label: 'With the tool · +24%', cols: 31, accent: 25 }] } },
+      { value: '8,471', label: 'Hours saved across the operator base, at an average of 3 minutes per message', chart: 'Grid of dots, 169 filled, each about 50 hours: 8,471 hours saved', viz: { kind: 'waffle', n: 169, total: 180, note: 'Each dot ≈ 50 hours' } },
     ],
     sections: [
       {

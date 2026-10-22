@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
 import { projects, type Block, type Project } from '../projects'
+import { DotChart } from './DotChart'
 import { HeroBlock, MediaBlock, MediaGroup, PanelOpenContext } from './Media'
 
 type CaseContentProps = {
@@ -88,6 +89,7 @@ export function CaseContent({ project, index, open, onNext }: CaseContentProps) 
         <section className="hm-rise hm-r4 hm-metrics">
           {project.metrics.map((m) => (
             <div key={m.value} className="hm-metric">
+              <DotChart spec={m.viz} label={m.chart} />
               <div className="hm-metric__v">{m.value}</div>
               <div className="hm-metric__l">{m.label}</div>
             </div>

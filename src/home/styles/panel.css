@@ -782,3 +782,87 @@
     animation: none !important;
   }
 }
+
+/* ---------- Dot charts ---------- */
+.hm-chart {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  margin-bottom: 16px;
+}
+.hm-dt {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.hm-dt--ink {
+  fill: #111111;
+}
+.hm-dt--accent {
+  fill: var(--hm-accent);
+}
+.hm-dt--ghost {
+  fill: #d9d4cb;
+}
+.hm-dt--halo {
+  fill: #111111;
+}
+.hm-dt.is-on {
+  animation: hm-dot-on 8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite both;
+}
+.hm-sheet:not(.is-open) .hm-dt.is-on {
+  animation-play-state: paused;
+}
+@keyframes hm-dot-on {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  5% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+  9% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  66% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  72% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+}
+.hm-chart__lbl {
+  font-family: var(--hm-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  fill: var(--hm-muted);
+}
+
+.hm-root.is-dark .hm-dt--ink,
+.hm-root.is-dark .hm-dt--halo {
+  fill: #edeae4;
+}
+.hm-root.is-dark .hm-dt--ghost {
+  fill: rgba(255, 255, 255, 0.16);
+}
+
+@media (max-width: 767px) {
+  .hm-chart {
+    margin-bottom: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hm-dt.is-on {
+    animation: none !important;
+  }
+}
