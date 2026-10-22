@@ -13,8 +13,6 @@
   --island-h: 18px;
   --island-top: 7px;
   --island-r: 10px;
-  --btn-w: 3px;
-  --btn-l: -7.5px;
 
   --glass: rgba(255, 255, 255, 0.16);
   --sh-line: rgba(17, 17, 17, 0.55);
@@ -26,7 +24,6 @@
   --sh-side-x: 6px;
   --sh-side-y: 3px;
   --sh-drop: 0 40px 60px -34px;
-  --dev-btn: rgba(17, 17, 17, 0.45);
   --mon-edge: rgba(17, 17, 17, 0.45);
 }
 
@@ -37,7 +34,6 @@
   --sh-ring: rgba(255, 255, 255, 0.14);
   --sh-side: rgba(255, 255, 255, 0.07);
   --sh-drop-c: rgba(0, 0, 0, 0.5);
-  --dev-btn: rgba(255, 255, 255, 0.4);
   --mon-edge: rgba(255, 255, 255, 0.4);
 }
 
@@ -328,32 +324,6 @@
   z-index: 2;
 }
 
-.hm-phone__btn {
-  position: absolute;
-  width: var(--btn-w);
-  border-radius: 2px;
-  background: var(--dev-btn);
-}
-.hm-phone__btn--l1 {
-  left: var(--btn-l);
-  top: calc(var(--u) * 96px);
-  height: calc(var(--u) * 22px);
-}
-.hm-phone__btn--l2 {
-  left: var(--btn-l);
-  top: calc(var(--u) * 136px);
-  height: calc(var(--u) * 42px);
-}
-.hm-phone__btn--l3 {
-  left: var(--btn-l);
-  top: calc(var(--u) * 186px);
-  height: calc(var(--u) * 42px);
-}
-.hm-phone__btn--r1 {
-  right: var(--btn-l);
-  top: calc(var(--u) * 150px);
-  height: calc(var(--u) * 66px);
-}
 
 .hm-phone__screen {
   position: relative;
@@ -870,8 +840,6 @@
     --island-h: 10px;
     --island-top: 4px;
     --island-r: 6px;
-    --btn-w: 2px;
-    --btn-l: -5px;
     --sh-inset-blur: 12px;
     --sh-side-x: 4px;
     --sh-side-y: 2px;

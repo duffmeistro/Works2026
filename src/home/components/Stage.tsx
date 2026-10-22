@@ -2,18 +2,10 @@ import type { CSSProperties } from 'react'
 import { layerState } from '../layerState'
 import { projects, type Image, type Stage as StageConfig } from '../projects'
 
-function Phone({ side, screen, buttons = true }: { side: 'l' | 'r' | 'c'; screen: Image; buttons?: boolean }) {
+function Phone({ side, screen }: { side: 'l' | 'r' | 'c'; screen: Image }) {
   return (
     <div className={`hm-dev-pos hm-dev-pos--${side}`}>
       <div className={`hm-phone hm-phone--${side}`}>
-        {buttons && (
-          <>
-            <span className="hm-phone__btn hm-phone__btn--l1" />
-            <span className="hm-phone__btn hm-phone__btn--l2" />
-            <span className="hm-phone__btn hm-phone__btn--l3" />
-            <span className="hm-phone__btn hm-phone__btn--r1" />
-          </>
-        )}
         <div className="hm-phone__screen">
           <img className="hm-screen__img" src={screen.src} alt={screen.alt} width={screen.width} height={screen.height} decoding="async" />
           <span className="hm-phone__island" />
