@@ -6,6 +6,7 @@ export type Image = {
   alt: string
   width: number
   height: number
+  srcSet?: string
   caption?: string
   frame?: 'padded' | 'inset'
   bg?: string
@@ -99,12 +100,12 @@ export const projects: Project[] = [
     hero: null,
     afterMetrics: null,
     end: [
-      { kind: 'image', src: '/work/about/01-figjam-canvas.jpg', alt: 'FigJam board with voice onboarding flows, sticky-note ideation and research summaries', width: 1512, height: 982, caption: '[Figma and FigJam have become my canvas]' },
-      { kind: 'image', src: '/work/about/02-research-synthesis.jpg', alt: 'Claude chat summarising the main themes from a pasted transcript', width: 1512, height: 982, caption: '[Research synthesis — pulling themes from a transcript with Claude]' },
-      { kind: 'image', src: '/work/about/03-claude-design-ideation.jpg', alt: 'Claude Design canvas with four iOS glass navigation options', width: 1512, height: 982, caption: '[Claude Design has become my ideation partner]' },
-      { kind: 'image', src: '/work/about/04-prototyping-in-code.jpg', alt: 'Coded phone prototype of the Breeze voice picker with a theme switcher, in light and dark', width: 1512, height: 982, caption: '[Prototyping in code — the medium we build in]' },
-      { kind: 'image', src: '/work/about/05-shipping-in-code.jpg', alt: 'GitHub branch list and a draft pull request for voice settings polish', width: 1512, height: 982, caption: '[Shipping in code — prototype branches and a voice settings PR]' },
-      { kind: 'image', src: '/work/about/06-ux-content-claude-skills.jpg', alt: 'Claude chat refining a Breeze Assistant meeting notification', width: 1512, height: 982, caption: '[Product UX content — Claude skills]' },
+      { kind: 'image', src: '/work/about/01-figjam-canvas.jpg', alt: 'FigJam board with voice onboarding flows, sticky-note ideation and research summaries', width: 1512, height: 982, srcSet: '/work/about/01-figjam-canvas-800.jpg 800w, /work/about/01-figjam-canvas.jpg 1512w', caption: '[Figma and FigJam have become my canvas]' },
+      { kind: 'image', src: '/work/about/02-research-synthesis.jpg', alt: 'Claude chat summarising the main themes from a pasted transcript', width: 1512, height: 982, srcSet: '/work/about/02-research-synthesis-800.jpg 800w, /work/about/02-research-synthesis.jpg 1512w', caption: '[Research synthesis — pulling themes from a transcript with Claude]' },
+      { kind: 'image', src: '/work/about/03-claude-design-ideation.jpg', alt: 'Claude Design canvas with four iOS glass navigation options', width: 1512, height: 982, srcSet: '/work/about/03-claude-design-ideation-800.jpg 800w, /work/about/03-claude-design-ideation.jpg 1512w', caption: '[Claude Design has become my ideation partner]' },
+      { kind: 'image', src: '/work/about/04-prototyping-in-code.jpg', alt: 'Coded phone prototype of the Breeze voice picker with a theme switcher, in light and dark', width: 1512, height: 982, srcSet: '/work/about/04-prototyping-in-code-800.jpg 800w, /work/about/04-prototyping-in-code.jpg 1512w', caption: '[Prototyping in code — the medium we build in]' },
+      { kind: 'image', src: '/work/about/05-shipping-in-code.jpg', alt: 'GitHub branch list and a draft pull request for voice settings polish', width: 1512, height: 982, srcSet: '/work/about/05-shipping-in-code-800.jpg 800w, /work/about/05-shipping-in-code.jpg 1512w', caption: '[Shipping in code — prototype branches and a voice settings PR]' },
+      { kind: 'image', src: '/work/about/06-ux-content-claude-skills.jpg', alt: 'Claude chat refining a Breeze Assistant meeting notification', width: 1512, height: 982, srcSet: '/work/about/06-ux-content-claude-skills-800.jpg 800w, /work/about/06-ux-content-claude-skills.jpg 1512w', caption: '[Product UX content — Claude skills]' },
     ],
   },
   {
@@ -134,7 +135,7 @@ export const projects: Project[] = [
           { type: 'quote', text: 'I’m definitely going to use AI much more… I’m driving all the time, so I want to be able to open up something like ChatGPT, or directly to you, and verbally tell you things to do.', by: 'HubSpot Sales Hub user' },
         ],
         after: [
-          { kind: 'image', src: '/work/voice-ai/slack-shout-out.jpg', alt: 'Slack message from Dharmesh Shah: OK, now I’m out of my chair. Breeze Assistant voice!', width: 1512, height: 982, caption: '[A shout-out from Dharmesh in #science-fair]' },
+          { kind: 'image', src: '/work/voice-ai/slack-shout-out.jpg', alt: 'Slack message from Dharmesh Shah: OK, now I’m out of my chair. Breeze Assistant voice!', width: 1512, height: 982, srcSet: '/work/voice-ai/slack-shout-out-800.jpg 800w, /work/voice-ai/slack-shout-out.jpg 1512w', caption: '[A shout-out from Dharmesh in #science-fair]' },
         ],
       },
       {
@@ -156,7 +157,7 @@ export const projects: Project[] = [
           { type: 'p', text: 'Later, we leaned further into voice. Invoking Breeze Voice through Siri gave reps a truly hands-free experience on iOS, and tying it into Breeze’s native chat let people flick between typing and talking without missing a beat.' },
         ],
         after: [
-          { kind: 'image', src: '/work/voice-ai/component-library.jpg', alt: 'Breeze voice component library: buttons, gradients, connection states, voice pill, Siri prompt and Try Voice block', width: 1512, height: 982, caption: '[Breeze voice — component library]', frame: 'inset' },
+          { kind: 'image', src: '/work/voice-ai/component-library.jpg', alt: 'Breeze voice component library: buttons, gradients, connection states, voice pill, Siri prompt and Try Voice block', width: 1512, height: 982, srcSet: '/work/voice-ai/component-library-800.jpg 800w, /work/voice-ai/component-library.jpg 1512w', caption: '[Breeze voice — component library]', frame: 'inset' },
         ],
       },
       {
@@ -179,7 +180,7 @@ export const projects: Project[] = [
           { type: 'list', items: ['Funnel: only 20.6% of Breeze home screen viewers (1,021 of 4,955) complete an answered turn, and 62.0% never tap the Voice CTA.', 'Setup friction: 16.4% of users are lost between activation and a successful connection (1,871 → 1,564).', 'Latency: 59.2% of turns take over 8s, and only 6.2% respond in under 2s.', 'Barge-ins and depth: barge-ins make up 38.5% of turn outcomes (12,845 vs 20,357 completed answers), and 52.1% of sessions end after 0 or 1 turn.', 'Retention: D30 retention is 2.9% for voice vs ~20.7% for text, and voice has a 13-point D1 deficit.'] },
         ],
         after: [
-          { kind: 'image', src: '/work/voice-ai/adoption-analysis.jpg', alt: 'Analysis of voice adoption: a funnel from 4,955 viewers to 1,021 answered turns, with latency and retention stats', width: 1512, height: 982, caption: '[Finding why voice adoption stalled]' },
+          { kind: 'image', src: '/work/voice-ai/adoption-analysis.jpg', alt: 'Analysis of voice adoption: a funnel from 4,955 viewers to 1,021 answered turns, with latency and retention stats', width: 1512, height: 982, srcSet: '/work/voice-ai/adoption-analysis-800.jpg 800w, /work/voice-ai/adoption-analysis.jpg 1512w', caption: '[Finding why voice adoption stalled]' },
         ],
       },
     ],
@@ -225,8 +226,8 @@ export const projects: Project[] = [
           { type: 'p', text: 'We also had to figure out new interaction patterns across UI, speech to text and voice: ones that could make the product not only useful, but something customers came back to every day.' },
         ],
         after: [
-          { kind: 'image', src: '/work/breeze-ai/component-library.jpg', alt: 'Breeze Assistant component library: header, loading states, agent invoke, chat input, artifacts, tasks, text bubbles, overflow menu, notifications, blockers and nudges', width: 1512, height: 1047, caption: '[Breeze Assistant component library — the building blocks of chat on mobile]', frame: 'padded', bg: '#E8E4DB' },
-          { kind: 'image', src: '/work/breeze-ai/early-to-layered.jpg', alt: 'Early beginnings to layered improvements: the first Breeze Assistant screens beside the refined greeting and chat', width: 1512, height: 982, caption: '[From early beginnings to layered improvements]', bg: '#E8E4DB' },
+          { kind: 'image', src: '/work/breeze-ai/component-library.jpg', alt: 'Breeze Assistant component library: header, loading states, agent invoke, chat input, artifacts, tasks, text bubbles, overflow menu, notifications, blockers and nudges', width: 1512, height: 1047, srcSet: '/work/breeze-ai/component-library-800.jpg 800w, /work/breeze-ai/component-library.jpg 1512w', caption: '[Breeze Assistant component library — the building blocks of chat on mobile]', frame: 'padded', bg: '#E8E4DB' },
+          { kind: 'image', src: '/work/breeze-ai/early-to-layered.jpg', alt: 'Early beginnings to layered improvements: the first Breeze Assistant screens beside the refined greeting and chat', width: 1512, height: 982, srcSet: '/work/breeze-ai/early-to-layered-800.jpg 800w, /work/breeze-ai/early-to-layered.jpg 1512w', caption: '[From early beginnings to layered improvements]', bg: '#E8E4DB' },
         ],
       },
       {
@@ -238,8 +239,8 @@ export const projects: Project[] = [
           { type: 'p', text: 'So it wasn’t just prototypes. Customers were working with their own data and stress testing it in real life.' },
         ],
         after: [
-          { kind: 'image', src: '/work/breeze-ai/agent-invocation.jpg', alt: 'Breeze Assistant handing a request to the Prospecting agent: prompt, agent invoke, reply and a Breeze needs your reply notification', width: 1512, height: 982, caption: '[Agent invocation — Breeze handing a request to the Prospecting agent]', frame: 'padded', bg: '#E8E4DB' },
-          { kind: 'image', src: '/work/breeze-ai/task-completion.jpg', alt: 'Working on a task with Breeze: to-do list, task attached to a prompt, thinking state and a drafted email artifact', width: 1512, height: 982, caption: '[Automated task completion — Breeze working through a task and drafting the email]', frame: 'padded', bg: '#E8E4DB' },
+          { kind: 'image', src: '/work/breeze-ai/agent-invocation.jpg', alt: 'Breeze Assistant handing a request to the Prospecting agent: prompt, agent invoke, reply and a Breeze needs your reply notification', width: 1512, height: 982, srcSet: '/work/breeze-ai/agent-invocation-800.jpg 800w, /work/breeze-ai/agent-invocation.jpg 1512w', caption: '[Agent invocation — Breeze handing a request to the Prospecting agent]', frame: 'padded', bg: '#E8E4DB' },
+          { kind: 'image', src: '/work/breeze-ai/task-completion.jpg', alt: 'Working on a task with Breeze: to-do list, task attached to a prompt, thinking state and a drafted email artifact', width: 1512, height: 982, srcSet: '/work/breeze-ai/task-completion-800.jpg 800w, /work/breeze-ai/task-completion.jpg 1512w', caption: '[Automated task completion — Breeze working through a task and drafting the email]', frame: 'padded', bg: '#E8E4DB' },
         ],
       },
       {
@@ -252,7 +253,7 @@ export const projects: Project[] = [
           { type: 'p', text: 'None of this would have been possible without the strong foundations we set.' },
         ],
         after: [
-          { kind: 'image', src: '/work/breeze-ai/usage-chart.jpg', alt: 'Breeze on HubSpot mobile daily active users in 2026: pageviews climbing to 45.1k and messages sent to 17.9k', width: 2268, height: 1473, caption: '[Breeze on HubSpot mobile — daily pageviews and messages sent through 2026]', frame: 'padded', bg: '#E8E4DB' },
+          { kind: 'image', src: '/work/breeze-ai/usage-chart.jpg', alt: 'Breeze on HubSpot mobile daily active users in 2026: pageviews climbing to 45.1k and messages sent to 17.9k', width: 2268, height: 1473, srcSet: '/work/breeze-ai/usage-chart-800.jpg 800w, /work/breeze-ai/usage-chart.jpg 2268w', caption: '[Breeze on HubSpot mobile — daily pageviews and messages sent through 2026]', frame: 'padded', bg: '#E8E4DB' },
         ],
       },
       {
@@ -319,8 +320,8 @@ export const projects: Project[] = [
           { type: 'p', text: 'AI Meeting Summary: by the time the rep’s back at the car, the notes are written, associated, and ready to review.' },
         ],
         after: [
-          { kind: 'image', src: '/work/mobile-crm/calling-flow.jpg', alt: 'Calling on mobile: a Calls due today widget, an in-call screen and a call record with an AI call summary', width: 2268, height: 1473, bg: '#E8E4DB' },
-          { kind: 'image', src: '/work/mobile-crm/notetaker-flow.jpg', alt: 'Mobile Notetaker: entry point on the Sales home, recording in progress and saved recordings ready to associate', width: 2268, height: 1473, bg: '#E8E4DB' },
+          { kind: 'image', src: '/work/mobile-crm/calling-flow.jpg', alt: 'Calling on mobile: a Calls due today widget, an in-call screen and a call record with an AI call summary', width: 2268, height: 1473, srcSet: '/work/mobile-crm/calling-flow-800.jpg 800w, /work/mobile-crm/calling-flow.jpg 2268w', bg: '#E8E4DB' },
+          { kind: 'image', src: '/work/mobile-crm/notetaker-flow.jpg', alt: 'Mobile Notetaker: entry point on the Sales home, recording in progress and saved recordings ready to associate', width: 2268, height: 1473, srcSet: '/work/mobile-crm/notetaker-flow-800.jpg 800w, /work/mobile-crm/notetaker-flow.jpg 2268w', bg: '#E8E4DB' },
         ],
       },
       {
@@ -330,8 +331,8 @@ export const projects: Project[] = [
           { type: 'p', text: '13,071 portals adopted mobile lead management in the first 3 months. 45.7% of desktop lead users moved to mobile, without being pushed. +120% more leads qualified per week: 7.2 on mobile vs. 3 on web.' },
         ],
         after: [
-          { kind: 'image', src: '/work/mobile-crm/leads-qualified-chart.jpg', alt: 'Median leads qualified per month in Sales Hub Pro+ portals: portals using mobile lead management sit at 4 to 7, against 2 to 3 without it', width: 2268, height: 1329, bg: '#F9F4EE' },
-          { kind: 'image', src: '/work/mobile-crm/reaction-unbound.jpg', alt: 'Reaction to the Mobile Notetaker: a Slack shout-out, the Unbound 2026 keynote stage and a LinkedIn post from a HubSpot partner', width: 2268, height: 1473, caption: '[Getting a shout-out from Duncan, our CEO, at Unbound]', bg: '#E8E4DB' },
+          { kind: 'image', src: '/work/mobile-crm/leads-qualified-chart.jpg', alt: 'Median leads qualified per month in Sales Hub Pro+ portals: portals using mobile lead management sit at 4 to 7, against 2 to 3 without it', width: 2268, height: 1329, srcSet: '/work/mobile-crm/leads-qualified-chart-800.jpg 800w, /work/mobile-crm/leads-qualified-chart.jpg 2268w', bg: '#F9F4EE' },
+          { kind: 'image', src: '/work/mobile-crm/reaction-unbound.jpg', alt: 'Reaction to the Mobile Notetaker: a Slack shout-out, the Unbound 2026 keynote stage and a LinkedIn post from a HubSpot partner', width: 2268, height: 1473, srcSet: '/work/mobile-crm/reaction-unbound-800.jpg 800w, /work/mobile-crm/reaction-unbound.jpg 2268w', caption: '[Getting a shout-out from Duncan, our CEO, at Unbound]', bg: '#E8E4DB' },
         ],
       },
       {
@@ -343,15 +344,15 @@ export const projects: Project[] = [
           { type: 'p', text: 'Below you can see the progression from the early days in 2023 to today in 2026.' },
         ],
         after: [
-          { kind: 'image', src: '/work/mobile-crm/design-tokens.jpg', alt: 'Mobile design tokens system in Figma, with header, navigation, button, input and native Android and iOS component libraries', width: 2268, height: 1635, caption: '[Design system — semantic token setup]', frame: 'padded', bg: '#E8E4DB' },
-          { kind: 'image', src: '/work/mobile-crm/sales-home-evolution.jpg', alt: 'The HubSpot mobile Sales home evolving across three versions, ending with a Breeze-powered suggested actions view', width: 2268, height: 1473, caption: '[Progression over three global system token updates]', frame: 'padded', bg: '#E8E4DB' },
+          { kind: 'image', src: '/work/mobile-crm/design-tokens.jpg', alt: 'Mobile design tokens system in Figma, with header, navigation, button, input and native Android and iOS component libraries', width: 2268, height: 1635, srcSet: '/work/mobile-crm/design-tokens-800.jpg 800w, /work/mobile-crm/design-tokens.jpg 2268w', caption: '[Design system — semantic token setup]', frame: 'padded', bg: '#E8E4DB' },
+          { kind: 'image', src: '/work/mobile-crm/sales-home-evolution.jpg', alt: 'The HubSpot mobile Sales home evolving across three versions, ending with a Breeze-powered suggested actions view', width: 2268, height: 1473, srcSet: '/work/mobile-crm/sales-home-evolution-800.jpg 800w, /work/mobile-crm/sales-home-evolution.jpg 2268w', caption: '[Progression over three global system token updates]', frame: 'padded', bg: '#E8E4DB' },
         ],
       },
     ],
     quote: '“Prospecting on mobile was the missing piece for our team on the road.”',
     quoteBy: 'Jay, HubSpot Evangelist, USA',
     stage: { kind: 'pair', screens: [{ kind: 'image', src: '/work/home/mobile-crm-phone-back.jpg', alt: 'HubSpot mobile welcome screen: Making Productivity Easier, with Login and Sign Up', width: 563, height: 1218 }, { kind: 'image', src: '/work/home/mobile-crm-phone-front.jpg', alt: 'Mobile Notetaker recording a meeting at 00:23:12, with Delete, Pause and Finish', width: 563, height: 1218 }] },
-    hero: { kind: 'image', src: '/work/mobile-crm/hero-sales-leads-record.jpg', alt: 'Mobile Sales home, Leads pipeline board and a lead record with an AI lead summary', width: 2268, height: 1473, bg: '#E8E4DB' },
+    hero: { kind: 'image', src: '/work/mobile-crm/hero-sales-leads-record.jpg', alt: 'Mobile Sales home, Leads pipeline board and a lead record with an AI lead summary', width: 2268, height: 1473, srcSet: '/work/mobile-crm/hero-sales-leads-record-800.jpg 800w, /work/mobile-crm/hero-sales-leads-record.jpg 2268w', bg: '#E8E4DB' },
     afterMetrics: null,
     end: [],
   },
@@ -389,8 +390,8 @@ export const projects: Project[] = [
           { type: 'p', text: 'And it had to prove revenue impact fast. First product of its kind at Glofox. No second chances if it flopped.' },
         ],
         after: [
-          { kind: 'image', src: '/work/gym-crm/workflow-branching.jpg', alt: 'Amplify workflow with a trial rule branching to true and false paths, beside a per-message conversion table', width: 1853, height: 886, bg: '#E5E5E5' },
-          { kind: 'image', src: '/work/gym-crm/insights-dashboard.jpg', alt: 'Amplify Insights tab: leads contacted, conversion rate, messages sent and a workflow message breakdown chart', width: 1853, height: 886, bg: '#E5E5E5' },
+          { kind: 'image', src: '/work/gym-crm/workflow-branching.jpg', alt: 'Amplify workflow with a trial rule branching to true and false paths, beside a per-message conversion table', width: 1853, height: 886, srcSet: '/work/gym-crm/workflow-branching-800.jpg 800w, /work/gym-crm/workflow-branching.jpg 1853w', bg: '#E5E5E5' },
+          { kind: 'image', src: '/work/gym-crm/insights-dashboard.jpg', alt: 'Amplify Insights tab: leads contacted, conversion rate, messages sent and a workflow message breakdown chart', width: 1853, height: 886, srcSet: '/work/gym-crm/insights-dashboard-800.jpg 800w, /work/gym-crm/insights-dashboard.jpg 1853w', bg: '#E5E5E5' },
         ],
       },
       {
@@ -415,11 +416,11 @@ export const projects: Project[] = [
     quote: '“With Amplify I know my messages are going out 100% of the time, while I focus on other areas of my business.”',
     quoteBy: 'James, Founder, BeatBox Boxing',
     stage: { kind: 'monitor', screen: { kind: 'image', src: '/work/home/gym-crm-monitor-screen.jpg', alt: 'Glofox Gym Insights snapshot: sales, leads, members and retention, today in the studio, classes and trainers', width: 941, height: 588 } },
-    hero: { kind: 'image', src: '/work/gym-crm/hero-workflow-builder.jpg', alt: 'Amplify workflow builder: a New leads sequence of timed emails and SMS, with the email editor open', width: 1853, height: 886, bg: '#E5E5E5' },
+    hero: { kind: 'image', src: '/work/gym-crm/hero-workflow-builder.jpg', alt: 'Amplify workflow builder: a New leads sequence of timed emails and SMS, with the email editor open', width: 1853, height: 886, srcSet: '/work/gym-crm/hero-workflow-builder-800.jpg 800w, /work/gym-crm/hero-workflow-builder.jpg 1853w', bg: '#E5E5E5' },
     afterMetrics: null,
     end: [
-      { kind: 'image', src: '/work/gym-crm/gym-insights-snapshot.jpg', alt: 'Gym Insights snapshot: sales, leads, members and retention, today in the studio, classes and trainers', width: 1853, height: 886, bg: '#E5E5E5' },
-      { kind: 'image', src: '/work/gym-crm/mobile-insights.jpg', alt: 'Glofox mobile insights: sales over time, attendance check-ins and member breakdown', width: 1853, height: 886, bg: '#E5E5E5' },
+      { kind: 'image', src: '/work/gym-crm/gym-insights-snapshot.jpg', alt: 'Gym Insights snapshot: sales, leads, members and retention, today in the studio, classes and trainers', width: 1853, height: 886, srcSet: '/work/gym-crm/gym-insights-snapshot-800.jpg 800w, /work/gym-crm/gym-insights-snapshot.jpg 1853w', bg: '#E5E5E5' },
+      { kind: 'image', src: '/work/gym-crm/mobile-insights.jpg', alt: 'Glofox mobile insights: sales over time, attendance check-ins and member breakdown', width: 1853, height: 886, srcSet: '/work/gym-crm/mobile-insights-800.jpg 800w, /work/gym-crm/mobile-insights.jpg 1853w', bg: '#E5E5E5' },
       { kind: 'image', src: '/work/gym-crm/insight-cards.jpg', alt: 'Gym insights cards: gender split, visits, gross and net sales, and sales by stream type', width: 960, height: 886, bg: '#E5E5E5' },
       { kind: 'image', src: '/work/gym-crm/bookings-chart.jpg', alt: 'Bookings and appointments by hour, 402 in total, averaging 22 an hour', width: 960, height: 412, bg: '#E5E5E5' },
       { kind: 'image', src: '/work/gym-crm/amplify-marketing-page.jpg', alt: 'Glofox Amplify marketing page: streamline your customer communications with easy-to-use automations', width: 960, height: 412, bg: '#E5E5E5' },

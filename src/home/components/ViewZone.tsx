@@ -34,7 +34,7 @@ export const ViewZone = forwardRef<HTMLAnchorElement, ViewZoneProps>(function Vi
     setPos({ x: e.clientX - rect.left, y: e.clientY - rect.top })
   }
 
-  const label = index === 0 ? 'Learn more about Gavan Duffy' : `View project: ${project.name}`
+  const label = index === 0 ? 'Learn more about Gavan Duffy' : `View project: ${project.homeName}`
 
   return (
     <Link

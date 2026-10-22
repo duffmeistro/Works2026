@@ -15,7 +15,7 @@ function CasePage({ index, onClose }: { index: number; onClose: () => void }) {
   const [shown, setShown] = useState(false)
   const { dark } = useTheme()
   useBodyClass('hm-body')
-  useDocumentTitle(`${projects[index].name} — Gavan Duffy`)
+  useDocumentTitle(index === 0 ? 'About — Gavan Duffy' : `${projects[index].homeName} — Gavan Duffy`)
   useEffect(() => {
     const id = requestAnimationFrame(() => setShown(true))
     return () => cancelAnimationFrame(id)
@@ -24,7 +24,7 @@ function CasePage({ index, onClose }: { index: number; onClose: () => void }) {
     <main className={dark ? 'hm-root hm-root--page is-dark' : 'hm-root hm-root--page'}>
       <div className="hm-halftone" aria-hidden="true" />
       <Panel
-        label={index === 0 ? 'About Gavan Duffy' : `Case study: ${projects[index].name}`}
+        label={index === 0 ? 'About Gavan Duffy' : `Case study: ${projects[index].homeName}`}
         open={shown}
         onClose={onClose}
         onNext={() => navigate(`/work/${projects[(index + 1) % projects.length].slug}`, { replace: true })}

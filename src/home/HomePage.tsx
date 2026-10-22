@@ -61,7 +61,7 @@ export default function HomePage({ panelIndex, playing, playId, onClosePanel }: 
         ? `${view.tile.title} — Playground — Gavan Duffy`
         : view.index === 0
           ? `About — ${baseTitle}`
-          : `${projects[view.index].name} — Gavan Duffy`,
+          : `${projects[view.index].homeName} — Gavan Duffy`,
   )
   const states = projects.map((_, i) => layerState(i, active))
 
@@ -136,7 +136,7 @@ export default function HomePage({ panelIndex, playing, playId, onClosePanel }: 
             ? `Playground: ${view.tile.title}`
             : view.index === 0
               ? 'About Gavan Duffy'
-              : `Case study: ${projects[view.index].name}`
+              : `Case study: ${projects[view.index].homeName}`
         }
         open={panelOpen}
         onClose={onClosePanel}

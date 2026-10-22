@@ -44,7 +44,7 @@ export function TabBar({ active, onPick }: TabBarProps) {
               className={on ? 'hm-seg is-on' : 'hm-seg'}
               style={{ width: on ? activeWidth : idleWidth }}
               aria-pressed={on}
-              aria-label={`Show project ${i + 1}: ${p.name}`}
+              aria-label={i === 0 ? 'Show About' : `Show project ${i}: ${p.homeName}`}
               onClick={() => onPick(i)}
             >
               <TabIcon slug={p.slug} />

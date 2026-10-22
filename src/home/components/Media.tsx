@@ -15,6 +15,7 @@ export function ImageBlock({ image }: { image: Image }) {
     <figure className={classes.join(' ')} style={image.bg ? { backgroundColor: image.bg } : undefined}>
       <img
         src={image.src}
+        srcSet={image.srcSet}
         alt={image.alt}
         width={image.width}
         height={image.height}
