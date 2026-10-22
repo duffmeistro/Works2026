@@ -27,7 +27,7 @@ body.hm-body.is-dark {
   overflow: hidden;
   width: 100%;
   height: 100vh;
-  min-height: 760px;
+  min-height: 640px;
   padding: 44px 50px 56px 50px;
   display: grid;
   grid-template-columns: minmax(0, 560fr) minmax(0, 520fr) minmax(0, 380fr);

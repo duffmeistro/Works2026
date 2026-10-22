@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import { layerState } from '../layerState'
 import { projects, type Image, type Stage as StageConfig } from '../projects'
 
@@ -57,9 +58,9 @@ function Devices({ stage }: { stage: StageConfig }) {
   }
 }
 
-export function Stage({ active }: { active: number }) {
+export function Stage({ active, scale }: { active: number; scale: number }) {
   return (
-    <div className="hm-stage hm-hip" aria-hidden="true">
+    <div className="hm-stage hm-hip" aria-hidden="true" style={{ '--stage-scale': scale.toFixed(3) } as CSSProperties}>
       {projects.map((p, i) => (
         <div
           key={p.slug}

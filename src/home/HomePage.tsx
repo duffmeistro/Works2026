@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState, type TouchEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useActiveProject } from './ActiveProject'
-import { useArrowKeys, useBodyClass, useDocumentTitle, useMediaQuery } from './hooks'
+import { useArrowKeys, useBodyClass, useDocumentTitle, useElementHeight, useMediaQuery } from './hooks'
 import { layerState } from './layerState'
 import { desktopTiles, findTile, mobileTiles, type Tile } from './playground'
 import { projects } from './projects'
@@ -20,6 +20,8 @@ import { useTheme } from './Theme'
 import './styles/index.css'
 
 const SWIPE_THRESHOLD = 40
+const STAGE_HEIGHT_DESKTOP = 600
+const STAGE_HEIGHT_MOBILE = 381
 
 type HomePageProps = {
   panelIndex: number
@@ -42,6 +44,10 @@ export default function HomePage({ panelIndex, playing, playId, onClosePanel }: 
   const swipeStart = useRef<number | null>(null)
   const zoneRef = useRef<HTMLAnchorElement>(null)
   const viewBtnRef = useRef<HTMLAnchorElement>(null)
+  const [fitRef, fitHeight] = useElementHeight<HTMLDivElement>()
+  const stageScale = fitHeight
+    ? Math.min(1, fitHeight / (isMobile ? STAGE_HEIGHT_MOBILE : STAGE_HEIGHT_DESKTOP))
+    : 1
 
   useBodyClass('hm-body')
   useArrowKeys(step, !menuOpen && !panelOpen && !playing)
@@ -100,7 +106,8 @@ export default function HomePage({ panelIndex, playing, playId, onClosePanel }: 
           <div className={active === 0 ? 'hm-bigword hm-hip is-off' : 'hm-bigword hm-hip'} aria-hidden="true">
             _works _26
           </div>
-          <Stage active={active} />
+          <div ref={fitRef} className="hm-stagefit" aria-hidden="true" />
+          <Stage active={active} scale={stageScale} />
           <AboutBlock on={active === 0} />
         </div>
 

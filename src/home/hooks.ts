@@ -27,6 +27,21 @@ export function useElementWidth<T extends HTMLElement>(fallback: number) {
   return [ref, width] as const
 }
 
+export function useElementHeight<T extends HTMLElement>() {
+  const ref = useRef<T>(null)
+  const [height, setHeight] = useState(0)
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const measure = () => setHeight(el.clientHeight)
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+  return [ref, height] as const
+}
+
 export function useReducedMotion(): boolean {
   return useMediaQuery('(prefers-reduced-motion: reduce)')
 }
