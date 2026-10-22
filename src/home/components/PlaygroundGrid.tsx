@@ -9,9 +9,9 @@ export function TileArt({ tile }: { tile: Tile }) {
   const bg = TINTS[tile.colour]
   switch (tile.kind) {
     case 'v1':
-      return <img className="hm-gimg" src="/work/notetaker/voice-conversation.png" alt="Voice assistant conversation screen" />
+      return <img className="hm-gimg" src="/work/home/voice-ai-phone-right.png" alt="Voice assistant conversation screen" />
     case 'v2':
-      return <img className="hm-gimg" src="/work/notetaker/voice-ready.png" alt="Voice assistant ready to chat screen" />
+      return <img className="hm-gimg" src="/work/home/voice-ai-phone-left.png" alt="Voice assistant ready to chat screen" />
     case 'orb':
       return (
         <span className="hm-art-orb">

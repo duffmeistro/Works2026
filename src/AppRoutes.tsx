@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { ActiveProjectProvider } from './home/ActiveProject'
+import { ThemeProvider } from './home/Theme'
 import HomeShell from './home/HomeShell'
 import Router from './Router'
 
@@ -16,11 +17,13 @@ function LegacySite() {
 
 export default function AppRoutes() {
   return (
-    <ActiveProjectProvider>
-      <Routes>
-        <Route path="/archive/*" element={<LegacySite />} />
-        <Route path="/*" element={<HomeShell />} />
-      </Routes>
-    </ActiveProjectProvider>
+    <ThemeProvider>
+      <ActiveProjectProvider>
+        <Routes>
+          <Route path="/archive/*" element={<LegacySite />} />
+          <Route path="/*" element={<HomeShell />} />
+        </Routes>
+      </ActiveProjectProvider>
+    </ThemeProvider>
   )
 }

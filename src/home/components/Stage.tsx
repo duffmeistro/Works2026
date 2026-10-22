@@ -1,51 +1,20 @@
-import type { CSSProperties } from 'react'
 import { layerState } from '../layerState'
-import { projects, type Project } from '../projects'
+import { projects, type Image, type Stage as StageConfig } from '../projects'
 
-type ScreenProps = {
-  src?: string
-  alt: string
-  project: Project
-  side: 'l' | 'r'
-  label?: string
-}
-
-export function Screen({ src, alt, project, side, label }: ScreenProps) {
-  if (src) return <img className="hm-screen__img" src={src} alt={alt} />
+function Phone({ side, screen, buttons = true }: { side: 'l' | 'r' | 'c'; screen: Image; buttons?: boolean }) {
   return (
-    <div className={`hm-ph hm-ph--${side}`} style={{ '--accent': project.accent } as CSSProperties}>
-      <span className="hm-ph__tag">{project.shortLabel}</span>
-      <span className="hm-ph__label">{label ?? `screen 0${side === 'l' ? 1 : 2}`}</span>
-      {side === 'l' ? (
-        <>
-          <span className="hm-ph__pill" />
-          <span className="hm-ph__bar" />
-        </>
-      ) : (
-        <>
-          <span className="hm-ph__lines">
-            <span />
-            <span />
-            <span />
-          </span>
-          <span className="hm-ph__fade" />
-          <span className="hm-ph__dot" />
-        </>
-      )}
-    </div>
-  )
-}
-
-function Phone({ side, children }: { side: 'l' | 'r'; children: React.ReactNode }) {
-  return (
-    <div className={`hm-phone-pos hm-phone-pos--${side}`}>
+    <div className={`hm-dev-pos hm-dev-pos--${side}`}>
       <div className={`hm-phone hm-phone--${side}`}>
-        <span className="hm-phone__btn hm-phone__btn--l1" />
-        <span className="hm-phone__btn hm-phone__btn--l2" />
-        <span className="hm-phone__btn hm-phone__btn--l3" />
-        <span className="hm-phone__btn hm-phone__btn--r1" />
+        {buttons && (
+          <>
+            <span className="hm-phone__btn hm-phone__btn--l1" />
+            <span className="hm-phone__btn hm-phone__btn--l2" />
+            <span className="hm-phone__btn hm-phone__btn--l3" />
+            <span className="hm-phone__btn hm-phone__btn--r1" />
+          </>
+        )}
         <div className="hm-phone__screen">
-          {children}
+          <img className="hm-screen__img" src={screen.src} alt={screen.alt} width={screen.width} height={screen.height} decoding="async" />
           <span className="hm-phone__island" />
         </div>
       </div>
@@ -53,29 +22,13 @@ function Phone({ side, children }: { side: 'l' | 'r'; children: React.ReactNode 
   )
 }
 
-function Monitor({ project }: { project: Project }) {
+function Monitor({ screen }: { screen: Image }) {
   return (
-    <div className="hm-monitor-pos">
+    <div className="hm-dev-pos hm-dev-pos--d">
       <div className="hm-monitor-3d">
         <div className="hm-monitor">
-          <div className="hm-monitor__screen" style={{ '--accent': project.accent } as CSSProperties}>
-            <div className="hm-monitor__caption">
-              <div>
-                Movember No.004
-                <br />
-                Fundraising Platform
-              </div>
-              <div>
-                1366 × 1024
-                <br />
-                &gt;&nbsp;&nbsp;@2x
-              </div>
-              <div>
-                Place your
-                <br />
-                design here
-              </div>
-            </div>
+          <div className="hm-monitor__screen">
+            <img src={screen.src} alt={screen.alt} width={screen.width} height={screen.height} decoding="async" />
           </div>
         </div>
         <div className="hm-monitor__neck" />
@@ -85,27 +38,34 @@ function Monitor({ project }: { project: Project }) {
   )
 }
 
-function bigNumber(index: number) {
-  return `0${index}`
+function Devices({ stage }: { stage: StageConfig }) {
+  switch (stage.kind) {
+    case 'angled':
+    case 'pair':
+      return (
+        <>
+          <Phone side="l" screen={stage.screens[0]} />
+          <Phone side="r" screen={stage.screens[1]} />
+        </>
+      )
+    case 'solo':
+      return <Phone side="c" screen={stage.screen} />
+    case 'monitor':
+      return <Monitor screen={stage.screen} />
+    default:
+      return null
+  }
 }
 
 export function Stage({ active }: { active: number }) {
   return (
     <div className="hm-stage hm-hip" aria-hidden="true">
       {projects.map((p, i) => (
-        <div key={p.slug} className={`hm-layer is-${layerState(i, active)}`}>
-          {p.device !== 'none' && <div className="hm-bignum">{bigNumber(i)}</div>}
-          {p.device === 'phones' && (
-            <>
-              <Phone side="l">
-                <Screen src={p.screens[0]} alt="" project={p} side="l" />
-              </Phone>
-              <Phone side="r">
-                <Screen src={p.screens[1]} alt="" project={p} side="r" />
-              </Phone>
-            </>
-          )}
-          {p.device === 'monitor' && <Monitor project={p} />}
+        <div
+          key={p.slug}
+          className={`hm-layer hm-layer--${p.stage.kind} is-${layerState(i, active)}`}
+        >
+          <Devices stage={p.stage} />
         </div>
       ))}
     </div>

@@ -11,12 +11,13 @@ import { MobileMenu } from './components/MobileMenu'
 import { Panel } from './components/Panel'
 import { BackBar, PlaygroundGrid } from './components/PlaygroundGrid'
 import { PlayContent } from './components/PlayContent'
-import { Rolling } from './components/Rolling'
+import { ModeButton } from './components/ModeButton'
 import { SiteHeader } from './components/SiteHeader'
 import { Stage } from './components/Stage'
 import { TabBar } from './components/TabBar'
 import { ViewButton, ViewZone } from './components/ViewZone'
-import './home.css'
+import { useTheme } from './Theme'
+import './styles/index.css'
 
 const SWIPE_THRESHOLD = 40
 
@@ -29,8 +30,6 @@ type HomePageProps = {
 
 type PanelView = { kind: 'project'; index: number } | { kind: 'play'; tile: Tile }
 
-const PLAY_BG = '#ECE9E3'
-
 export default function HomePage({ panelIndex, playing, playId, onClosePanel }: HomePageProps) {
   const navigate = useNavigate()
   const isMobile = useMediaQuery('(max-width: 767px)')
@@ -39,6 +38,7 @@ export default function HomePage({ panelIndex, playing, playId, onClosePanel }: 
   const panelOpen = panelIndex >= 0 || !!playTile
   const { active, setActive, step } = useActiveProject()
   const [menuOpen, setMenuOpen] = useState(false)
+  const { dark } = useTheme()
   const swipeStart = useRef<number | null>(null)
   const zoneRef = useRef<HTMLAnchorElement>(null)
   const viewBtnRef = useRef<HTMLAnchorElement>(null)
@@ -64,15 +64,11 @@ export default function HomePage({ panelIndex, playing, playId, onClosePanel }: 
           : `${projects[view.index].name} — Gavan Duffy`,
   )
   const states = projects.map((_, i) => layerState(i, active))
-  const names = projects.map((p, i) => (i === 0 ? '' : p.name))
-  const years = projects.map((p, i) => (i === 0 ? '' : p.year))
-  const descs = projects.map((p, i) => (i === 0 ? '' : p.desc))
 
-  const goAbout = useCallback(() => {
-    setActive(0)
+  const openAbout = useCallback(() => {
     setMenuOpen(false)
-    if (playing) navigate('/')
-  }, [setActive, playing, navigate])
+    navigate('/work/about')
+  }, [navigate])
   const closeMenu = useCallback(() => setMenuOpen(false), [])
 
   const restoreFocus = useCallback(() => {
@@ -94,22 +90,16 @@ export default function HomePage({ panelIndex, playing, playId, onClosePanel }: 
   }
 
   return (
-    <main className={playing ? 'hm-root is-play' : 'hm-root'} style={{ backgroundColor: playing ? PLAY_BG : project.bg }}>
+    <main className={['hm-root', playing && 'is-play', dark && 'is-dark'].filter(Boolean).join(' ')}>
       <div className="hm-halftone" aria-hidden="true" />
 
       <div className="hm-home" {...(panelOpen ? { inert: '' } : {})}>
-        <SiteHeader onAbout={goAbout} onOpenMenu={() => setMenuOpen(true)} menuOpen={menuOpen} />
-
-        <div className="hm-nameyear" aria-live="polite">
-          <div className="hm-mask hm-name hm-hip">
-            <Rolling items={names} states={states} variant="roll" />
-          </div>
-          <div className="hm-mask hm-year hm-hip">
-            <Rolling items={years} states={states} variant="roll-delay" />
-          </div>
-        </div>
+        <SiteHeader onAbout={openAbout} onToggleMenu={() => setMenuOpen((o) => !o)} menuOpen={menuOpen} />
 
         <div className="hm-stagearea" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+          <div className={active === 0 ? 'hm-bigword hm-hip is-off' : 'hm-bigword hm-hip'} aria-hidden="true">
+            _works _26
+          </div>
           <Stage active={active} />
           <AboutBlock on={active === 0} />
         </div>
@@ -117,16 +107,27 @@ export default function HomePage({ panelIndex, playing, playId, onClosePanel }: 
         <ViewZone ref={zoneRef} project={project} index={active} />
         <ViewButton ref={viewBtnRef} project={project} index={active} />
 
-        <div className="hm-mask hm-desc hm-hip" aria-live="polite">
-          <Rolling items={descs} states={states} variant="fade" />
+        <div className="hm-desc hm-hip" aria-live="polite">
+          {projects.map((p, i) => (
+            <div key={p.slug} className={`hm-fade is-${states[i]}`} aria-hidden={states[i] !== 'active'}>
+              {p.homeName && (
+                <h2 className="hm-fade__title">
+                  {p.homeName}
+                  <span className="hm-fade__year">[{p.year}]</span>
+                </h2>
+              )}
+              <p className="hm-fade__text">{p.homeDescription}</p>
+            </div>
+          ))}
         </div>
 
         <TabBar active={active} onPick={setActive} />
+        <ModeButton placement="grid" />
 
         <PlaygroundGrid tiles={tiles} playing={playing} />
         <BackBar playing={playing} />
 
-        {menuOpen && <MobileMenu onClose={closeMenu} onAbout={goAbout} />}
+        {menuOpen && <MobileMenu onClose={closeMenu} onAbout={openAbout} />}
       </div>
 
       <Panel

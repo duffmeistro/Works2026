@@ -1,0 +1,376 @@
+/* ---------- Playground ---------- */
+.hm-emoji {
+  margin-right: 6px;
+}
+
+.hm-hip {
+  transition: opacity 0.3s ease, visibility 0s;
+}
+.hm-root.is-play .hm-hip {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.hm-galwrap {
+  grid-column: 1 / 4;
+  grid-row: 2 / 4;
+  align-self: center;
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+.hm-root.is-play .hm-galwrap {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.4s ease, visibility 0s;
+}
+.hm-gal {
+  display: grid;
+  grid-template-columns: repeat(11, minmax(0, 1fr));
+  gap: 14px;
+  width: 100%;
+}
+.hm-gt {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  opacity: 0;
+  transform: translateY(14px) scale(0.96);
+  transition: opacity 0.25s ease, transform 0.3s ease;
+}
+.hm-root.is-play .hm-gt {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+.hm-gin {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+@media (hover: hover) {
+  .hm-gt.is-img:hover .hm-gin {
+    transform: scale(1.04);
+  }
+}
+.hm-gt-hit {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  -webkit-tap-highlight-color: transparent;
+}
+.hm-gt-hit:focus-visible {
+  outline: 2px solid var(--hm-ink);
+  outline-offset: 3px;
+}
+.hm-gimg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: 50% 0;
+}
+.hm-art-orb {
+  position: absolute;
+  left: 20%;
+  top: 20%;
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.hm-art-sw {
+  position: absolute;
+  left: -30%;
+  top: -30%;
+  width: 160%;
+  height: 160%;
+  filter: blur(6px);
+  animation: hm-spin 12s linear infinite;
+}
+.hm-art-gl {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.9) 0, rgba(255, 255, 255, 0.35) 18%, rgba(255, 255, 255, 0) 42%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.6) 100%);
+}
+.hm-art-pill {
+  position: absolute;
+  left: 37%;
+  top: 13%;
+  width: 26%;
+  height: 74%;
+  border-radius: 999px;
+}
+.hm-art-wave {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
+}
+.hm-wb2 {
+  display: block;
+  width: 5%;
+  height: 44%;
+  border-radius: 4px;
+  background: #111111;
+  animation: hm-wave 1.1s ease-in-out infinite alternate;
+}
+.hm-wb2:nth-child(2) {
+  animation-delay: -0.4s;
+}
+.hm-wb2:nth-child(3) {
+  animation-delay: -0.8s;
+}
+.hm-wb2:nth-child(4) {
+  animation-delay: -0.2s;
+}
+.hm-wb2:nth-child(5) {
+  animation-delay: -0.6s;
+}
+.hm-wb2:nth-child(6) {
+  animation-delay: -0.3s;
+}
+.hm-wb2:nth-child(7) {
+  animation-delay: -0.9s;
+}
+.hm-wb2:nth-child(8) {
+  animation-delay: -0.5s;
+}
+.hm-wb2:nth-child(9) {
+  animation-delay: -0.1s;
+}
+.hm-art-grad {
+  position: absolute;
+  inset: 0;
+}
+.hm-art-cap {
+  position: absolute;
+  left: 10%;
+  bottom: 9%;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.92);
+  text-transform: uppercase;
+}
+.hm-art-type {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--hm-serif);
+  font-weight: 300;
+  font-size: 52px;
+  letter-spacing: -0.03em;
+}
+.hm-art-cards {
+  position: absolute;
+  left: 16%;
+  right: 16%;
+  top: 32%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.hm-art-cards span {
+  display: block;
+  height: 9px;
+  border-radius: 5px;
+  background: #ffffff;
+}
+.hm-art-dots {
+  position: absolute;
+  inset: 0;
+  background-size: 14px 14px;
+  background-position: 7px 7px;
+}
+.hm-art-ph {
+  position: absolute;
+  left: 33%;
+  top: 12%;
+  width: 34%;
+  height: 76%;
+  border-radius: 12px;
+  border: 1.5px solid rgba(17, 17, 17, 0.6);
+  background: rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  transform: rotate(-6deg);
+}
+.hm-art-ph-b {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 42%;
+}
+.hm-gtx {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 10px;
+  line-height: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--hm-ink);
+}
+
+.hm-backbar {
+  grid-column: 1 / 4;
+  grid-row: 4;
+  justify-self: center;
+  align-self: end;
+  margin-top: 40px;
+  position: relative;
+  z-index: 4;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+  transition: opacity 0.25s ease, transform 0.3s ease, visibility 0s linear 0.3s;
+}
+.hm-root.is-play .hm-backbar {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.5s ease 0.25s, transform 0.7s cubic-bezier(0.2, 0.7, 0.1, 1) 0.25s, visibility 0s;
+}
+.hm-backbtn {
+  height: 56px;
+  padding: 0 30px 0 24px;
+  border-radius: 28px;
+  background: #111111;
+  color: #ffffff !important;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.22);
+}
+.hm-backbtn svg {
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+.hm-backbtn:hover svg {
+  transform: translateX(-4px);
+}
+.hm-backbtn:focus-visible {
+  outline: 2px solid var(--hm-ink);
+  outline-offset: 3px;
+}
+
+.hm-playfigs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.hm-playfigs__pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.hm-fig--tall {
+  aspect-ratio: 4 / 5;
+  border-radius: 16px;
+}
+
+@media (max-width: 767px) {
+  .hm-galwrap {
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    top: 100px;
+    bottom: 116px;
+    display: flex;
+    align-items: center;
+  }
+  .hm-gal {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .hm-gt {
+    transform: translateY(12px) scale(0.96);
+  }
+  .hm-gin,
+  .hm-gt-hit {
+    border-radius: 9px;
+  }
+  .hm-art-sw {
+    filter: blur(4px);
+  }
+  .hm-art-cap {
+    font-size: 7px;
+  }
+  .hm-art-type {
+    font-size: 30px;
+  }
+  .hm-art-cards {
+    gap: 6px;
+  }
+  .hm-art-cards span {
+    height: 6px;
+    border-radius: 3px;
+  }
+  .hm-art-dots {
+    background-size: 10px 10px;
+    background-position: 5px 5px;
+  }
+  .hm-art-ph {
+    border-radius: 8px;
+    border-width: 1.2px;
+  }
+  .hm-wb2 {
+    border-radius: 3px;
+  }
+  .hm-gtx {
+    font-size: 8px;
+    line-height: 11px;
+    letter-spacing: 0.05em;
+  }
+  .hm-backbar {
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    bottom: 36px;
+    margin: 0;
+    justify-self: stretch;
+  }
+  .hm-backbtn {
+    width: 100%;
+    padding: 0 24px;
+    justify-content: center;
+    gap: 12px;
+  }
+  .hm-playfigs {
+    gap: 12px;
+  }
+  .hm-playfigs__pair {
+    gap: 12px;
+  }
+  .hm-playfigs .hm-fig--hero {
+    height: 300px;
+  }
+  .hm-playfigs .hm-fig__pill {
+    width: 96px;
+    height: 224px;
+    border-radius: 48px;
+  }
+  .hm-fig--tall {
+    border-radius: 14px;
+  }
+  .hm-fig--tall figcaption {
+    left: 12px;
+    bottom: 10px;
+    font-size: 11px;
+  }
+}
