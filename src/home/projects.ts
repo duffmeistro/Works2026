@@ -186,7 +186,7 @@ export const projects: Project[] = [
     ],
     quote: '',
     quoteBy: '',
-    stage: { kind: 'angled', screens: [{ kind: 'image', src: '/work/home/voice-ai-phone-left.png', alt: 'Voice assistant ready to chat', width: 375, height: 812 }, { kind: 'image', src: '/work/home/voice-ai-phone-right.png', alt: 'Voice assistant answering a question about the last deal created', width: 375, height: 812 }] },
+    stage: { kind: 'angled', screens: [{ kind: 'image', src: '/work/home/voice-ai-phone-left.jpg', alt: 'Voice assistant ready to chat', width: 563, height: 1218 }, { kind: 'image', src: '/work/home/voice-ai-phone-right.jpg', alt: 'Voice assistant answering a question about the last deal created', width: 563, height: 1218 }] },
     hero: { kind: 'voice-animation', label: 'Breeze voice: loading, ready to chat and talking back' },
     afterMetrics: { kind: 'carousel', label: 'Voice AI screens carousel', screens: [{ kind: 'image', src: '/work/voice-ai/carousel-1-conversation.jpg', alt: 'Voice conversation answering a question about the last deal created', width: 375, height: 812 }, { kind: 'image', src: '/work/voice-ai/carousel-2-connecting.jpg', alt: 'Voice mode connecting', width: 375, height: 812 }, { kind: 'image', src: '/work/voice-ai/carousel-3-ready.jpg', alt: 'Voice mode ready to chat', width: 375, height: 812 }, { kind: 'image', src: '/work/voice-ai/carousel-4-settings.jpg', alt: 'Voice settings sheet with the Shimmer voice and speed options', width: 375, height: 812 }] },
     end: [],
