@@ -113,7 +113,7 @@ export const projects: Project[] = [
     tab: 'Voice AI',
     tabShort: 'Voice AI',
     name: 'BREEZE VOICE',
-    homeName: 'Breeze Voice AI',
+    homeName: 'HubSpot Breeze Voice AI',
     year: '2026',
     homeDescription: 'Creating a new modality to interact with your CRM while you’re on the move. No tapping necessary with Breeze Voice.',
     headline: 'A new modality to interact with your CRM with Breeze Voice AI',
