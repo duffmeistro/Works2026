@@ -20,8 +20,9 @@ import { useTheme } from './Theme'
 import './styles/index.css'
 
 const SWIPE_THRESHOLD = 40
-const STAGE_HEIGHT_DESKTOP = 600
-const STAGE_HEIGHT_MOBILE = 381
+const STAGE_HEIGHT_DESKTOP = 550
+const STAGE_HEIGHT_MOBILE = 350
+const STAGE_MAX_SCALE = 1.25
 
 type HomePageProps = {
   panelIndex: number
@@ -46,7 +47,7 @@ export default function HomePage({ panelIndex, playing, playId, onClosePanel }: 
   const viewBtnRef = useRef<HTMLAnchorElement>(null)
   const [fitRef, fitHeight] = useElementHeight<HTMLDivElement>()
   const stageScale = fitHeight
-    ? Math.min(1, fitHeight / (isMobile ? STAGE_HEIGHT_MOBILE : STAGE_HEIGHT_DESKTOP))
+    ? Math.min(STAGE_MAX_SCALE, fitHeight / (isMobile ? STAGE_HEIGHT_MOBILE : STAGE_HEIGHT_DESKTOP))
     : 1
 
   useBodyClass('hm-body')
@@ -104,7 +105,7 @@ export default function HomePage({ panelIndex, playing, playId, onClosePanel }: 
 
         <div className="hm-stagearea" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
           <div className={active === 0 ? 'hm-bigword hm-hip is-off' : 'hm-bigword hm-hip'} aria-hidden="true">
-            _works _26
+            works 26
           </div>
           <div ref={fitRef} className="hm-stagefit" aria-hidden="true" />
           <Stage active={active} scale={stageScale} />
