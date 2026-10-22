@@ -1,4 +1,9 @@
-import type { Carousel, Hero, Image, Marquee, Media } from '../projects'
+import { createContext, useContext } from 'react'
+import type { Hero, Image, Marquee, Media } from '../projects'
+import { PhoneCarousel } from './PhoneCarousel'
+import { VoiceAnimation } from './VoiceAnimation'
+
+export const PanelOpenContext = createContext(false)
 
 const PANEL_SIZES = '(max-width: 767px) calc(100vw - 48px), min(1120px, calc(100vw - 272px))'
 
@@ -22,50 +27,39 @@ export function ImageBlock({ image }: { image: Image }) {
   )
 }
 
-function FlatPhone({ screen }: { screen: Image }) {
-  return (
-    <div className="hm-phone hm-phone--flat">
-      <div className="hm-phone__screen">
-        <img className="hm-screen__img" src={screen.src} alt={screen.alt} width={screen.width} height={screen.height} loading="lazy" decoding="async" />
-        <span className="hm-phone__island" />
-      </div>
-    </div>
-  )
-}
-
-function PhoneStrip({ carousel, rise }: { carousel: Carousel; rise: string }) {
-  return (
-    <figure className={`hm-phones hm-phones--hero hm-phones--carousel hm-rise ${rise}`} aria-label={carousel.label}>
-      <div className="hm-phones__static">
-        {carousel.screens.slice(0, 3).map((s) => (
-          <FlatPhone key={s.src} screen={s} />
-        ))}
-      </div>
-    </figure>
-  )
-}
-
 function MarqueeBlock({ marquee }: { marquee: Marquee }) {
   return (
     <figure className="hm-marquee hm-rise hm-r5" aria-label={marquee.label}>
       {marquee.columns.map((col, i) => (
         <div key={i} className="hm-marquee__col">
-          {col.map((img) => (
-            <img key={img.src} src={img.src} alt={img.alt} width={img.width} height={img.height} loading="lazy" decoding="async" />
-          ))}
+          <div className={i === 0 ? 'hm-mq-track hm-mq-up' : 'hm-mq-track hm-mq-down'}>
+            {[...col, ...col].map((img, k) => (
+              <img
+                key={k}
+                src={img.src}
+                alt={k < col.length ? img.alt : ''}
+                width={img.width}
+                height={img.height}
+                loading="lazy"
+                decoding="async"
+              />
+            ))}
+          </div>
         </div>
       ))}
     </figure>
   )
 }
 
-function VoiceHero({ label }: { label: string }) {
+function VoiceHero({ label, running }: { label: string; running: boolean }) {
   return (
     <figure className="hm-phones hm-phones--hero hm-voicehero hm-rise hm-r3" aria-label={label}>
       <div className="hm-phones__static">
         <div className="hm-phone hm-phone--flat">
           <div className="hm-phone__screen">
-            <img className="hm-screen__img" src="/work/voice-ai/carousel-3-ready.jpg" alt="" width={375} height={812} loading="lazy" decoding="async" />
+            <div className="hm-voicehero__scale">
+              <VoiceAnimation running={running} />
+            </div>
           </div>
         </div>
       </div>
@@ -74,22 +68,24 @@ function VoiceHero({ label }: { label: string }) {
 }
 
 export function HeroBlock({ hero }: { hero: Hero }) {
+  const open = useContext(PanelOpenContext)
   switch (hero.kind) {
     case 'image':
       return <ImageBlock image={hero} />
     case 'carousel':
-      return <PhoneStrip carousel={hero} rise="hm-r3" />
+      return <PhoneCarousel carousel={hero} running={open} className="hm-rise hm-r3" />
     case 'voice-animation':
-      return <VoiceHero label={hero.label} />
+      return <VoiceHero label={hero.label} running={open} />
   }
 }
 
 export function MediaBlock({ media, rise = 'hm-r5' }: { media: Media; rise?: string }) {
+  const open = useContext(PanelOpenContext)
   switch (media.kind) {
     case 'image':
       return <ImageBlock image={media} />
     case 'carousel':
-      return <PhoneStrip carousel={media} rise={rise} />
+      return <PhoneCarousel carousel={media} running={open} className={`hm-rise ${rise}`} />
     case 'marquee':
       return <MarqueeBlock marquee={media} />
   }

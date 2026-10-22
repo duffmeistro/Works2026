@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { projects, type Block, type Project } from '../projects'
-import { HeroBlock, MediaBlock, MediaGroup } from './Media'
+import { HeroBlock, MediaBlock, MediaGroup, PanelOpenContext } from './Media'
 
 type CaseContentProps = {
   project: Project
@@ -58,12 +58,12 @@ function ProjectQuote({ project }: { project: Project }) {
   )
 }
 
-export function CaseContent({ project, index, onNext }: CaseContentProps) {
+export function CaseContent({ project, index, open, onNext }: CaseContentProps) {
   const next = projects[(index + 1) % projects.length]
   const hasOutcome = project.sections.some((s) => s.title === OUTCOME)
 
   return (
-    <>
+    <PanelOpenContext.Provider value={open}>
       <header className="hm-rise hm-r1 hm-case__head">
         <div className="hm-case__kicker">
           <span>{kicker(project, index)}</span>
@@ -127,6 +127,6 @@ export function CaseContent({ project, index, onNext }: CaseContentProps) {
           </button>
         </div>
       )}
-    </>
+    </PanelOpenContext.Provider>
   )
 }

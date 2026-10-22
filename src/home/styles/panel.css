@@ -703,3 +703,82 @@
     transition-delay: 0s !important;
   }
 }
+
+/* ---------- Carousel ---------- */
+.hm-car-slot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -108px;
+  margin-top: -224.5px;
+  transition: transform 0.95s cubic-bezier(0.33, 1, 0.68, 1);
+}
+.hm-car-slot.is-jump {
+  transition: none;
+}
+
+/* ---------- Voice hero ---------- */
+.hm-voicehero__scale {
+  width: 375px;
+  height: 784px;
+  transform: scale(0.6187);
+  transform-origin: 0 0;
+}
+
+/* ---------- Marquee motion ---------- */
+.hm-mq-track {
+  will-change: transform;
+}
+.hm-mq-up {
+  animation: hm-mq-up 32s linear infinite;
+}
+.hm-mq-down {
+  animation: hm-mq-down 32s linear infinite;
+}
+.hm-sheet:not(.is-open) .hm-mq-track {
+  animation-play-state: paused;
+}
+@keyframes hm-mq-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+@keyframes hm-mq-down {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 767px) {
+  .hm-car-slot {
+    margin-left: -62px;
+    margin-top: -129px;
+  }
+  .hm-car-phone {
+    width: 124px;
+    height: 258px;
+  }
+  .hm-car-phone .hm-phone__screen {
+    width: 114px;
+    height: 248px;
+  }
+  .hm-voicehero__scale {
+    transform: scale(0.44);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hm-car-slot {
+    transition-duration: 0.01s !important;
+  }
+  .hm-mq-up,
+  .hm-mq-down {
+    animation: none !important;
+  }
+}
