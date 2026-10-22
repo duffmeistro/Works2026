@@ -175,14 +175,15 @@
 .hm-metrics {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 32px;
-  padding-top: 24px;
-  border-top: 1px solid var(--hm-rule);
+  gap: 16px;
 }
 .hm-metric {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  padding: 24px;
+  border-radius: 20px;
+  background: rgba(232, 228, 220, 0.2);
 }
 .hm-metric__v {
   font-family: var(--hm-serif);
@@ -547,11 +548,12 @@
 
   .hm-metrics {
     grid-template-columns: 1fr;
-    gap: 22px;
-    padding-top: 18px;
+    gap: 16px;
   }
   .hm-metric {
     gap: 6px;
+    padding: 20px;
+    border-radius: 18px;
   }
   .hm-metric__v {
     font-size: 44px;
