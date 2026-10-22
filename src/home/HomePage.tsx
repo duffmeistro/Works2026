@@ -20,9 +20,9 @@ import { useTheme } from './Theme'
 import './styles/index.css'
 
 const SWIPE_THRESHOLD = 40
-const STAGE_HEIGHT_DESKTOP = 550
-const STAGE_HEIGHT_MOBILE = 350
-const STAGE_MAX_SCALE = 1.25
+const STAGE_HEIGHT_DESKTOP = 530
+const STAGE_HEIGHT_MOBILE = 340
+const STAGE_MAX_SCALE = 1.35
 
 type HomePageProps = {
   panelIndex: number

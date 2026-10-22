@@ -99,20 +99,26 @@ body.hm-body.is-dark {
   line-height: 1;
   letter-spacing: 0;
   pointer-events: none;
-  animation: hm-loader-out 0.6s cubic-bezier(0.4, 0, 0.2, 1) 1.6s forwards;
+  animation: hm-loader-out 0.6s cubic-bezier(0.4, 0, 0.2, 1) 1.8s forwards;
 }
-.hm-loader span {
+.hm-loader__text {
+  display: inline-flex;
+}
+.hm-loader__ch {
+  display: inline-block;
+  transform-origin: 50% 60%;
+  backface-visibility: hidden;
   opacity: 0;
-  animation: hm-loader-in 0.5s ease 0.15s forwards;
+  animation: hm-loader-ch 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
-@keyframes hm-loader-in {
+@keyframes hm-loader-ch {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: perspective(160px) rotateX(-95deg) translateY(0.35em);
   }
   to {
     opacity: 1;
-    transform: none;
+    transform: perspective(160px) rotateX(0deg) translateY(0);
   }
 }
 @keyframes hm-loader-out {
@@ -141,8 +147,8 @@ body.hm-body.is-dark {
     animation-duration: 0.01s;
     animation-delay: 1s;
   }
-  .hm-loader span {
-    animation-duration: 0.01s;
-    animation-delay: 0s;
+  .hm-loader__ch {
+    animation: none;
+    opacity: 1;
   }
 }

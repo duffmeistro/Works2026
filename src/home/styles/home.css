@@ -493,8 +493,8 @@
   margin: 0 0 14px 0;
   font-family: var(--hm-serif);
   font-optical-sizing: auto;
-  font-size: 35px;
-  line-height: 42px;
+  font-size: 28px;
+  line-height: 34px;
   font-weight: 400;
   letter-spacing: 0;
   white-space: nowrap;
@@ -1040,8 +1040,8 @@
   }
   .hm-fade__title {
     margin-bottom: 8px;
-    font-size: clamp(18px, 5.5vw, 24px);
-    line-height: 30px;
+    font-size: clamp(16px, 4.8vw, 20px);
+    line-height: 26px;
   }
 
   .hm-tabbar {
