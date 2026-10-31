@@ -1,10 +1,38 @@
-import type { CSSProperties } from 'react'
+import { useEffect, useRef, type CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
+import { useReducedMotion } from '../hooks'
 import { ACCENTS, TINTS, type Tile } from '../playground'
 
 const WAVE_BARS = Array.from({ length: 9 }, (_, i) => i)
 
-export function TileArt({ tile }: { tile: Tile }) {
+function RecorderLoop({ playing }: { playing: boolean }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const reduceMotion = useReducedMotion()
+  const run = playing && !reduceMotion
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+    if (run) video.play().catch(() => {})
+    else video.pause()
+  }, [run])
+
+  return (
+    <video
+      ref={videoRef}
+      className="hm-gimg hm-gvid"
+      src="/work/playground/voice-recorder-loop.mp4"
+      poster="/work/playground/voice-recorder-poster.png"
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      aria-hidden="true"
+    />
+  )
+}
+
+export function TileArt({ tile, playing }: { tile: Tile; playing: boolean }) {
   const ac = ACCENTS[tile.colour]
   const bg = TINTS[tile.colour]
   switch (tile.kind) {
@@ -12,6 +40,8 @@ export function TileArt({ tile }: { tile: Tile }) {
       return <img className="hm-gimg" src="/work/home/voice-ai-phone-right.jpg" alt="Voice assistant conversation screen" />
     case 'v2':
       return <img className="hm-gimg" src="/work/home/voice-ai-phone-left.jpg" alt="Voice assistant ready to chat screen" />
+    case 'rec':
+      return <RecorderLoop playing={playing} />
     case 'orb':
       return (
         <span className="hm-art-orb">
@@ -105,7 +135,7 @@ export function PlaygroundGrid({ tiles, playing }: PlaygroundGridProps) {
               style={{ transitionDelay: `${80 + tile.index * 14}ms` } as CSSProperties}
             >
               <div className="hm-gin" style={{ backgroundColor: bg }}>
-                <TileArt tile={tile} />
+                <TileArt tile={tile} playing={playing} />
               </div>
               {art && <Link className="hm-gt-hit" to={`/playground/${tile.id}`} aria-label={`Open ${tile.title}`} />}
             </div>

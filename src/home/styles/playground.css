@@ -77,6 +77,9 @@
   object-fit: cover;
   object-position: 50% 0;
 }
+.hm-gvid {
+  object-position: 50% 36%;
+}
 .hm-art-orb {
   position: absolute;
   left: 20%;
@@ -360,6 +363,10 @@
   .hm-playfigs .hm-fig--hero {
     height: 300px;
   }
+  .hm-playfigs .hm-fig--device {
+    height: auto;
+    padding: 32px 0;
+  }
   .hm-playfigs .hm-fig__pill {
     width: 96px;
     height: 224px;
@@ -402,6 +409,10 @@
 .hm-fig--figure {
   height: 360px;
   border-radius: 16px;
+}
+.hm-fig--device {
+  height: auto;
+  padding: 56px 0;
 }
 .hm-fig__pill {
   width: 180px;
