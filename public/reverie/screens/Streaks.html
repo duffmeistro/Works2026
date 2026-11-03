@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Streaks</title>
+<meta name="viewport" content="width=390, initial-scale=1">
+<link rel="stylesheet" href="../assets/fonts.css">
+<script src="../assets/dc-runtime.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+.theme-light{--bg:#F3F0E8;--bg0:rgba(243,240,232,0);--bg-grad:#F3F0E8;--fg:#111111;--muted:#66635D;--muted2:#6F6B64;--soft:#3A3833;--card:#FBF9F4;--card-line:#E4E1DA;--card-soft:rgba(17,17,17,0.07);--hair:#DAD6CE;--sheen:rgba(255,255,255,0);--sheen0:rgba(255,255,255,0);--glass-bg:rgba(251,249,244,0.7);--glass-fg:#111111;--glass-hi:rgba(255,255,255,0.95);--glass-lo:rgba(17,17,17,0.06);--glass-ring:rgba(17,17,17,0.09);--glass-shadow:rgba(70,60,35,0.12);--warm:#B3361B;--cool:#C2185B;--track-on:#C2185B;--track-off:#D6D2C8;--sheet:rgba(251,249,244,0.96);--scrim:rgba(40,32,15,0.28);--field:rgba(17,17,17,0.045);--grabber:rgba(17,17,17,0.2);--tshadow:rgba(243,240,232,0.85);--dot:#1A1917}
+.theme-dark{--bg:#1A1916;--bg0:rgba(26,25,22,0);--bg-grad:#1A1916;--fg:#EDE9DF;--muted:#A09B90;--muted2:#968F84;--soft:#CBC6BA;--card:#23221F;--card-line:rgba(237,233,223,0.1);--card-soft:rgba(237,233,223,0.08);--hair:rgba(237,233,223,0.12);--sheen:rgba(255,255,255,0);--sheen0:rgba(255,255,255,0);--glass-bg:rgba(48,46,41,0.6);--glass-fg:#EDE9DF;--glass-hi:rgba(255,255,255,0.2);--glass-lo:rgba(255,255,255,0.05);--glass-ring:rgba(255,255,255,0.1);--glass-shadow:rgba(0,0,0,0.3);--warm:#F0A58C;--cool:#FF7AAE;--track-on:#D81B6A;--track-off:#3C3A35;--sheet:rgba(35,34,31,0.96);--scrim:rgba(8,7,5,0.55);--field:rgba(237,233,223,0.06);--grabber:rgba(237,233,223,0.22);--tshadow:rgba(26,25,22,0.75);--dot:#EDE9DF}
+.theme-dark .blob{mix-blend-mode:screen}
+.theme-light .blob{mix-blend-mode:multiply}
+body{margin:0}
+a:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.glass{position:relative;border:0;color:var(--glass-fg);text-decoration:none;background:var(--glass-bg);-webkit-backdrop-filter:blur(24px) saturate(170%);backdrop-filter:blur(24px) saturate(170%);box-shadow:inset 0 1px 0.5px var(--glass-hi),inset 0 -1px 0.5px var(--glass-lo),inset 0 0 0 0.5px var(--glass-ring),0 10px 30px var(--glass-shadow);transition:transform .18s cubic-bezier(.2,.8,.2,1)}
+.glass::before{content:"";position:absolute;left:0;top:0;right:0;bottom:0;border-radius:inherit;pointer-events:none;background:linear-gradient(160deg,rgba(255,255,255,0.28) 0%,rgba(255,255,255,0) 38%,rgba(255,255,255,0) 70%,rgba(255,255,255,0.1) 100%)}
+.glass > *{position:relative}
+.glass:active{transform:scale(0.96)}
+.scroller{scrollbar-width:none}
+.scroller::-webkit-scrollbar{display:none}
+.screen-in{animation:screenIn .45s cubic-bezier(.2,.8,.2,1) backwards}
+@keyframes screenIn{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.screen-in{animation:none}}
+</style>
+</helmet>
+<div class="{{themeClass}}" style="position: relative; width: 390px; height: 844px; overflow: hidden; background: var(--bg-grad); color: var(--fg); font-family: 'Instrument Sans', -apple-system, system-ui, sans-serif; box-sizing: border-box">
+<div class="screen-in" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+
+  <div style="position: absolute; left: 0; top: 0; width: 390px; height: 420px; background: radial-gradient(ellipse at 50% 0%, var(--sheen) 0%, var(--sheen0) 72%)"></div>
+
+  <div class="scroller" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; overflow-y: auto; box-sizing: border-box; padding: 124px 20px 80px">
+    <h1 style="margin: 0; font-family: 'Fraunces', Georgia, serif; font-variation-settings: 'SOFT' 100, 'WONK' 0; font-size: 36px; line-height: 40px; font-weight: 400; letter-spacing: -0.02em">Streaks</h1>
+
+    <!-- totals -->
+    <div style="margin-top: 22px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+      <sc-for list="{{stats}}" as="s" hint-placeholder-count="3">
+        <div style="box-sizing: border-box; padding: 14px 14px 12px; border-radius: 20px; background: var(--card); box-shadow: inset 0 0 0 0.5px var(--card-soft); display: flex; flex-direction: column; gap: 4px">
+          <span style="font-family: 'Fraunces', Georgia, serif; font-variation-settings: 'SOFT' 100, 'WONK' 0; font-size: 34px; line-height: 34px; font-weight: 400; letter-spacing: -0.02em">{{s.value}}</span>
+          <span style="font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.04em; color: var(--muted)">{{s.label}}</span>
+        </div>
+      </sc-for>
+    </div>
+
+    <!-- weekday header -->
+    <div style="margin-top: 30px; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0 8px; padding: 0 4px">
+      <sc-for list="{{weekdays}}" as="w" hint-placeholder-count="7">
+        <span aria-hidden="true" style="text-align: center; font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.06em; color: var(--muted)">{{w.l}}</span>
+      </sc-for>
+    </div>
+
+    <sc-for list="{{months}}" as="m" hint-placeholder-count="3">
+      <section style="display: flex; flex-direction: column; gap: 14px; padding-top: 22px">
+        <h2 style="margin: 0; font-size: 13px; line-height: 20px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase">{{m.name}} <span style="color: var(--muted2); font-weight: 400">{{m.year}}</span></h2>
+        <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 14px 8px; padding: 0 4px">
+          <sc-for list="{{m.cells}}" as="c" hint-placeholder-count="14">
+            <div style="display: flex; align-items: center; justify-content: center; height: 30px">
+              <div role="img" aria-label="{{c.label}}" style="width: 26px; height: 26px; border-radius: 13px; background: var(--dot); opacity: {{c.opacity}}; visibility: {{c.vis}}; box-shadow: {{c.ring}}"></div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </sc-for>
+  </div>
+
+  <!-- back -->
+  <div style="position: absolute; left: 16px; top: 56px; display: flex">
+    <a class="glass" aria-label="Back to journal" href="Home.html" style="width: 44px; height: 44px; border-radius: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer">
+      <svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2L2 10l8 8"/></svg>
+    </a>
+  </div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    this._onStore = () => this.forceUpdate();
+    window.addEventListener('storage', this._onStore);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('storage', this._onStore);
+  }
+
+  themeName() {
+    try { return window.localStorage.getItem('voiceJournalTheme') === 'light' ? 'light' : 'dark'; } catch (e) { return 'dark'; }
+  }
+
+  renderVals() {
+    // the days that have a journal entry (same entries as the Journal page)
+    const logged = ['2026-10-09', '2026-10-07', '2026-10-05', '2026-10-03', '2026-10-02', '2026-10-01', '2026-09-30', '2026-09-27', '2026-09-25', '2026-09-21', '2026-09-18', '2026-09-14', '2026-09-09', '2026-08-29', '2026-08-22', '2026-08-17', '2026-08-09'];
+    const today = new Date(2026, 9, 9);
+    const key = (d) => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    const set = {};
+    logged.forEach((k) => { set[k] = true; });
+
+    // current streak: consecutive days ending today (or yesterday if today is empty)
+    let cur = 0;
+    const d = new Date(today);
+    if (!set[key(d)]) d.setDate(d.getDate() - 1);
+    while (set[key(d)]) { cur += 1; d.setDate(d.getDate() - 1); }
+
+    // best streak
+    const sorted = logged.slice().sort();
+    let best = 0;
+    let run = 0;
+    let prev = null;
+    sorted.forEach((k) => {
+      const t = new Date(k + 'T00:00:00');
+      if (prev && Math.round((t - prev) / 86400000) === 1) run += 1; else run = 1;
+      if (run > best) best = run;
+      prev = t;
+    });
+
+    const names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const months = [9, 8, 7].map((mi) => {
+      const first = new Date(2026, mi, 1);
+      const offset = (first.getDay() + 6) % 7; // weeks start on Monday
+      const last = mi === today.getMonth() ? today.getDate() : new Date(2026, mi + 1, 0).getDate();
+      const cells = [];
+      for (let i = 0; i < offset; i++) cells.push({ label: '', opacity: '0', vis: 'hidden', ring: 'none' });
+      for (let day = 1; day <= last; day++) {
+        const dt = new Date(2026, mi, day);
+        const on = !!set[key(dt)];
+        const isToday = key(dt) === key(today);
+        cells.push({
+          label: dt.getDate() + ' ' + names[mi] + (on ? ': entry written' : ': no entry'),
+          opacity: on ? '1' : '0.1',
+          vis: 'visible',
+          ring: isToday ? '0 0 0 4px var(--bg), 0 0 0 7px var(--cool)' : 'none'
+        });
+      }
+      return { name: names[mi], year: '2026', cells };
+    });
+
+    return {
+      themeClass: this.themeName() === 'light' ? 'theme-light' : 'theme-dark',
+      stats: [
+        { value: String(cur), label: 'CURRENT' },
+        { value: String(best), label: 'BEST' },
+        { value: String(logged.length), label: 'ENTRIES' }
+      ],
+      weekdays: ['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((l) => ({ l })),
+      months
+    };
+  }
+}
+</script>
+</body>
+</html>

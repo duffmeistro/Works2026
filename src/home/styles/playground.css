@@ -77,6 +77,224 @@
   object-fit: cover;
   object-position: 50% 0;
 }
+.hm-gvid {
+  object-position: 50% 58%;
+  transform: scale(1.5);
+}
+.hm-art-hr {
+  position: absolute;
+  inset: 0;
+}
+.hm-art-hr > span {
+  display: block;
+}
+.hm-art-rev,
+.hm-art-mix,
+.hm-art-lm,
+.hm-art-vcm,
+.hm-art-df,
+.hm-art-tk,
+.hm-art-pb {
+  position: absolute;
+  inset: 0;
+}
+.hm-art-rev {
+  background: #141513;
+}
+.hm-art-mix {
+  background: #ededeb;
+}
+.hm-art-lm {
+  background: #e2e2e7;
+}
+.hm-art-vcm {
+  background: #f2f2f0;
+}
+.hm-art-df {
+  background: #0b0b0c;
+}
+.hm-art-tk {
+  background: #d9d6cf;
+}
+.hm-art-pb {
+  background: #0a0a0a;
+}
+.hm-art-tk > span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 414px;
+  transform-origin: 0 0;
+}
+.hm-art-vcm > span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 390px;
+  height: 844px;
+  transform-origin: 0 0;
+}
+.hm-art-vo {
+  position: absolute;
+  inset: -12%;
+  background: #7e8e7b;
+}
+.hm-art-rv {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1916;
+}
+.hm-rv-mo {
+  position: relative;
+  width: var(--s);
+  height: var(--s);
+  flex: none;
+  isolation: isolate;
+}
+.hm-rv-mo span {
+  display: block;
+}
+.hm-rv-in {
+  position: absolute;
+  inset: 0;
+  animation: hm-rv-breathe 5s ease-in-out infinite;
+  animation-play-state: var(--ps, running);
+}
+.hm-rv-orb {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: screen;
+  animation-name: hm-rv-spin;
+  animation-duration: var(--dur, 10s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: var(--dir, normal);
+  animation-play-state: var(--ps, running);
+}
+.hm-rv-c {
+  position: absolute;
+  box-sizing: border-box;
+  border-style: solid;
+  border-width: calc(var(--s) * var(--w, 0.12));
+  border-radius: 50%;
+  filter: blur(calc(var(--s) * var(--bl, 0.007)));
+  animation-name: hm-rv-morph;
+  animation-duration: var(--dm, 5s);
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-play-state: var(--ps, running);
+}
+.rv-o1 { --dur: 10s; }
+.rv-o2 { --dur: 12s; --dir: reverse; }
+.rv-o3 { --dur: 11s; }
+.rv-o4 { --dur: 14s; --dir: reverse; }
+.rv-o5 { --dur: 9s; --dir: reverse; }
+.rv-oh { --dur: 16s; }
+.rv-ok1 { --dur: 13s; }
+.rv-ok2 { --dur: 17s; --dir: reverse; }
+.rv-ok3 { --dur: 11s; }
+.rv-c1 { inset: 12.5%; translate: -1% -4%; --w: 0.08; --dm: 4.5s; border-color: #1450ff; opacity: 0.78; }
+.rv-c2 { inset: 12.5%; translate: -4.5% 1%; --w: 0.085; --dm: 5.5s; border-color: #ff2a12; opacity: 0.74; }
+.rv-c3 { inset: 11.5%; translate: 4.5% 3%; --w: 0.09; --dm: 5s; border-color: #ffd400; opacity: 0.8; }
+.rv-c4 { inset: 13%; translate: 1% 5%; --w: 0.075; --dm: 6s; border-color: #ff7a00; opacity: 0.5; }
+.rv-c5 { inset: 20%; translate: -2.5% 0.5%; --w: 0.04; --dm: 4s; border-color: #00c8ff; opacity: 0.6; }
+.rv-ch { inset: 15%; --w: 0.065; --bl: 0.014; --dm: 6s; border-color: #ede9df; opacity: 0.16; }
+.rv-k1 { inset: 16%; translate: -1.2% 1.2%; --w: 0.045; --bl: 0.004; --dm: 5.5s; border-color: #ede9df; opacity: 0.7; }
+.rv-k2 { inset: 16.5%; translate: 1% -0.8%; --w: 0.038; --bl: 0.004; --dm: 6.5s; border-color: #e4decf; opacity: 0.62; }
+.rv-k3 { inset: 17%; translate: -0.5% 1.8%; --w: 0.032; --bl: 0.004; --dm: 4.8s; border-color: #ede9df; opacity: 0.55; }
+.rv-k1,
+.rv-k2,
+.rv-k3 {
+  animation-name: hm-rv-flex;
+}
+@keyframes hm-rv-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes hm-rv-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+@keyframes hm-rv-morph {
+  0%,
+  100% {
+    border-radius: 50% 48% 52% 50% / 49% 52% 48% 51%;
+  }
+  33% {
+    border-radius: 47% 53% 49% 51% / 53% 47% 52% 48%;
+  }
+  66% {
+    border-radius: 53% 48% 51% 47% / 47% 51% 49% 53%;
+  }
+}
+@keyframes hm-rv-flex {
+  0%,
+  100% {
+    border-radius: 50% 46% 54% 50% / 47% 53% 47% 53%;
+    scale: 1 1;
+  }
+  25% {
+    border-radius: 44% 56% 48% 52% / 55% 45% 54% 46%;
+    scale: 1.03 0.97;
+  }
+  50% {
+    border-radius: 55% 45% 52% 48% / 45% 55% 48% 52%;
+    scale: 0.98 1.02;
+  }
+  75% {
+    border-radius: 47% 53% 57% 43% / 52% 48% 44% 56%;
+    scale: 1.02 0.985;
+  }
+}
+.hm-rvframe {
+  display: block;
+  border: 0;
+  background: transparent;
+  color-scheme: normal;
+}
+.hm-fig--strip {
+  border-radius: 20px;
+}
+.hm-fig--strip img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.hm-orbphone {
+  border-radius: 48px;
+  overflow: hidden;
+}
+.hm-composerphone {
+  height: 844px;
+  border-radius: 44px;
+  overflow: hidden;
+}
+.hm-composerphone--dark {
+  background: #0e0e10;
+}
+.hm-composerphone--light {
+  background: #f2f2f0;
+}
+.hm-art-rev > span,
+.hm-art-mix > span,
+.hm-art-lm > span,
+.hm-art-df > span,
+.hm-art-pb > span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 390px;
+  transform-origin: 0 0;
+}
 .hm-art-orb {
   position: absolute;
   left: 20%;
@@ -305,6 +523,9 @@
   .hm-gt-hit {
     border-radius: 9px;
   }
+  .hm-art-vo {
+    inset: 2%;
+  }
   .hm-art-sw {
     filter: blur(4px);
   }
@@ -360,6 +581,16 @@
   .hm-playfigs .hm-fig--hero {
     height: 300px;
   }
+  .hm-playfigs .hm-fig--device {
+    height: auto;
+    padding: 32px 0;
+  }
+  .hm-playfigs .hm-fig--composer {
+    padding: 0 12px;
+  }
+  .hm-playfigs .hm-fig--pair {
+    gap: 24px;
+  }
   .hm-playfigs .hm-fig__pill {
     width: 96px;
     height: 224px;
@@ -402,6 +633,20 @@
 .hm-fig--figure {
   height: 360px;
   border-radius: 16px;
+}
+.hm-fig--device {
+  height: auto;
+  padding: 56px 0;
+}
+.hm-fig--composer {
+  padding: 0 32px;
+}
+.hm-fig--pair {
+  flex-wrap: wrap;
+  gap: 40px;
+}
+.hm-fig--dark {
+  background-color: #0e0e10;
 }
 .hm-fig__pill {
   width: 180px;

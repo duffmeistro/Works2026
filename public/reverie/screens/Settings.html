@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Settings</title>
+<meta name="viewport" content="width=390, initial-scale=1">
+<link rel="stylesheet" href="../assets/fonts.css">
+<script src="../assets/dc-runtime.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+.theme-light{--bg:#F3F0E8;--bg0:rgba(243,240,232,0);--bg-grad:#F3F0E8;--fg:#111111;--muted:#66635D;--muted2:#6F6B64;--soft:#3A3833;--card:#FBF9F4;--card-line:#E4E1DA;--card-soft:rgba(17,17,17,0.07);--hair:#DAD6CE;--sheen:rgba(255,255,255,0);--sheen0:rgba(255,255,255,0);--glass-bg:rgba(251,249,244,0.7);--glass-fg:#111111;--glass-hi:rgba(255,255,255,0.95);--glass-lo:rgba(17,17,17,0.06);--glass-ring:rgba(17,17,17,0.09);--glass-shadow:rgba(70,60,35,0.12);--warm:#B3361B;--cool:#C2185B;--track-on:#C2185B;--track-off:#D6D2C8;--sheet:rgba(251,249,244,0.96);--scrim:rgba(40,32,15,0.28);--field:rgba(17,17,17,0.045);--grabber:rgba(17,17,17,0.2);--tshadow:rgba(243,240,232,0.85);--dot:#1A1917}
+.theme-dark{--bg:#1A1916;--bg0:rgba(26,25,22,0);--bg-grad:#1A1916;--fg:#EDE9DF;--muted:#A09B90;--muted2:#968F84;--soft:#CBC6BA;--card:#23221F;--card-line:rgba(237,233,223,0.1);--card-soft:rgba(237,233,223,0.08);--hair:rgba(237,233,223,0.12);--sheen:rgba(255,255,255,0);--sheen0:rgba(255,255,255,0);--glass-bg:rgba(48,46,41,0.6);--glass-fg:#EDE9DF;--glass-hi:rgba(255,255,255,0.2);--glass-lo:rgba(255,255,255,0.05);--glass-ring:rgba(255,255,255,0.1);--glass-shadow:rgba(0,0,0,0.3);--warm:#F0A58C;--cool:#FF7AAE;--track-on:#D81B6A;--track-off:#3C3A35;--sheet:rgba(35,34,31,0.96);--scrim:rgba(8,7,5,0.55);--field:rgba(237,233,223,0.06);--grabber:rgba(237,233,223,0.22);--tshadow:rgba(26,25,22,0.75);--dot:#EDE9DF}
+.theme-dark .blob{mix-blend-mode:screen}
+.theme-light .blob{mix-blend-mode:multiply}
+body{margin:0}
+button{font-family:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.glass{position:relative;border:0;color:var(--glass-fg);text-decoration:none;background:var(--glass-bg);-webkit-backdrop-filter:blur(24px) saturate(170%);backdrop-filter:blur(24px) saturate(170%);box-shadow:inset 0 1px 0.5px var(--glass-hi),inset 0 -1px 0.5px var(--glass-lo),inset 0 0 0 0.5px var(--glass-ring),0 10px 30px var(--glass-shadow);transition:transform .18s cubic-bezier(.2,.8,.2,1)}
+.glass::before{content:"";position:absolute;left:0;top:0;right:0;bottom:0;border-radius:inherit;pointer-events:none;background:linear-gradient(160deg,rgba(255,255,255,0.28) 0%,rgba(255,255,255,0) 38%,rgba(255,255,255,0) 70%,rgba(255,255,255,0.1) 100%)}
+.glass > *{position:relative}
+.glass:active{transform:scale(0.96)}
+.mo{position:relative;width:var(--s);height:var(--s);isolation:isolate;flex:none}
+.mo-in{position:absolute;inset:0;animation-name:mo-breathe;animation-duration:calc(5s / var(--speed,1));animation-iteration-count:infinite;animation-timing-function:ease-in-out;animation-delay:calc(0s - var(--t,0s));animation-play-state:var(--ps,running)}
+.mo-orb{position:absolute;inset:0;mix-blend-mode:multiply;animation-name:mo-spin;animation-duration:calc(var(--dur,10s) / var(--speed,1));animation-iteration-count:infinite;animation-timing-function:linear;animation-direction:var(--dir,normal);animation-delay:calc(0s - var(--t,0s));animation-play-state:var(--ps,running)}
+.theme-dark .mo-orb{mix-blend-mode:screen}
+.o1{--dur:10s}.o2{--dur:12s;--dir:reverse}.o3{--dur:11s}.o4{--dur:14s;--dir:reverse}.o5{--dur:9s;--dir:reverse}.oh{--dur:16s}.ok1{--dur:13s}.ok2{--dur:17s;--dir:reverse}.ok3{--dur:11s}
+.mo-c{position:absolute;box-sizing:border-box;border-style:solid;border-width:calc(var(--s) * var(--w,.12));border-radius:50%;filter:blur(calc(var(--s) * var(--bl,.007)));animation-name:mo-morph;animation-duration:calc(var(--dm,5s) / var(--speed,1));animation-iteration-count:infinite;animation-timing-function:ease-in-out;animation-delay:calc(0s - var(--t,0s));animation-play-state:var(--ps,running)}
+.c1{inset:12.5%;translate:-1% -4%;--w:.08;--dm:4.5s;border-color:#1450FF;opacity:.92}
+.c2{inset:12.5%;translate:-4.5% 1%;--w:.085;--dm:5.5s;border-color:#FF2A12;opacity:.88}
+.c3{inset:11.5%;translate:4.5% 3%;--w:.09;--dm:5s;border-color:#FFD400;opacity:.95}
+.c4{inset:13%;translate:1% 5%;--w:.075;--dm:6s;border-color:#FF7A00;opacity:.6}
+.c5{inset:20%;translate:-2.5% .5%;--w:.04;--dm:4s;border-color:#00C8FF;opacity:.7}
+.ch{inset:15%;--w:.065;--bl:.014;--dm:6s;border-color:#0B0E1A;opacity:.35}
+.k1{inset:16%;translate:-1.2% 1.2%;--w:.045;--bl:.004;--dm:5.5s;border-color:#050507;opacity:.95}
+.k2{inset:16.5%;translate:1% -.8%;--w:.038;--bl:.004;--dm:6.5s;border-color:#08090F;opacity:.9}
+.k3{inset:17%;translate:-.5% 1.8%;--w:.032;--bl:.004;--dm:4.8s;border-color:#0A0A12;opacity:.85}
+.theme-dark .c1{opacity:.78}.theme-dark .c2{opacity:.74}.theme-dark .c3{opacity:.8}.theme-dark .c4{opacity:.5}.theme-dark .c5{opacity:.6}
+.theme-dark .ch{border-color:#EDE9DF;opacity:.16}
+.theme-dark .k1{border-color:#EDE9DF;opacity:.7}.theme-dark .k2{border-color:#E4DECF;opacity:.62}.theme-dark .k3{border-color:#EDE9DF;opacity:.55}
+@keyframes mo-spin{to{transform:rotate(360deg)}}
+@keyframes mo-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+@keyframes mo-morph{0%,100%{border-radius:50% 48% 52% 50%/49% 52% 48% 51%}33%{border-radius:47% 53% 49% 51%/53% 47% 52% 48%}66%{border-radius:53% 48% 51% 47%/47% 51% 49% 53%}}
+.k1,.k2,.k3{animation-name:mo-flex}
+@keyframes mo-flex{0%,100%{border-radius:50% 46% 54% 50%/47% 53% 47% 53%;scale:1 1}25%{border-radius:44% 56% 48% 52%/55% 45% 54% 46%;scale:1.03 .97}50%{border-radius:55% 45% 52% 48%/45% 55% 48% 52%;scale:.98 1.02}75%{border-radius:47% 53% 57% 43%/52% 48% 44% 56%;scale:1.02 .985}}
+.theme-dark .pv-light .mo-orb{mix-blend-mode:multiply}
+.theme-dark .pv-light .c1{opacity:.92}.theme-dark .pv-light .c2{opacity:.88}.theme-dark .pv-light .c3{opacity:.95}.theme-dark .pv-light .c4{opacity:.6}.theme-dark .pv-light .c5{opacity:.7}
+.theme-dark .pv-light .ch{border-color:#0B0E1A;opacity:.35}.theme-dark .pv-light .k1{border-color:#050507;opacity:.95}.theme-dark .pv-light .k2{border-color:#08090F;opacity:.9}.theme-dark .pv-light .k3{border-color:#0A0A12;opacity:.85}
+.tile{transition:transform .18s cubic-bezier(.2,.8,.2,1)}
+.tile:active{transform:scale(0.97)}
+.screen-in{animation:screenIn .45s cubic-bezier(.2,.8,.2,1) backwards}
+@keyframes screenIn{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.screen-in{animation:none}}
+.scroller{scrollbar-width:none}
+.scroller::-webkit-scrollbar{display:none}
+.sw{transition:transform .18s cubic-bezier(.2,.8,.2,1),opacity .2s}
+.sw:active{transform:scale(0.92)}
+.knob{transition:transform .22s cubic-bezier(.2,.8,.2,1)}
+.track{transition:background .22s}
+</style>
+</helmet>
+<div class="{{themeClass}}" style="position: relative; width: 390px; height: 844px; overflow: hidden; background: var(--bg-grad); color: var(--fg); font-family: 'Instrument Sans', -apple-system, system-ui, sans-serif; box-sizing: border-box">
+<div class="screen-in" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+
+  <div style="position: absolute; left: 0; top: 0; width: 390px; height: 420px; background: radial-gradient(ellipse at 50% 0%, var(--sheen) 0%, var(--sheen0) 72%)"></div>
+
+  <div class="scroller" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; overflow-y: auto; box-sizing: border-box; padding: 124px 20px 80px">
+    <h1 style="margin: 0; font-family: 'Fraunces', Georgia, serif; font-variation-settings: 'SOFT' 100, 'WONK' 0; font-size: 36px; line-height: 40px; font-weight: 400; letter-spacing: -0.02em">Settings</h1>
+
+
+    <a href="Profile.html" class="tile" aria-label="Open profile" style="margin-top: 24px; box-sizing: border-box; display: flex; align-items: center; gap: 14px; padding: 14px 16px 14px 14px; border-radius: 24px; background: var(--card); color: var(--fg); text-decoration: none; box-shadow: inset 0 0 0 0.5px var(--card-line); cursor: pointer">
+      <span style="flex: none; width: 56px; height: 56px; border-radius: 28px; display: flex; align-items: center; justify-content: center; background: var(--field); box-shadow: inset 0 0 0 0.5px var(--hair)">
+        <div class="mo" aria-hidden="true" style="--s: 46px; --speed: 1"><div class="mo-in"><div class="mo-orb o1"><div class="mo-c c1"></div></div><div class="mo-orb o2"><div class="mo-c c2"></div></div><div class="mo-orb o3"><div class="mo-c c3"></div></div><div class="mo-orb o4"><div class="mo-c c4"></div></div><div class="mo-orb o5"><div class="mo-c c5"></div></div><div class="mo-orb oh"><div class="mo-c ch"></div></div><div class="mo-orb ok1"><div class="mo-c k1"></div></div><div class="mo-orb ok2"><div class="mo-c k2"></div></div><div class="mo-orb ok3"><div class="mo-c k3"></div></div></div></div>
+      </span>
+      <span style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+        <span style="font-family: 'Fraunces', Georgia, serif; font-variation-settings: 'SOFT' 100, 'WONK' 0; font-size: 22px; line-height: 28px; font-weight: 400; letter-spacing: -0.015em">Gav</span>
+        <span style="font-size: 14px; line-height: 20px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Profile, billing and account</span>
+      </span>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="flex: none; color: var(--muted2)" aria-hidden="true"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+    </a>
+    <section style="display: flex; flex-direction: column; gap: 10px; padding-top: 28px">
+      <h2 id="appearanceLabel" style="margin: 0 0 0 4px; font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 12px; line-height: 18px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted)">Appearance</h2>
+      <div role="radiogroup" aria-labelledby="appearanceLabel" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+        <sc-for list="{{options}}" as="o" hint-placeholder-count="2">
+          <button class="tile" role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" style="box-sizing: border-box; padding: 12px; border: 0; border-radius: 24px; background: var(--card); color: var(--fg); cursor: pointer; display: flex; flex-direction: column; gap: 14px; text-align: left; box-shadow: {{o.ring}}">
+            <div class="{{o.theme}}" style="position: relative; width: 100%; height: 120px; border-radius: 16px; overflow: hidden; background: {{o.previewBg}}">
+              <div class="mo" aria-hidden="true" style="--s: 64px; position: absolute; left: 50%; top: 10px; margin-left: -32px; --speed: 1"><div class="mo-in"><div class="mo-orb o1"><div class="mo-c c1"></div></div><div class="mo-orb o2"><div class="mo-c c2"></div></div><div class="mo-orb o3"><div class="mo-c c3"></div></div><div class="mo-orb o4"><div class="mo-c c4"></div></div><div class="mo-orb o5"><div class="mo-c c5"></div></div><div class="mo-orb oh"><div class="mo-c ch"></div></div><div class="mo-orb ok1"><div class="mo-c k1"></div></div><div class="mo-orb ok2"><div class="mo-c k2"></div></div><div class="mo-orb ok3"><div class="mo-c k3"></div></div></div></div>
+              <div style="position: absolute; left: 14px; bottom: 26px; width: 64px; height: 5px; border-radius: 3px; background: {{o.bar}}"></div>
+              <div style="position: absolute; left: 14px; bottom: 14px; width: 40px; height: 5px; border-radius: 3px; background: {{o.bar2}}"></div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 2px 2px">
+              <span style="font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 16px; font-weight: 600; letter-spacing: -0.005em">{{o.label}}</span>
+              <span style="flex: none; width: 18px; height: 18px; border-radius: 9px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; background: {{o.dotBg}}; box-shadow: {{o.dotRing}}; color: var(--bg)">
+                <sc-if value="{{o.on}}" hint-placeholder-val="{{ false }}">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.2l2.2 2.2L8 3"/></svg>
+                </sc-if>
+              </span>
+            </div>
+          </button>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 10px; padding-top: 28px">
+      <h2 style="margin: 0 0 0 4px; font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 12px; line-height: 18px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted)">Sound</h2>
+      <div style="background: var(--card); border-radius: 24px; box-shadow: inset 0 0 0 0.5px var(--card-line); overflow: hidden">
+        <button role="switch" aria-checked="{{soundOn}}" onClick="{{toggleSound}}" style="width: 100%; box-sizing: border-box; min-height: 64px; padding: 12px 16px; border: 0; background: transparent; color: var(--fg); display: flex; align-items: center; justify-content: space-between; gap: 16px; text-align: left; cursor: pointer; font: inherit">
+          <span style="display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 16px; line-height: 22px; letter-spacing: -0.005em">Interface sounds</span>
+            <span style="font-size: 13px; line-height: 18px; color: var(--muted)">Soft chimes for taps, recording and saving</span>
+          </span>
+          <span class="track" style="flex: none; position: relative; width: 38px; height: 22px; border-radius: 11px; background: {{soundTrack}}">
+            <span class="knob" style="position: absolute; left: 2px; top: 2px; width: 18px; height: 18px; border-radius: 9px; background: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.35); transform: {{soundKnob}}"></span>
+          </span>
+        </button>
+      </div>
+    </section>
+
+    <sc-for list="{{auroras}}" as="a" hint-placeholder-count="2">
+      <section style="display: flex; flex-direction: column; gap: 10px; padding-top: 28px">
+        <h2 style="margin: 0 0 0 4px; font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 12px; line-height: 18px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted)">{{a.title}}</h2>
+        <div style="box-sizing: border-box; padding: 16px; border-radius: 24px; background: var(--card); box-shadow: inset 0 0 0 0.5px var(--card-line); display: flex; flex-direction: column; gap: 16px">
+          <div aria-hidden="true" style="height: 32px; border-radius: 12px; background: {{a.strip}}; filter: saturate(1.05)"></div>
+          <div style="display: flex; justify-content: space-between">
+            <sc-for list="{{a.swatches}}" as="w" hint-placeholder-count="6">
+              <button class="sw" type="button" aria-pressed="{{w.on}}" aria-label="{{w.label}}" onClick="{{w.toggle}}" style="flex: none; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 20px; background: {{w.bg}}; opacity: {{w.opacity}}; box-shadow: {{w.ring}}; color: {{w.ink}}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+                <sc-if value="{{w.on}}" hint-placeholder-val="{{ false }}">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.4l3 3L12.5 5"/></svg>
+                </sc-if>
+              </button>
+            </sc-for>
+          </div>
+          <div style="font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 13px; line-height: 18px; color: var(--muted)">{{a.hint}}</div>
+        </div>
+      </section>
+    </sc-for>
+  </div>
+
+  <!-- back -->
+  <div style="position: absolute; left: 16px; top: 56px; display: flex">
+    <a class="glass" aria-label="Back to journal" href="Home.html" style="width: 44px; height: 44px; border-radius: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer">
+      <svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2L2 10l8 8"/></svg>
+    </a>
+  </div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+const AURORA = {
+  listen: [
+    { id: 'blue', name: 'Blue', l: [20, 80, 255], d: [110, 148, 255] },
+    { id: 'yellow', name: 'Yellow', l: [255, 206, 0], d: [255, 220, 110] },
+    { id: 'sky', name: 'Sky', l: [0, 176, 236], d: [96, 208, 240] },
+    { id: 'indigo', name: 'Indigo', l: [70, 100, 255], d: [140, 150, 255] },
+    { id: 'lemon', name: 'Lemon', l: [255, 224, 60], d: [255, 232, 150] },
+    { id: 'violet', name: 'Violet', l: [140, 90, 255], d: [180, 150, 255] }
+  ],
+  reply: [
+    { id: 'red', name: 'Red', l: [255, 50, 26], d: [250, 130, 110] },
+    { id: 'orange', name: 'Orange', l: [255, 130, 10], d: [250, 175, 100] },
+    { id: 'amber', name: 'Amber', l: [255, 206, 0], d: [255, 220, 120] },
+    { id: 'coral', name: 'Coral', l: [255, 86, 70], d: [245, 120, 130] },
+    { id: 'tangerine', name: 'Tangerine', l: [255, 160, 40], d: [250, 190, 120] },
+    { id: 'pink', name: 'Pink', l: [255, 79, 163], d: [255, 150, 195] }
+  ],
+  defaults: { listen: ['blue', 'yellow', 'sky', 'indigo', 'lemon'], reply: ['red', 'orange', 'amber', 'coral', 'tangerine'] }
+};
+
+// soft interface sounds, synthesised with the Web Audio API (no audio files)
+const SFX = (() => {
+  let ctx = null;
+  const enabled = () => { try { return window.localStorage.getItem('voiceJournalSound') !== 'off'; } catch (e) { return true; } };
+  const audio = () => {
+    try {
+      if (!ctx) { const C = window.AudioContext || window.webkitAudioContext; if (!C) return null; ctx = new C(); }
+      if (ctx.state === 'suspended') ctx.resume();
+      return ctx;
+    } catch (e) { return null; }
+  };
+  const tone = (c, f, t0, d, o) => {
+    o = o || {};
+    const t = c.currentTime + t0;
+    const osc = c.createOscillator();
+    const g = c.createGain();
+    osc.type = o.type || 'sine';
+    osc.frequency.setValueAtTime(f, t);
+    if (o.to) osc.frequency.exponentialRampToValueAtTime(o.to, t + d);
+    const peak = o.g || 0.05;
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(peak, t + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+    osc.connect(g);
+    g.connect(c.destination);
+    osc.start(t);
+    osc.stop(t + d + 0.05);
+  };
+  const chime = (c, notes, t0, step, d, gain) => notes.forEach((f, i) => {
+    tone(c, f, t0 + i * step, d, { type: 'triangle', g: gain });
+    tone(c, f * 2, t0 + i * step, d * 0.6, { g: gain * 0.35 });
+  });
+  const play = (name) => {
+    if (!enabled()) return;
+    const c = audio();
+    if (!c) return;
+    switch (name) {
+      case 'tap': tone(c, 660, 0, 0.07, { g: 0.035 }); tone(c, 990, 0, 0.05, { g: 0.015 }); break;
+      case 'select': tone(c, 740, 0, 0.08, { g: 0.035 }); tone(c, 1110, 0.03, 0.08, { g: 0.015 }); break;
+      case 'close': tone(c, 520, 0, 0.1, { to: 380, g: 0.035 }); break;
+      case 'open': tone(c, 330, 0, 0.12, { g: 0.035 }); tone(c, 495, 0.05, 0.14, { g: 0.02 }); break;
+      case 'on': tone(c, 587, 0, 0.09, { g: 0.04 }); tone(c, 880, 0.06, 0.13, { g: 0.04 }); break;
+      case 'off': tone(c, 587, 0, 0.09, { g: 0.035 }); tone(c, 392, 0.06, 0.13, { g: 0.035 }); break;
+      case 'start': chime(c, [523, 784], 0, 0.09, 0.32, 0.045); break;
+      case 'reflect': tone(c, 440, 0, 0.4, { to: 660, g: 0.045, type: 'triangle' }); tone(c, 880, 0.12, 0.3, { g: 0.015 }); break;
+      case 'reply': chime(c, [784, 988], 0, 0.11, 0.4, 0.035); break;
+      case 'done': tone(c, 392, 0, 0.26, { type: 'triangle', g: 0.05 }); tone(c, 294, 0.1, 0.36, { type: 'triangle', g: 0.04 }); break;
+      case 'save': chime(c, [523, 659, 784, 1047], 0, 0.08, 0.5, 0.04); break;
+      case 'saved': chime(c, [659, 784, 988, 1319], 0.85, 0.09, 0.6, 0.04); break;
+      case 'discard': tone(c, 330, 0, 0.14, { to: 247, g: 0.04, type: 'triangle' }); tone(c, 247, 0.09, 0.24, { to: 175, g: 0.03, type: 'triangle' }); break;
+      default: break;
+    }
+  };
+  return { play, enabled };
+})();
+
+class Component extends DCLogic {
+  selected(kind) {
+    let ids = null;
+    try {
+      const raw = window.localStorage.getItem('voiceJournalAurora');
+      if (raw) ids = (JSON.parse(raw) || {})[kind];
+    } catch (e) { ids = null; }
+    const valid = AURORA[kind].map((c) => c.id);
+    ids = Array.isArray(ids) ? ids.filter((id) => valid.indexOf(id) >= 0) : null;
+    return ids && ids.length ? ids : AURORA.defaults[kind].slice();
+  }
+
+  toggleColour(kind, id) {
+    const cur = this.selected(kind);
+    const i = cur.indexOf(id);
+    if (i >= 0) {
+      if (cur.length === 1) return; // keep at least one colour on
+      cur.splice(i, 1);
+      
+    } else {
+      cur.push(id);
+      
+    }
+    let all = {};
+    try { all = JSON.parse(window.localStorage.getItem('voiceJournalAurora') || '{}') || {}; } catch (e) { all = {}; }
+    all[kind] = cur;
+    try { window.localStorage.setItem('voiceJournalAurora', JSON.stringify(all)); } catch (e) { /* storage unavailable */ }
+    this.forceUpdate();
+  }
+
+  themeName() {
+    try { return window.localStorage.getItem('voiceJournalTheme') === 'light' ? 'light' : 'dark'; } catch (e) { return this._theme || 'dark'; }
+  }
+
+  setTheme(name) {
+    this._theme = name;
+    
+    try { window.localStorage.setItem('voiceJournalTheme', name); } catch (e) { /* storage unavailable */ }
+    this.forceUpdate();
+  }
+
+  renderVals() {
+    // when storage is blocked, fall back to the choice made on this screen
+    let current = this.themeName();
+    if (this._theme) current = this._theme;
+    const defs = [
+      { id: 'dark', label: 'Dark', previewBg: '#1A1916', bar: 'rgba(237,233,223,0.55)', bar2: 'rgba(237,233,223,0.26)' },
+      { id: 'light', label: 'Light', previewBg: '#F3F0E8', bar: 'rgba(17,17,17,0.5)', bar2: 'rgba(17,17,17,0.2)' }
+    ];
+    const options = defs.map((d) => {
+      const on = d.id === current;
+      return {
+        label: d.label,
+        on,
+        previewBg: d.previewBg,
+        theme: d.id === 'light' ? 'theme-light pv-light' : 'theme-dark',
+        bar: d.bar,
+        bar2: d.bar2,
+        ring: on ? 'inset 0 0 0 1.5px var(--cool)' : 'inset 0 0 0 0.5px var(--card-line)',
+        dotBg: on ? 'var(--cool)' : 'transparent',
+        dotRing: on ? 'none' : 'inset 0 0 0 1px var(--muted2)',
+        pick: () => this.setTheme(d.id)
+      };
+    });
+    const isLight = current === 'light';
+    const rgb = (c) => 'rgb(' + c.join(',') + ')';
+    const auroras = [
+      { kind: 'listen', title: 'Your voice aurora', hint: 'Colours that glow while you are speaking' },
+      { kind: 'reply', title: "Reverie's voice aurora", hint: 'Colours that glow while Reverie talks back' }
+    ].map((g) => {
+      const sel = this.selected(g.kind);
+      const swatches = AURORA[g.kind].map((c) => {
+        const col = isLight ? c.l : c.d;
+        const on = sel.indexOf(c.id) >= 0;
+        const lum = (0.299 * col[0] + 0.587 * col[1] + 0.114 * col[2]) / 255;
+        return {
+          label: c.name,
+          on,
+          bg: rgb(col),
+          opacity: on ? '1' : '0.28',
+          ring: on ? 'inset 0 0 0 0.5px rgba(0,0,0,0.12)' : 'inset 0 0 0 0.5px var(--card-line)',
+          ink: lum > 0.6 ? '#111111' : '#FFFFFF',
+          toggle: () => this.toggleColour(g.kind, c.id)
+        };
+      });
+      const cols = AURORA[g.kind].filter((c) => sel.indexOf(c.id) >= 0).map((c) => rgb(isLight ? c.l : c.d));
+      const strip = cols.length > 1 ? 'linear-gradient(90deg,' + cols.join(',') + ')' : cols[0];
+      return { title: g.title, hint: g.hint, strip, swatches };
+    });
+    const soundOn = SFX.enabled();
+    return {
+      themeClass: current === 'light' ? 'theme-light' : 'theme-dark',
+      options,
+      auroras,
+      soundOn,
+      soundTrack: soundOn ? 'var(--track-on)' : 'var(--track-off)',
+      soundKnob: soundOn ? 'translateX(16px)' : 'translateX(0px)',
+      toggleSound: () => {
+        const next = !SFX.enabled();
+        try { window.localStorage.setItem('voiceJournalSound', next ? 'on' : 'off'); } catch (e) { /* storage unavailable */ }
+        this.forceUpdate();
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>reverie prototype</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+  :root { --bg:#0E0D0B; --fg:#EDE9DF; --mut:#8F8A7F; --line:rgba(237,233,223,.14); }
+  :root.light { --bg:#E9E5DB; --fg:#111; --mut:#6B675F; --line:rgba(17,17,17,.16); }
+  html, body { margin:0; height:100%; background:var(--bg); color:var(--fg); font-family:'Instrument Sans',system-ui,sans-serif; }
+  /* ?bare=1 -> transparent background, no controls: for iframing into another page */
+  .bare, .bare body { background:transparent; }
+  .bare .controls { display:none; }
+  .bare .wrap { padding:0; }
+  .wrap { min-height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; padding:20px; box-sizing:border-box; }
+  .holder { position:relative; flex:none; }
+  .phone { position:absolute; left:0; top:0; width:390px; height:844px; border-radius:28px; overflow:hidden; transform-origin:0 0; box-shadow:0 30px 80px rgba(0,0,0,.45), 0 0 0 1px var(--line); background:#1A1916; }
+  .phone iframe { width:390px; height:844px; border:0; display:block; }
+  .controls { display:flex; flex-wrap:wrap; justify-content:center; gap:6px; max-width:560px; }
+  .chip { font:inherit; font-size:12px; letter-spacing:.02em; color:var(--mut); background:transparent; border:1px solid var(--line); border-radius:999px; padding:6px 12px; cursor:pointer; }
+  .chip[aria-current="true"] { color:var(--bg); background:var(--fg); border-color:var(--fg); }
+  .sep { width:1px; background:var(--line); margin:0 4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="holder" id="holder"><div class="phone" id="phone"><iframe id="frame" title="reverie prototype" src="screens/Intro.html"></iframe></div></div>
+  <div class="controls" id="controls"></div>
+</div>
+<script>
+(function () {
+  var SCREENS = [{"id": "Intro", "title": "Intro (replay)"}, {"id": "Home", "title": "Journal library"}, {"id": "Main", "title": "Voice entry"}, {"id": "Streaks", "title": "Streaks"}, {"id": "Prompts", "title": "Prompt library"}, {"id": "Settings", "title": "Settings"}, {"id": "Profile", "title": "Profile"}, {"id": "Insights", "title": "Monthly insights"}];
+  var q = new URLSearchParams(location.search);
+  var frame = document.getElementById('frame');
+  var phone = document.getElementById('phone');
+  var holder = document.getElementById('holder');
+  var controls = document.getElementById('controls');
+  var root = document.documentElement;
+  var W = 390, H = 844;
+
+  if (q.get('bare')) root.classList.add('bare');
+  var theme = q.get('theme');
+  if (theme === 'light' || theme === 'dark') { try { localStorage.setItem('voiceJournalTheme', theme); } catch (e) {} }
+  function curTheme() { try { return localStorage.getItem('voiceJournalTheme') === 'light' ? 'light' : 'dark'; } catch (e) { return 'dark'; } }
+  function applyShellTheme() { root.classList.toggle('light', curTheme() === 'light'); }
+
+  var start = q.get('screen');
+  if (start && SCREENS.some(function (s) { return s.id === start; })) frame.src = 'screens/' + start + '.html';
+
+  function fit() {
+    var bare = root.classList.contains('bare');
+    var availW = window.innerWidth - (bare ? 0 : 40);
+    var availH = window.innerHeight - (bare ? 0 : 40 + controls.offsetHeight + 18);
+    var scale = Math.min(1, availW / W, availH / H);
+    if (scale <= 0) scale = 1;
+    phone.style.transform = 'scale(' + scale + ')';
+    holder.style.width = W * scale + 'px';
+    holder.style.height = H * scale + 'px';
+  }
+
+  function mk(label, fn, cur) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'chip'; b.textContent = label;
+    if (cur) b.setAttribute('aria-current', 'true');
+    b.addEventListener('click', fn);
+    return b;
+  }
+  function current() {
+    try { return frame.contentWindow.location.pathname.split('/').pop().replace('.html', ''); } catch (e) { return ''; }
+  }
+  function drawControls() {
+    var cur = current();
+    controls.innerHTML = '';
+    SCREENS.forEach(function (s) {
+      controls.appendChild(mk(s.title, function () { frame.src = 'screens/' + s.id + '.html'; }, s.id === cur));
+    });
+    var sep = document.createElement('div'); sep.className = 'sep'; controls.appendChild(sep);
+    controls.appendChild(mk(curTheme() === 'light' ? 'Dark mode' : 'Light mode', function () {
+      try { localStorage.setItem('voiceJournalTheme', curTheme() === 'light' ? 'dark' : 'light'); } catch (e) {}
+      applyShellTheme(); frame.contentWindow.location.reload(); drawControls();
+    }));
+    controls.appendChild(mk('Restart', function () { frame.src = 'screens/Intro.html'; }));
+    fit();
+  }
+  frame.addEventListener('load', drawControls);
+  window.addEventListener('resize', fit);
+  applyShellTheme(); drawControls();
+})();
+</script>
+</body>
+</html>

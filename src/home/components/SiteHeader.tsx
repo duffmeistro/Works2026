@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { useCopyEmail } from '../hooks'
 import { ModeButton } from './ModeButton'
 
@@ -64,6 +65,12 @@ export function SiteHeader({ onAbout, onToggleMenu, menuOpen }: SiteHeaderProps)
         <a className="hm-navlink" href={LINKEDIN} target="_blank" rel="noopener noreferrer">
           LinkedIn
         </a>
+        <Link className="hm-navlink" to="/playground">
+          <span className="hm-emoji" aria-hidden="true">
+            👾
+          </span>
+          Playground
+        </Link>
       </nav>
     </>
   )

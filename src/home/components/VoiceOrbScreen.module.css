@@ -1,0 +1,107 @@
+/* Roboto Serif — load it once in your layout, e.g. with next/font/google:
+   import { Roboto_Serif } from 'next/font/google'
+   or add the Google Fonts <link> for "Roboto Serif" (400). */
+
+.screen {
+  position: relative;
+  width: 100%;
+  max-width: 390px;
+  aspect-ratio: 390 / 844;
+  overflow: hidden;
+  background: #7e8e7b;
+  color: #1f2a22;
+  font-family: 'Roboto Serif', Georgia, serif;
+}
+
+.orbButton {
+  position: absolute;
+  inset: 0;
+  appearance: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.controls {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 44px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pill {
+  position: relative;
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  height: 64px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+  color: #1f2a22;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.18s ease, background 0.25s ease;
+}
+.pill:hover { background: rgba(255, 255, 255, 0.3); }
+.pill:active { transform: scale(0.94); }
+.pill:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+.side { width: 88px; flex-shrink: 0; }
+.on { background: rgba(255, 255, 255, 0.55); }
+
+.status {
+  flex: 1 1 auto;
+  min-width: 0;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+}
+
+.label {
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  padding: 4px 0;
+}
+.dim { opacity: 0.7; }
+
+/* shimmer border on the inside edge of the status pill */
+.ring {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  overflow: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+.ring > span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 420px;
+  height: 420px;
+  margin: -210px 0 0 -210px;
+  background: conic-gradient(from 0deg, transparent 0 52%, rgba(255, 255, 255, 0) 56%, rgba(255, 255, 255, 0.95) 76%, rgba(255, 255, 255, 0) 94%, transparent 100%);
+  animation: ringspin 2.4s linear infinite;
+}
+.ringOff { opacity: 0; }
+.ringOff > span { animation-play-state: paused; }
+
+@keyframes ringspin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring > span { animation: none; }
+}

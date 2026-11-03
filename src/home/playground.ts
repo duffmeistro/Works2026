@@ -1,4 +1,4 @@
-export type ArtKind = 'orb' | 'pill' | 'wave' | 'grad' | 'type' | 'cards' | 'dots' | 'phone' | 'v1' | 'v2'
+export type ArtKind = 'orb' | 'pill' | 'wave' | 'grad' | 'type' | 'cards' | 'dots' | 'phone' | 'v1' | 'v2' | 'rec' | 'hr' | 'vc' | 'rev' | 'mix' | 'vo' | 'rv' | 'lm' | 'vcm' | 'df' | 'tk' | 'pb'
 export type TileKind = ArtKind | 'text1' | 'text2' | 'text3' | 'blank' | 'empty'
 
 export type Tile = {
@@ -13,7 +13,7 @@ export type Tile = {
 export const ACCENTS = ['#E7A33E', '#1E7B5C', '#8B5CF6', '#0E7490', '#FF5A36', '#2E3BFF']
 export const TINTS = ['#F8EDDB', '#DFEDE6', '#ECE5FB', '#DCECF0', '#FBE6DE', '#E3E5FB']
 
-const ART_KINDS: ArtKind[] = ['orb', 'pill', 'wave', 'grad', 'type', 'cards', 'dots', 'phone', 'v1', 'v2']
+const ART_KINDS: ArtKind[] = ['orb', 'pill', 'wave', 'grad', 'type', 'cards', 'dots', 'phone', 'v1', 'v2', 'rec', 'hr', 'vc', 'rev', 'mix', 'vo', 'rv', 'lm', 'vcm', 'df', 'tk', 'pb']
 
 const TITLES: Record<ArtKind, string> = {
   orb: 'Liquid orbs',
@@ -26,24 +26,30 @@ const TITLES: Record<ArtKind, string> = {
   phone: 'Ghost devices',
   v1: 'Voice assistant — answer',
   v2: 'Voice assistant — ready',
+  rec: 'Voice recorder',
+  hr: 'Heart rate',
+  vc: 'Voice composer',
+  rev: 'Revenue chart',
+  mix: 'Gradient mixer',
+  vo: 'Voice orb',
+  rv: 'Reverie',
+  lm: 'Lead match',
+  vcm: 'Mobile composer',
+  df: 'DayFlow',
+  tk: 'Biometric ticket',
+  pb: 'Plan builder',
 }
 
 const DESKTOP_LAYOUT = [
-  'text1', 'blank', 'v2', 'blank', 'empty', 'blank', 'orb:2', 'blank', 'text2', 'blank', 'pill:0',
-  'wave:0', 'grad:3', 'blank', 'empty', 'blank', 'type:1', 'blank', 'cards:5', 'phone:4', 'blank', 'empty',
-  'blank', 'empty', 'dots:2', 'blank', 'v1', 'blank', 'empty', 'blank', 'orb:5', 'grad:0', 'blank',
-  'pill:3', 'blank', 'blank', 'cards:1', 'blank', 'wave:4', 'orb:0', 'blank', 'blank', 'empty', 'type:2',
-  'empty', 'phone:1', 'blank', 'grad:5', 'empty', 'blank', 'dots:3', 'pill:2', 'blank', 'text3', 'blank',
+  'blank', 'empty', 'rec', 'empty', 'blank', 'rv', 'pb', 'blank', 'mix', 'empty', 'blank',
+  'blank', 'blank', 'lm', 'empty', 'hr', 'blank', 'empty', 'df', 'blank', 'vo', 'blank',
+  'blank', 'vc', 'blank', 'tk', 'empty', 'blank', 'rev', 'empty', 'vcm', 'empty', 'blank',
 ]
 
 const MOBILE_LAYOUT = [
-  'text1', 'v2', 'blank', 'orb:2',
-  'blank', 'empty', 'wave:0', 'blank',
-  'grad:3', 'blank', 'v1', 'empty',
-  'blank', 'type:1', 'blank', 'pill:0',
-  'cards:5', 'blank', 'empty', 'phone:4',
-  'empty', 'dots:2', 'text2', 'grad:0',
-  'blank', 'orb:5', 'pill:3', 'text3',
+  'rec', 'pb', 'vc', 'rv',
+  'lm', 'hr', 'df', 'rev',
+  'mix', 'tk', 'vo', 'vcm',
 ]
 
 function buildTiles(layout: string[]): Tile[] {
