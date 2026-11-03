@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import styles from './VoiceRecorder.module.css';
 
 /*
@@ -62,6 +62,7 @@ export default function VoiceRecorder({
   const [half, setHalf] = useState(() => Math.floor((startSeconds * 1000) / STEP_MS));
 
   const msRef = useRef(startSeconds * 1000);
+  const renderedHalfRef = useRef(half);
   const statusRef = useRef<Status>(status);
   const stripRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -70,11 +71,16 @@ export default function VoiceRecorder({
   statusRef.current = status;
 
   const applyTransform = useCallback(() => {
-    const frac = (msRef.current % STEP_MS) / STEP_MS;
+    const frac = (msRef.current - renderedHalfRef.current * STEP_MS) / STEP_MS;
     if (stripRef.current) {
       stripRef.current.style.transform = `translate3d(${(-COL_W - frac * COL_W).toFixed(2)}px,0,0)`;
     }
   }, []);
+
+  useLayoutEffect(() => {
+    renderedHalfRef.current = half;
+    applyTransform();
+  }, [half, applyTransform]);
 
   // Animation loop: advance time while recording and on screen.
   useEffect(() => {

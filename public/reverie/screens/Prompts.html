@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Prompt library</title>
+<meta name="viewport" content="width=390, initial-scale=1">
+<link rel="stylesheet" href="../assets/fonts.css">
+<script src="../assets/dc-runtime.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+.theme-light{--bg:#F3F0E8;--bg0:rgba(243,240,232,0);--bg-grad:#F3F0E8;--fg:#111111;--muted:#66635D;--muted2:#6F6B64;--soft:#3A3833;--card:#FBF9F4;--card-line:#E4E1DA;--card-soft:rgba(17,17,17,0.07);--hair:#DAD6CE;--sheen:rgba(255,255,255,0);--sheen0:rgba(255,255,255,0);--glass-bg:rgba(251,249,244,0.7);--glass-fg:#111111;--glass-hi:rgba(255,255,255,0.95);--glass-lo:rgba(17,17,17,0.06);--glass-ring:rgba(17,17,17,0.09);--glass-shadow:rgba(70,60,35,0.12);--warm:#B3361B;--cool:#C2185B;--track-on:#C2185B;--track-off:#D6D2C8;--sheet:rgba(251,249,244,0.96);--scrim:rgba(40,32,15,0.28);--field:rgba(17,17,17,0.045);--grabber:rgba(17,17,17,0.2);--tshadow:rgba(243,240,232,0.85);--dot:#1A1917}
+.theme-dark{--bg:#1A1916;--bg0:rgba(26,25,22,0);--bg-grad:#1A1916;--fg:#EDE9DF;--muted:#A09B90;--muted2:#968F84;--soft:#CBC6BA;--card:#23221F;--card-line:rgba(237,233,223,0.1);--card-soft:rgba(237,233,223,0.08);--hair:rgba(237,233,223,0.12);--sheen:rgba(255,255,255,0);--sheen0:rgba(255,255,255,0);--glass-bg:rgba(48,46,41,0.6);--glass-fg:#EDE9DF;--glass-hi:rgba(255,255,255,0.2);--glass-lo:rgba(255,255,255,0.05);--glass-ring:rgba(255,255,255,0.1);--glass-shadow:rgba(0,0,0,0.3);--warm:#F0A58C;--cool:#FF7AAE;--track-on:#D81B6A;--track-off:#3C3A35;--sheet:rgba(35,34,31,0.96);--scrim:rgba(8,7,5,0.55);--field:rgba(237,233,223,0.06);--grabber:rgba(237,233,223,0.22);--tshadow:rgba(26,25,22,0.75);--dot:#EDE9DF}
+.theme-dark .blob{mix-blend-mode:screen}
+.theme-light .blob{mix-blend-mode:multiply}
+body{margin:0}
+button{font-family:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.glass{position:relative;border:0;color:var(--glass-fg);text-decoration:none;background:var(--glass-bg);-webkit-backdrop-filter:blur(24px) saturate(170%);backdrop-filter:blur(24px) saturate(170%);box-shadow:inset 0 1px 0.5px var(--glass-hi),inset 0 -1px 0.5px var(--glass-lo),inset 0 0 0 0.5px var(--glass-ring),0 10px 30px var(--glass-shadow);transition:transform .18s cubic-bezier(.2,.8,.2,1)}
+.glass::before{content:"";position:absolute;left:0;top:0;right:0;bottom:0;border-radius:inherit;pointer-events:none;background:linear-gradient(160deg,rgba(255,255,255,0.28) 0%,rgba(255,255,255,0) 38%,rgba(255,255,255,0) 70%,rgba(255,255,255,0.1) 100%)}
+.glass > *{position:relative}
+.glass:active{transform:scale(0.96)}
+.scroller{scrollbar-width:none}
+.scroller::-webkit-scrollbar{display:none}
+textarea::placeholder{color:var(--muted2)}
+@keyframes slideup{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.sheetpanel{animation:slideup .34s cubic-bezier(.2,.8,.2,1)}
+button:disabled{cursor:default}
+.knob{transition:transform .22s cubic-bezier(.2,.8,.2,1)}
+.track{transition:background .22s}
+.screen-in{animation:screenIn .45s cubic-bezier(.2,.8,.2,1) backwards}
+@keyframes screenIn{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.screen-in{animation:none}}
+</style>
+</helmet>
+<div class="{{themeClass}}" style="position: relative; width: 390px; height: 844px; overflow: hidden; background: var(--bg-grad); color: var(--fg); font-family: 'Instrument Sans', -apple-system, system-ui, sans-serif; box-sizing: border-box">
+<div class="screen-in" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+
+  <div style="position: absolute; left: 0; top: 0; width: 390px; height: 420px; background: radial-gradient(ellipse at 50% 0%, var(--sheen) 0%, var(--sheen0) 72%)"></div>
+
+  <div class="scroller" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; overflow-y: auto; box-sizing: border-box; padding: 124px 20px 170px">
+    <h1 style="margin: 0; font-family: 'Fraunces', Georgia, serif; font-variation-settings: 'SOFT' 100, 'WONK' 0; font-size: 36px; line-height: 40px; font-weight: 400; letter-spacing: -0.02em">Prompt library</h1>
+    <p style="margin: 10px 0 0; font-size: 15px; line-height: 22px; font-weight: 400; color: var(--soft); text-wrap: pretty">Choose the questions you'd like to be asked. Each new entry shows one of them at random.</p>
+    <div style="margin-top: 14px; font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cool)">{{countLabel}}</div>
+
+    <sc-for list="{{groups}}" as="g" hint-placeholder-count="4">
+      <section style="display: flex; flex-direction: column; gap: 8px; padding-top: 24px">
+        <h2 style="margin: 0 0 0 16px; font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 12px; line-height: 18px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted)">{{g.name}}</h2>
+        <div style="background: var(--card); border-radius: 24px; box-shadow: inset 0 0 0 0.5px var(--card-line); overflow: hidden">
+          <sc-for list="{{g.rows}}" as="r" hint-placeholder-count="3">
+            <button role="switch" aria-checked="{{r.on}}" onClick="{{r.toggle}}" style="width: 100%; box-sizing: border-box; min-height: 64px; padding: 12px 16px; border: 0; border-top: {{r.divider}}; background: transparent; color: var(--fg); display: flex; align-items: center; justify-content: space-between; gap: 16px; text-align: left; cursor: pointer; font: inherit">
+              <span style="font-family: 'Fraunces', Georgia, serif; font-variation-settings: 'SOFT' 100, 'WONK' 0; font-weight: 400; font-size: 17px; line-height: 24px; letter-spacing: -0.01em; text-wrap: pretty">{{r.text}}</span>
+              <span class="track" style="flex: none; position: relative; width: 38px; height: 22px; border-radius: 11px; background: {{r.track}}">
+                <span class="knob" style="position: absolute; left: 2px; top: 2px; width: 18px; height: 18px; border-radius: 9px; background: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.35); transform: {{r.knob}}"></span>
+              </span>
+            </button>
+          </sc-for>
+        </div>
+      </section>
+    </sc-for>
+
+    <section style="display: flex; flex-direction: column; gap: 8px; padding-top: {{addPad}}">
+      <sc-if value="{{showCustomHeader}}" hint-placeholder-val="{{ false }}">
+        <h2 style="margin: 0 0 0 16px; font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 12px; line-height: 18px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted)">Your prompts</h2>
+      </sc-if>
+      <div style="background: var(--card); border-radius: 24px; box-shadow: inset 0 0 0 0.5px var(--card-line); overflow: hidden">
+        <button onClick="{{openSheet}}" style="width: 100%; box-sizing: border-box; min-height: 64px; padding: 12px 16px; border: 0; background: transparent; color: var(--cool); display: flex; align-items: center; gap: 12px; text-align: left; cursor: pointer; font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 16px; letter-spacing: -0.005em">
+          <span style="flex: none; width: 22px; height: 22px; border-radius: 11px; box-shadow: inset 0 0 0 1px currentColor; display: flex; align-items: center; justify-content: center">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M5 1v8M1 5h8"></path></svg>
+          </span>
+          <span>Add your own prompt</span>
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <!-- fade under the floating button -->
+  
+
+  <!-- back -->
+  <div style="position: absolute; left: 16px; top: 56px; display: flex">
+    <a class="glass" aria-label="Back to journal" href="Home.html" style="width: 44px; height: 44px; border-radius: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer">
+      <svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2L2 10l8 8"></path></svg>
+    </a>
+  </div>
+
+  <!-- done -->
+  
+
+  <!-- add prompt: bottom sheet -->
+  <sc-if value="{{sheetOpen}}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; overflow: hidden">
+      <button aria-label="Dismiss" onClick="{{closeSheet}}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; border: 0; padding: 0; background: var(--scrim); cursor: default"></button>
+      <div class="sheetpanel" style="position: absolute; left: 0; bottom: 0; width: 390px; box-sizing: border-box; padding: 12px 20px 36px; border-radius: 30px 30px 0 0; background: var(--sheet); -webkit-backdrop-filter: blur(30px) saturate(160%); backdrop-filter: blur(30px) saturate(160%); box-shadow: inset 0 1px 0.5px var(--glass-hi), inset 0 0 0 0.5px var(--hair); display: flex; flex-direction: column; gap: 16px">
+        <div style="align-self: center; width: 36px; height: 5px; border-radius: 3px; background: var(--grabber)"></div>
+        <label for="newPrompt" style="font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted)">New prompt</label>
+        <textarea id="newPrompt" placeholder="What question do you want to be asked?" maxLength="140" value="{{draft}}" onChange="{{onDraft}}" onInput="{{onDraft}}" style="width: 100%; box-sizing: border-box; height: 92px; resize: none; border: 0; outline: none; padding: 14px 16px; border-radius: 18px; background: var(--field); box-shadow: inset 0 0 0 0.5px var(--hair); color: var(--fg); font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 16px; line-height: 22px; letter-spacing: -0.005em"></textarea>
+        <div style="display: flex; align-items: center; justify-content: space-between">
+          <button onClick="{{closeSheet}}" style="height: 44px; padding: 0 6px; border: 0; background: transparent; color: var(--soft); font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 15px; cursor: pointer">Cancel</button>
+          <button class="glass" disabled="{{saveDisabled}}" onClick="{{save}}" style="height: 50px; padding: 0 26px; border-radius: 25px; font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 16px; font-weight: 600; letter-spacing: 0; cursor: pointer; opacity: {{saveOpacity}}">Save prompt</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+// soft interface sounds, synthesised with the Web Audio API (no audio files)
+const SFX = (() => {
+  let ctx = null;
+  const enabled = () => { try { return window.localStorage.getItem('voiceJournalSound') !== 'off'; } catch (e) { return true; } };
+  const audio = () => {
+    try {
+      if (!ctx) { const C = window.AudioContext || window.webkitAudioContext; if (!C) return null; ctx = new C(); }
+      if (ctx.state === 'suspended') ctx.resume();
+      return ctx;
+    } catch (e) { return null; }
+  };
+  const tone = (c, f, t0, d, o) => {
+    o = o || {};
+    const t = c.currentTime + t0;
+    const osc = c.createOscillator();
+    const g = c.createGain();
+    osc.type = o.type || 'sine';
+    osc.frequency.setValueAtTime(f, t);
+    if (o.to) osc.frequency.exponentialRampToValueAtTime(o.to, t + d);
+    const peak = o.g || 0.05;
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(peak, t + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+    osc.connect(g);
+    g.connect(c.destination);
+    osc.start(t);
+    osc.stop(t + d + 0.05);
+  };
+  const chime = (c, notes, t0, step, d, gain) => notes.forEach((f, i) => {
+    tone(c, f, t0 + i * step, d, { type: 'triangle', g: gain });
+    tone(c, f * 2, t0 + i * step, d * 0.6, { g: gain * 0.35 });
+  });
+  const play = (name) => {
+    if (!enabled()) return;
+    const c = audio();
+    if (!c) return;
+    switch (name) {
+      case 'tap': tone(c, 660, 0, 0.07, { g: 0.035 }); tone(c, 990, 0, 0.05, { g: 0.015 }); break;
+      case 'select': tone(c, 740, 0, 0.08, { g: 0.035 }); tone(c, 1110, 0.03, 0.08, { g: 0.015 }); break;
+      case 'close': tone(c, 520, 0, 0.1, { to: 380, g: 0.035 }); break;
+      case 'open': tone(c, 330, 0, 0.12, { g: 0.035 }); tone(c, 495, 0.05, 0.14, { g: 0.02 }); break;
+      case 'on': tone(c, 587, 0, 0.09, { g: 0.04 }); tone(c, 880, 0.06, 0.13, { g: 0.04 }); break;
+      case 'off': tone(c, 587, 0, 0.09, { g: 0.035 }); tone(c, 392, 0.06, 0.13, { g: 0.035 }); break;
+      case 'start': chime(c, [523, 784], 0, 0.09, 0.32, 0.045); break;
+      case 'reflect': tone(c, 440, 0, 0.4, { to: 660, g: 0.045, type: 'triangle' }); tone(c, 880, 0.12, 0.3, { g: 0.015 }); break;
+      case 'reply': chime(c, [784, 988], 0, 0.11, 0.4, 0.035); break;
+      case 'done': tone(c, 392, 0, 0.26, { type: 'triangle', g: 0.05 }); tone(c, 294, 0.1, 0.36, { type: 'triangle', g: 0.04 }); break;
+      case 'save': chime(c, [523, 659, 784, 1047], 0, 0.08, 0.5, 0.04); break;
+      case 'saved': chime(c, [659, 784, 988, 1319], 0.85, 0.09, 0.6, 0.04); break;
+      case 'discard': tone(c, 330, 0, 0.14, { to: 247, g: 0.04, type: 'triangle' }); tone(c, 247, 0.09, 0.24, { to: 175, g: 0.03, type: 'triangle' }); break;
+      default: break;
+    }
+  };
+  return { play, enabled };
+})();
+
+class Component extends DCLogic {
+  componentDidMount() {
+    this._onStore = () => this.forceUpdate();
+    window.addEventListener('storage', this._onStore);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('storage', this._onStore);
+  }
+
+  themeName() {
+    try { return window.localStorage.getItem('voiceJournalTheme') === 'light' ? 'light' : 'dark'; } catch (e) { return 'dark'; }
+  }
+
+  prompts() {
+    return [
+      { group: 'Gratitude', id: 'grat3', text: "What are three things you're grateful for today?" },
+      { group: 'Gratitude', id: 'gratperson', text: 'Who made your day a little easier, and how?' },
+      { group: 'Gratitude', id: 'gratsmall', text: 'What small thing did you almost miss today?' },
+      { group: 'Reflection', id: 'smile', text: 'What made you smile today?' },
+      { group: 'Reflection', id: 'proud', text: "What's something you handled better than you expected?" },
+      { group: 'Reflection', id: 'learned', text: 'What did you learn today, about anything?' },
+      { group: 'Reflection', id: 'remember', text: 'What do you want to remember about today?' },
+      { group: 'Release', id: 'weigh', text: "What's weighing on you, and what's one small step?" },
+      { group: 'Release', id: 'unsaid', text: "What's something you've been avoiding saying out loud?" },
+      { group: 'Release', id: 'letgo', text: 'What can you let go of before tomorrow?' },
+      { group: 'Looking ahead', id: 'tomorrow', text: 'What would make tomorrow a good day?' },
+      { group: 'Looking ahead', id: 'carry', text: 'What from today would you like to carry into tomorrow?' },
+      { group: 'Looking ahead', id: 'week', text: "What's one thing you want to do differently this week?" }
+    ];
+  }
+
+  custom() {
+    if (!this._custom) {
+      let list = [];
+      try {
+        const raw = window.localStorage.getItem('voiceJournalCustom');
+        if (raw) list = JSON.parse(raw);
+      } catch (e) { list = []; }
+      this._custom = Array.isArray(list) ? list.filter((c) => c && c.id && c.text) : [];
+    }
+    return this._custom;
+  }
+
+  allPrompts() {
+    return this.prompts().concat(this.custom().map((c) => ({ group: 'Your prompts', id: c.id, text: c.text })));
+  }
+
+  save() {
+    const text = (this._draft || '').trim();
+    if (!text) return;
+    const id = 'c' + Date.now();
+    this.custom().push({ id, text });
+    this.selection().push(id);
+    try {
+      window.localStorage.setItem('voiceJournalCustom', JSON.stringify(this.custom()));
+      window.localStorage.setItem('voiceJournalPrompts', JSON.stringify(this.selection()));
+    } catch (e) { /* storage unavailable */ }
+    this._draft = '';
+    this._sheet = false;
+    
+    this.forceUpdate();
+  }
+
+  selection() {
+    if (!this._sel) {
+      let ids = null;
+      try {
+        const raw = window.localStorage.getItem('voiceJournalPrompts');
+        if (raw) ids = JSON.parse(raw);
+      } catch (e) { ids = null; }
+      const valid = this.allPrompts().map((p) => p.id);
+      ids = Array.isArray(ids) ? ids.filter((id) => valid.indexOf(id) >= 0) : null;
+      this._sel = ids && ids.length ? ids : ['grat3', 'smile', 'remember'];
+    }
+    return this._sel;
+  }
+
+  toggle(id) {
+    const sel = this.selection();
+    const i = sel.indexOf(id);
+    if (i >= 0) {
+      if (sel.length === 1) return; // keep at least one prompt on
+      sel.splice(i, 1);
+      
+    } else {
+      sel.push(id);
+      
+    }
+    try { window.localStorage.setItem('voiceJournalPrompts', JSON.stringify(sel)); } catch (e) { /* storage unavailable */ }
+    this.forceUpdate();
+  }
+
+  renderVals() {
+    const sel = this.selection();
+    const groups = [];
+    this.allPrompts().forEach((p) => {
+      let g = groups[groups.length - 1];
+      if (!g || g.name !== p.group) {
+        g = { name: p.group, rows: [] };
+        groups.push(g);
+      }
+      const on = sel.indexOf(p.id) >= 0;
+      g.rows.push({
+        text: p.text,
+        on,
+        divider: g.rows.length ? '0.5px solid var(--hair)' : '0 none transparent',
+        track: on ? 'var(--track-on)' : 'var(--track-off)',
+        knob: on ? 'translateX(16px)' : 'translateX(0px)',
+        toggle: () => this.toggle(p.id)
+      });
+    });
+    const hasCustom = this.custom().length > 0;
+    const draft = this._draft || '';
+    const empty = !draft.trim();
+    return {
+      themeClass: this.themeName() === 'light' ? 'theme-light' : 'theme-dark',
+      groups,
+      countLabel: sel.length + ' selected',
+      hasCustom,
+      showCustomHeader: !hasCustom,
+      addPad: hasCustom ? '12px' : '24px',
+      sheetOpen: !!this._sheet,
+      draft,
+      saveDisabled: empty,
+      saveOpacity: empty ? '0.45' : '1',
+      openSheet: () => { this._sheet = true; this.forceUpdate(); },
+      closeSheet: () => { this._sheet = false; this._draft = ''; this.forceUpdate(); },
+      onDraft: (e) => { this._draft = e && e.target ? e.target.value : ''; this.forceUpdate(); },
+      save: () => this.save()
+    };
+  }
+}
+</script>
+</body>
+</html>

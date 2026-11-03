@@ -74,6 +74,7 @@
   line-height: 20px;
   letter-spacing: 0.02em;
   text-transform: uppercase;
+  white-space: nowrap;
   position: relative;
   z-index: 2;
 }
@@ -807,6 +808,9 @@
 .hm-mitem:focus-visible {
   outline: 2px solid #e8e4dc;
   outline-offset: -2px;
+}
+.hm-mitem .hm-emoji {
+  margin-right: -6px;
 }
 .hm-root.is-dark .hm-menu {
   background: #232221;

@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Journal library</title>
+<meta name="viewport" content="width=390, initial-scale=1">
+<link rel="stylesheet" href="../assets/fonts.css">
+<script src="../assets/dc-runtime.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+.theme-light{--bg:#F3F0E8;--bg0:rgba(243,240,232,0);--bg-grad:#F3F0E8;--fg:#111111;--muted:#66635D;--muted2:#6F6B64;--soft:#3A3833;--card:#FBF9F4;--card-line:#E4E1DA;--card-soft:rgba(17,17,17,0.07);--hair:#DAD6CE;--sheen:rgba(255,255,255,0);--sheen0:rgba(255,255,255,0);--glass-bg:rgba(251,249,244,0.7);--glass-fg:#111111;--glass-hi:rgba(255,255,255,0.95);--glass-lo:rgba(17,17,17,0.06);--glass-ring:rgba(17,17,17,0.09);--glass-shadow:rgba(70,60,35,0.12);--warm:#B3361B;--cool:#C2185B;--track-on:#C2185B;--track-off:#D6D2C8;--sheet:rgba(251,249,244,0.96);--scrim:rgba(40,32,15,0.28);--field:rgba(17,17,17,0.045);--grabber:rgba(17,17,17,0.2);--tshadow:rgba(243,240,232,0.85);--dot:#1A1917}
+.theme-dark{--bg:#1A1916;--bg0:rgba(26,25,22,0);--bg-grad:#1A1916;--fg:#EDE9DF;--muted:#A09B90;--muted2:#968F84;--soft:#CBC6BA;--card:#23221F;--card-line:rgba(237,233,223,0.1);--card-soft:rgba(237,233,223,0.08);--hair:rgba(237,233,223,0.12);--sheen:rgba(255,255,255,0);--sheen0:rgba(255,255,255,0);--glass-bg:rgba(48,46,41,0.6);--glass-fg:#EDE9DF;--glass-hi:rgba(255,255,255,0.2);--glass-lo:rgba(255,255,255,0.05);--glass-ring:rgba(255,255,255,0.1);--glass-shadow:rgba(0,0,0,0.3);--warm:#F0A58C;--cool:#FF7AAE;--track-on:#D81B6A;--track-off:#3C3A35;--sheet:rgba(35,34,31,0.96);--scrim:rgba(8,7,5,0.55);--field:rgba(237,233,223,0.06);--grabber:rgba(237,233,223,0.22);--tshadow:rgba(26,25,22,0.75);--dot:#EDE9DF}
+.theme-dark .blob{mix-blend-mode:screen}
+.theme-light .blob{mix-blend-mode:multiply}
+body{margin:0}
+a{text-decoration:none}
+button{font-family:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.glass{position:relative;border:0;color:var(--glass-fg);text-decoration:none;background:var(--glass-bg);-webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);box-shadow:inset 0 1px 0.5px var(--glass-hi),inset 0 -1px 0.5px var(--glass-lo),inset 0 0 0 0.5px var(--glass-ring),0 10px 30px var(--glass-shadow);transition:transform .18s cubic-bezier(.2,.8,.2,1)}
+.glass > *{position:relative}
+.glass:active{transform:scale(0.96)}
+.card{transition:transform .18s cubic-bezier(.2,.8,.2,1)}
+.card:active{transform:scale(0.97)}
+.scroller{scrollbar-width:none}
+.scroller::-webkit-scrollbar{display:none}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.sheet{animation:rise .32s cubic-bezier(.2,.8,.2,1)}
+.mo{position:relative;width:var(--s);height:var(--s);isolation:isolate;flex:none}
+.mo-in{position:absolute;inset:0;animation-name:mo-breathe;animation-duration:calc(5s / var(--speed,1));animation-iteration-count:infinite;animation-timing-function:ease-in-out;animation-delay:calc(0s - var(--t,0s));animation-play-state:var(--ps,running)}
+.mo-orb{position:absolute;inset:0;mix-blend-mode:multiply;animation-name:mo-spin;animation-duration:calc(var(--dur,10s) / var(--speed,1));animation-iteration-count:infinite;animation-timing-function:linear;animation-direction:var(--dir,normal);animation-delay:calc(0s - var(--t,0s));animation-play-state:var(--ps,running)}
+.o1{--dur:10s}.o2{--dur:12s;--dir:reverse}.o3{--dur:11s}.ok1{--dur:13s}.ok2{--dur:17s;--dir:reverse}
+.mo-c{position:absolute;box-sizing:border-box;border-style:solid;border-width:calc(var(--s) * var(--w,.12));border-radius:50%;filter:blur(calc(var(--s) * var(--bl,.007)));animation-name:mo-morph;animation-duration:calc(var(--dm,5s) / var(--speed,1));animation-iteration-count:infinite;animation-timing-function:ease-in-out;animation-delay:calc(0s - var(--t,0s));animation-play-state:var(--ps,running)}
+.c1{inset:12.5%;translate:-1% -4%;--w:.08;--dm:4.5s;border-color:#1450FF;opacity:.92}
+.c2{inset:12.5%;translate:-4.5% 1%;--w:.085;--dm:5.5s;border-color:#FF2A12;opacity:.88}
+.c3{inset:11.5%;translate:4.5% 3%;--w:.09;--dm:5s;border-color:#FFD400;opacity:.95}
+.p1{inset:12.5%;translate:-1% -4%;--w:.08;--dm:4.5s;border-color:var(--ca);opacity:.9}
+.p2{inset:12.5%;translate:-4.5% 1%;--w:.085;--dm:5.5s;border-color:var(--cb);opacity:.85}
+.p3{inset:11.5%;translate:4.5% 3%;--w:.09;--dm:5s;border-color:var(--cc);opacity:.9}
+.k1{inset:16%;translate:-1.2% 1.2%;--w:.045;--bl:.004;--dm:5.5s;border-color:#050507;opacity:.95}
+.k2{inset:16.5%;translate:1% -.8%;--w:.038;--bl:.004;--dm:6.5s;border-color:#08090F;opacity:.9}
+.theme-dark .mo-orb{mix-blend-mode:screen}
+.theme-dark .c1,.theme-dark .p1{opacity:.78}.theme-dark .c2,.theme-dark .p2{opacity:.74}.theme-dark .c3,.theme-dark .p3{opacity:.8}
+.theme-dark .k1{border-color:#EDE9DF;opacity:.7}.theme-dark .k2{border-color:#E4DECF;opacity:.62}
+@keyframes mo-spin{to{transform:rotate(360deg)}}
+@keyframes mo-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+@keyframes mo-morph{0%,100%{border-radius:50% 48% 52% 50%/49% 52% 48% 51%}33%{border-radius:47% 53% 49% 51%/53% 47% 52% 48%}66%{border-radius:53% 48% 51% 47%/47% 51% 49% 53%}}
+.k1,.k2{animation-name:mo-flex}
+@keyframes mo-flex{0%,100%{border-radius:50% 46% 54% 50%/47% 53% 47% 53%;scale:1 1}25%{border-radius:44% 56% 48% 52%/55% 45% 54% 46%;scale:1.03 .97}50%{border-radius:55% 45% 52% 48%/45% 55% 48% 52%;scale:.98 1.02}75%{border-radius:47% 53% 57% 43%/52% 48% 44% 56%;scale:1.02 .985}}
+.screen-in{animation:screenIn .45s cubic-bezier(.2,.8,.2,1) backwards}
+@keyframes screenIn{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.screen-in{animation:none}}
+.scroller section>h2{animation:rise .5s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(60ms + var(--si,0)*110ms)}
+.scroller section>div>.card{animation:cardIn .6s cubic-bezier(.22,.9,.24,1) backwards;animation-delay:calc(140ms + var(--si,0)*110ms + var(--ci,0)*65ms)}
+.scroller section:nth-of-type(1){--si:0}.scroller section:nth-of-type(2){--si:1}.scroller section:nth-of-type(3){--si:2}.scroller section:nth-of-type(n+4){--si:3}
+.scroller section>div>.card:nth-child(1){--ci:0}.scroller section>div>.card:nth-child(2){--ci:1}.scroller section>div>.card:nth-child(3){--ci:2}.scroller section>div>.card:nth-child(4){--ci:3}.scroller section>div>.card:nth-child(n+5){--ci:4}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes cardIn{from{opacity:0;transform:translateY(22px) scale(.96)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.scroller section>h2,.scroller section>div>.card{animation:none}}
+.cta-l{transition:opacity .45s ease,transform .55s cubic-bezier(.2,.8,.2,1),filter .45s ease}
+.cta-done{opacity:0;transform:translateY(10px);filter:blur(4px)}
+.cta.is-saved .cta-new{opacity:0;transform:translateY(-10px);filter:blur(4px)}
+.cta.is-saved .cta-done{opacity:1;transform:none;filter:none}
+.tk-c{stroke-dasharray:1;stroke-dashoffset:1}
+.tk-p{stroke-dasharray:1;stroke-dashoffset:1}
+.cta.is-saved .tk-c{animation:tkDraw .7s cubic-bezier(.6,0,.2,1) .15s forwards}
+.cta.is-saved .tk-p{animation:tkDraw .45s cubic-bezier(.5,0,.2,1) .65s forwards}
+.cta.is-saved .cta-done svg{animation:tkPop .5s cubic-bezier(.3,1.5,.5,1) .85s}
+.cta.is-saved{animation:ctaPulse .9s ease .9s}
+@keyframes tkDraw{to{stroke-dashoffset:0}}
+@keyframes tkPop{0%{transform:scale(1)}45%{transform:scale(1.22)}100%{transform:scale(1)}}
+@keyframes ctaPulse{0%{box-shadow:inset 0 1px 0.5px var(--glass-hi),inset 0 0 0 0.5px var(--glass-ring),0 10px 30px var(--glass-shadow),0 0 0 0 transparent}40%{box-shadow:inset 0 1px 0.5px var(--glass-hi),inset 0 0 0 0.5px var(--glass-ring),0 10px 30px var(--glass-shadow),0 0 0 8px var(--card-soft)}100%{box-shadow:inset 0 1px 0.5px var(--glass-hi),inset 0 0 0 0.5px var(--glass-ring),0 10px 30px var(--glass-shadow),0 0 0 0 transparent}}
+@media (prefers-reduced-motion:reduce){.cta-l,.cta.is-saved,.cta.is-saved .cta-done svg{animation:none;transition:none}.tk-c,.tk-p{stroke-dashoffset:0;animation:none!important}}
+.glass.cta{background:var(--fg);color:var(--bg);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 10px 30px var(--glass-shadow)}
+.glass.cta::before{display:none}
+.insights-cta{transition:transform .18s cubic-bezier(.2,.8,.2,1),background .2s}
+.insights-cta:active{transform:scale(0.98)}
+</style>
+</helmet>
+<div class="{{themeClass}}" style="position: relative; width: 390px; height: 844px; overflow: hidden; background: var(--bg-grad); color: var(--fg); font-family: 'Instrument Sans', -apple-system, system-ui, sans-serif; box-sizing: border-box">
+<div class="screen-in" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+
+<div class="scroller" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; overflow-y: auto; box-sizing: border-box; padding: 60px 20px 160px">
+<div style="display: flex; align-items: center; justify-content: space-between; margin: 0 -4px 8px 0">
+<h1 aria-label="reverie" style="margin: 0 0 0 -6px; display: flex; align-items: center; gap: 4px; font-family: 'Fraunces', Georgia, serif; font-variation-settings: 'SOFT' 100, 'WONK' 0; font-size: 30px; line-height: 40px; font-weight: 400; letter-spacing: -0.02em">
+<a href="Intro.html" aria-label="reverie, back to intro" style="display: flex; align-items: center; gap: 4px; color: inherit; text-decoration: none; cursor: pointer">
+<div class="mo" style="--s: 44px">
+<div class="mo-in">
+<div class="mo-orb o1"><div class="mo-c c1"></div></div>
+<div class="mo-orb o2"><div class="mo-c c2"></div></div>
+<div class="mo-orb o3"><div class="mo-c c3"></div></div>
+<div class="mo-orb ok1"><div class="mo-c k1"></div></div>
+<div class="mo-orb ok2"><div class="mo-c k2"></div></div>
+</div>
+</div>
+<span aria-hidden="true">reverie</span>
+</a>
+</h1>
+<div style="display: flex; gap: 10px">
+<a class="glass" aria-label="Streaks" href="Streaks.html" style="width: 44px; height: 44px; border-radius: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"></path></svg>
+</a>
+<a class="glass" aria-label="Prompt library" href="Prompts.html" style="width: 44px; height: 44px; border-radius: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15 4v7H5.17L4 12.17V4h11m1-2H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm5 4h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1z"></path></svg>
+</a>
+<a class="glass" aria-label="Settings" href="Settings.html" style="width: 44px; height: 44px; border-radius: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"></path></svg>
+</a>
+</div>
+</div>
+<sc-for list="{{months}}" as="m" hint-placeholder-count="3">
+<section style="display: flex; flex-direction: column; gap: 12px; padding-top: 22px">
+<h2 style="margin: 0; font-size: 12px; line-height: 20px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase">{{m.name}} <span style="color: var(--muted2); font-weight: 400">{{m.year}}</span></h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<sc-for list="{{m.cards}}" as="c" hint-placeholder-count="2">
+<button type="button" class="card" onClick="{{c.open}}" style="position: relative; overflow: hidden; height: 216px; box-sizing: border-box; padding: 14px 16px 16px; border-radius: 24px; border: 0; background: var(--card); box-shadow: inset 0 0 0 0.5px var(--card-line); color: var(--fg); cursor: pointer; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; text-align: left; font: inherit">
+<div style="position: absolute; left: 0; top: 0; right: 0; height: 132px; display: flex; align-items: center; justify-content: center">
+<div class="mo" style="{{c.ringStyle}}">
+<div class="mo-in">
+<div class="mo-orb o1"><div class="mo-c p1"></div></div>
+<div class="mo-orb o2"><div class="mo-c p2"></div></div>
+<div class="mo-orb o3"><div class="mo-c p3"></div></div>
+<div class="mo-orb ok1"><div class="mo-c k1"></div></div>
+<div class="mo-orb ok2"><div class="mo-c k2"></div></div>
+</div>
+</div>
+</div>
+<div style="position: relative; display: flex; align-items: baseline; gap: 8px">
+<span style="font-family: 'Fraunces', Georgia, serif; font-variation-settings: 'SOFT' 100, 'WONK' 0; font-size: 26px; line-height: 26px; font-weight: 400">{{c.day}}</span>
+<span style="font-size: 11px; font-weight: 600; letter-spacing: 0.1em; color: var(--muted)">{{c.wd}}</span>
+</div>
+<p style="position: relative; margin: 0; font-size: 13.5px; line-height: 19px; font-weight: 400; color: var(--soft); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden">{{c.preview}}</p>
+</button>
+</sc-for>
+</div>
+<a class="insights-cta" href="Insights.html" onClick="{{m.insights}}" style="box-sizing: border-box; margin-top: 2px; min-height: 56px; padding: 0 18px 0 16px; border-radius: 24px; display: flex; align-items: center; justify-content: center; gap: 10px; color: var(--fg); text-decoration: none; box-shadow: inset 0 0 0 1px var(--hair); font-size: 16px; font-weight: 500; letter-spacing: -0.005em; cursor: pointer">
+<span style="display: flex; color: var(--cool)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m19 9 1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25zm0 6-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25zm-7.5-5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zm-1.51 3.49L9 15.17l-.99-2.18L5.83 12l2.18-.99L9 8.83l.99 2.18 2.18.99-2.18.99z"></path></svg></span>
+<span>Get insights</span>
+</a>
+</section>
+</sc-for>
+</div>
+
+<div style="position: absolute; left: 0; bottom: 0; width: 390px; height: 150px; pointer-events: none; background: linear-gradient(to top, var(--bg) 20%, var(--bg0) 100%)"></div>
+
+<div style="position: absolute; left: 0; bottom: 48px; width: 390px; display: flex; justify-content: center">
+<a class="glass cta {{ctaClass}}" href="Main.html" onClick="{{onNew}}" aria-live="polite" style="position: relative; width: 190px; height: 58px; border-radius: 29px; display: block; box-sizing: border-box; font-size: 16px; font-weight: 500; cursor: pointer; overflow: hidden">
+<span class="cta-l cta-new" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; gap: 10px">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>
+<span>new entry</span>
+</span>
+<span class="cta-l cta-done" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; gap: 10px">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle class="tk-c" cx="12" cy="12" r="10" pathLength="1"></circle><path class="tk-p" d="M7 12.5l3.2 3.2L17 8.6" pathLength="1"></path></svg>
+<span>Entry saved</span>
+</span>
+</a>
+</div>
+
+<sc-if value="{{showDetail}}" hint-placeholder-val="{{ false }}">
+<div class="sheet" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; overflow: hidden; background: var(--bg-grad)">
+<div style="position: absolute; left: -95px; top: 560px; opacity: {{detail.ringOpacity}}; transform: translateY({{detail.ringShift}}); transition: transform .35s cubic-bezier(.2,.8,.2,1), opacity .35s ease-out">
+<div class="mo" style="{{detail.ringStyle}}">
+<div class="mo-in">
+<div class="mo-orb o1"><div class="mo-c p1"></div></div>
+<div class="mo-orb o2"><div class="mo-c p2"></div></div>
+<div class="mo-orb o3"><div class="mo-c p3"></div></div>
+<div class="mo-orb ok1"><div class="mo-c k1"></div></div>
+<div class="mo-orb ok2"><div class="mo-c k2"></div></div>
+</div>
+</div>
+</div>
+<div class="scroller" onScroll="{{onDetailScroll}}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; overflow-y: auto; box-sizing: border-box; padding: 124px 24px 180px">
+<div style="font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted)">{{detail.longDate}}</div>
+<h2 style="margin: 14px 0 28px; font-family: 'Fraunces', Georgia, serif; font-variation-settings: 'SOFT' 100, 'WONK' 0; font-weight: 400; font-size: 28px; line-height: 1.18; letter-spacing: -0.015em; text-wrap: balance">{{detail.q}}</h2>
+<div style="display: flex; flex-direction: column; gap: 18px">
+<sc-for list="{{detail.paras}}" as="p" hint-placeholder-count="2">
+<p style="margin: 0; font-size: 17px; line-height: 27px; font-weight: 400; color: var(--fg)">{{p.text}}</p>
+</sc-for>
+</div>
+<sc-if value="{{detail.hasReply}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 32px; padding-top: 20px; border-top: 0.5px solid var(--hair); display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--warm)">Reflection</div>
+<p style="margin: 0; font-family: 'Fraunces', Georgia, serif; font-variation-settings: 'SOFT' 100, 'WONK' 0; font-style: italic; font-size: 19px; line-height: 28px; font-weight: 300; color: var(--warm)">{{detail.reply}}</p>
+</div>
+</sc-if>
+</div>
+<div style="position: absolute; left: 16px; top: 56px; display: flex">
+<button type="button" class="glass" aria-label="Back to journal" onClick="{{onBack}}" style="width: 44px; height: 44px; border-radius: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0">
+<svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2L2 10l8 8"></path></svg>
+</button>
+</div>
+</div>
+</sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+// soft interface sounds, synthesised with the Web Audio API (no audio files)
+const SFX = (() => {
+  let ctx = null;
+  const enabled = () => { try { return window.localStorage.getItem('voiceJournalSound') !== 'off'; } catch (e) { return true; } };
+  const audio = () => {
+    try {
+      if (!ctx) { const C = window.AudioContext || window.webkitAudioContext; if (!C) return null; ctx = new C(); }
+      if (ctx.state === 'suspended') ctx.resume();
+      return ctx;
+    } catch (e) { return null; }
+  };
+  const tone = (c, f, t0, d, o) => {
+    o = o || {};
+    const t = c.currentTime + t0;
+    const osc = c.createOscillator();
+    const g = c.createGain();
+    osc.type = o.type || 'sine';
+    osc.frequency.setValueAtTime(f, t);
+    if (o.to) osc.frequency.exponentialRampToValueAtTime(o.to, t + d);
+    const peak = o.g || 0.05;
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(peak, t + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+    osc.connect(g);
+    g.connect(c.destination);
+    osc.start(t);
+    osc.stop(t + d + 0.05);
+  };
+  const chime = (c, notes, t0, step, d, gain) => notes.forEach((f, i) => {
+    tone(c, f, t0 + i * step, d, { type: 'triangle', g: gain });
+    tone(c, f * 2, t0 + i * step, d * 0.6, { g: gain * 0.35 });
+  });
+  const play = (name) => {
+    if (!enabled()) return;
+    const c = audio();
+    if (!c) return;
+    switch (name) {
+      case 'tap': tone(c, 660, 0, 0.07, { g: 0.035 }); tone(c, 990, 0, 0.05, { g: 0.015 }); break;
+      case 'select': tone(c, 740, 0, 0.08, { g: 0.035 }); tone(c, 1110, 0.03, 0.08, { g: 0.015 }); break;
+      case 'close': tone(c, 520, 0, 0.1, { to: 380, g: 0.035 }); break;
+      case 'open': tone(c, 330, 0, 0.12, { g: 0.035 }); tone(c, 495, 0.05, 0.14, { g: 0.02 }); break;
+      case 'on': tone(c, 587, 0, 0.09, { g: 0.04 }); tone(c, 880, 0.06, 0.13, { g: 0.04 }); break;
+      case 'off': tone(c, 587, 0, 0.09, { g: 0.035 }); tone(c, 392, 0.06, 0.13, { g: 0.035 }); break;
+      case 'start': chime(c, [523, 784], 0, 0.09, 0.32, 0.045); break;
+      case 'reflect': tone(c, 440, 0, 0.4, { to: 660, g: 0.045, type: 'triangle' }); tone(c, 880, 0.12, 0.3, { g: 0.015 }); break;
+      case 'reply': chime(c, [784, 988], 0, 0.11, 0.4, 0.035); break;
+      case 'done': tone(c, 392, 0, 0.26, { type: 'triangle', g: 0.05 }); tone(c, 294, 0.1, 0.36, { type: 'triangle', g: 0.04 }); break;
+      case 'save': chime(c, [523, 659, 784, 1047], 0, 0.08, 0.5, 0.04); break;
+      case 'saved': chime(c, [659, 784, 988, 1319], 0.85, 0.09, 0.6, 0.04); break;
+      case 'discard': tone(c, 330, 0, 0.14, { to: 247, g: 0.04, type: 'triangle' }); tone(c, 247, 0.09, 0.24, { to: 175, g: 0.03, type: 'triangle' }); break;
+      default: break;
+    }
+  };
+  return { play, enabled };
+})();
+
+class Component extends DCLogic {
+componentDidMount() {
+if (this.savedFlag()) SFX.play('saved');
+if (this.savedFlag()) this._savedT = setTimeout(() => this.setState({ savedDone: true }), 2600);
+this._onStore = (ev) => {
+if (ev && ev.key === 'reverieSaved' && ev.newValue) {
+clearTimeout(this._savedT);
+this._sv = true;
+try { window.localStorage.removeItem('reverieSaved'); } catch (e) { /* no storage */ }
+SFX.play('saved');
+this.setState({ savedDone: false });
+this._savedT = setTimeout(() => this.setState({ savedDone: true }), 2600);
+return;
+}
+this.forceUpdate();
+};
+window.addEventListener('storage', this._onStore);
+}
+
+componentWillUnmount() {
+clearTimeout(this._savedT);
+window.removeEventListener('storage', this._onStore);
+}
+
+savedFlag() {
+if (this._sv === undefined) {
+this._sv = false;
+try {
+const t = Number(window.localStorage.getItem('reverieSaved') || 0);
+if (t && Date.now() - t < 8000) this._sv = true;
+window.localStorage.removeItem('reverieSaved');
+} catch (e) { /* no storage */ }
+}
+return this._sv;
+}
+
+themeName() {
+try { return window.localStorage.getItem('voiceJournalTheme') === 'light' ? 'light' : 'dark'; } catch (e) { return 'dark'; }
+}
+
+entries() {
+return [
+{ id: 'oct9', month: 'October', year: '2026', day: '9', wd: 'FRI', longDate: 'Friday 9 October', ci: 4, lvl: 0.9,
+q: "What are you proud of this week?",
+paras: [
+"Honestly, that I kept showing up. Some days I only had five minutes to write and I still did it. It adds up more than I expected.",
+"Also, I finally finished the thing I'd been circling for weeks. It isn't perfect, but it's out of my head and into the world, and that feels huge."
+],
+reply: "Showing up for five minutes is a real kind of progress. What changed that made finishing it possible this week?" },
+{ id: 'oct7', month: 'October', year: '2026', day: '7', wd: 'WED', longDate: 'Wednesday 7 October', ci: 5, lvl: 0.7,
+q: "Who made your day a little easier, and how?",
+paras: [
+"Dara left a coffee on my desk with a note that just said 'you've got this'. I'd been stressing about the presentation and it landed at exactly the right moment.",
+"I'm going to do the same for someone tomorrow."
+],
+reply: "A small kindness at the right moment can carry a whole day. Who might need one from you tomorrow?" },
+{ id: 'oct5', month: 'October', year: '2026', day: '5', wd: 'MON', longDate: 'Monday 5 October', ci: 3, lvl: 0.6,
+q: "What made you smile today?",
+paras: [
+"A stranger on the bus let a little kid press the stop button and the whole top deck went quiet and smiled. Such a small thing.",
+"Also, the first proper autumn light came through the kitchen window this evening. Golden and low. I stood there with my tea for ages."
+] },
+{ id: 'oct3', month: 'October', year: '2026', day: '3', wd: 'SAT', longDate: 'Saturday 3 October', ci: 0, lvl: 0.95,
+q: "What are three things you're grateful for today?",
+paras: [
+"Okay so, this morning I woke up before the alarm and for once I wasn't annoyed about it. The light was coming through the blinds and I just lay there for a minute. I think that's the first thing, honestly. Just a slow start. Then I made coffee properly, with the good beans, instead of rushing out the door.",
+"Second thing, I spoke to my mum on the phone for almost an hour. She told me the same story about the neighbour's dog twice and I didn't mind at all. I keep forgetting those calls won't always be there. And, what else, work was busy but nobody was unkind, which sounds like a low bar but it really isn't.",
+"Oh, and the walk after lunch. It was cold and bright and I didn't listen to anything, no podcast, no music, just the sound of my own feet. I think I needed that more than I knew. Anyway, I'm tired but it's a good tired. The kind that comes from a full day, and I'm grateful for it."
+],
+reply: "That sounds like a gentle day. The slow morning, the call with your mum, the quiet walk. What was it about walking without any sound that you needed?" },
+{ id: 'oct2', month: 'October', year: '2026', day: '2', wd: 'FRI', longDate: 'Friday 2 October', ci: 1, lvl: 0.55,
+q: "What's something you handled better than you expected?",
+paras: [
+"Had that conversation with my lead about the deadline, the one I'd been putting off all week. I thought it would get tense and it just didn't. I said what I needed and she said fair enough. Funny how much energy I'd spent dreading it.",
+"Went for a long run afterwards and it felt like I'd put a bag down."
+],
+reply: "Putting something down after dreading it often feels lighter than expected. What helped you finally start the conversation?" },
+{ id: 'oct1', month: 'October', year: '2026', day: '1', wd: 'THU', longDate: 'Thursday 1 October', ci: 3, lvl: 0.65,
+q: "What gave you energy today?",
+paras: [
+"Started the month with a clear desk, which felt bigger than it sounds. Cleared the inbox, booked the dentist, and moved the plant by the window where it's finally doing well.",
+"Cooked properly in the evening and ate at the table instead of on the sofa. Small reset, but I felt it."
+],
+reply: "A clear desk and a proper dinner both sound like ways of starting fresh. Which one do you want to carry into the rest of the month?" },
+{ id: 'sep30', month: 'September', year: '2026', day: '30', wd: 'WED', longDate: 'Wednesday 30 September', ci: 2, lvl: 0.45,
+q: "What made you smile today?",
+paras: [
+"The man at the bakery remembered my order. Small thing. Also found an old photo from the Donegal trip tucked into a book and sat on the stairs looking at it for ages. Everyone was so sunburnt.",
+"I want to go back next summer, properly, a whole week."
+] },
+{ id: 'sep27', month: 'September', year: '2026', day: '27', wd: 'SUN', longDate: 'Sunday 27 September', ci: 3, lvl: 0.7,
+q: "What do you want to remember about this week?",
+paras: [
+"Mostly that I was kinder to myself. Missed a gym session and didn't spiral about it. Cooked a big pot of soup on Sunday and had lunches sorted.",
+"The weather turned and I finally got the heavy coat out. Next week I'd like to read before bed instead of scrolling."
+] },
+{ id: 'sep25', month: 'September', year: '2026', day: '25', wd: 'FRI', longDate: 'Friday 25 September', ci: 1, lvl: 0.5,
+q: "What's something you're looking forward to?",
+paras: [
+"The weekend away. Nothing planned beyond a train and a bag. I keep picturing a café window and a long walk with no destination.",
+"Also, my niece's recital next month. I promised I'd be there and I'm already excited."
+] },
+{ id: 'sep21', month: 'September', year: '2026', day: '21', wd: 'MON', longDate: 'Monday 21 September', ci: 4, lvl: 0.6,
+q: "What's weighing on you, and what's one small step?",
+paras: [
+"Honestly, it's the pile of admin. Insurance, the tax thing, the dentist. None of it is hard, it's just all sitting there.",
+"Small step: ten minutes tomorrow morning, before email, with the insurance first. That's it. Just ten minutes."
+] },
+{ id: 'sep18', month: 'September', year: '2026', day: '18', wd: 'FRI', longDate: 'Friday 18 September', ci: 4, lvl: 0.75,
+q: "What did you learn about yourself this week?",
+paras: [
+"That I work better in the mornings than I give myself credit for. Two hours before anyone is online and I'd done the hard thing.",
+"Also that I say yes too quickly. I'm going to practise saying 'let me check and come back to you'."
+],
+reply: "Noticing when you do your best work and when you say yes too fast is useful. What would make 'let me check' easier to say out loud?" },
+{ id: 'sep14', month: 'September', year: '2026', day: '14', wd: 'MON', longDate: 'Monday 14 September', ci: 5, lvl: 0.4,
+q: "Who are you grateful for this week?",
+paras: [
+"My sister, for driving two hours just to have dinner on Thursday. The neighbour who took in my parcels. And the guy at work who covered for me when I had to leave early.",
+"I don't say thank you enough, so I'm going to write some of it down properly."
+] },
+{ id: 'sep9', month: 'September', year: '2026', day: '9', wd: 'WED', longDate: 'Wednesday 9 September', ci: 2, lvl: 0.3,
+q: "How are you feeling right now?",
+paras: [
+"A bit flat, if I'm honest. Nothing wrong, just grey. Went for a short walk anyway and it helped a little.",
+"Early night tonight."
+] },
+{ id: 'aug29', month: 'August', year: '2026', day: '29', wd: 'SAT', longDate: 'Saturday 29 August', ci: 0, lvl: 0.8,
+q: "What did today give you?",
+paras: [
+"Rain all day and I didn't mind. Stayed in, made bread, put on that old record and did nothing useful. Rare to feel no guilt about it.",
+"I think I've been running on empty and today was the first refill in a while."
+] },
+{ id: 'aug22', month: 'August', year: '2026', day: '22', wd: 'SAT', longDate: 'Saturday 22 August', ci: 5, lvl: 0.85,
+q: "What was the best part of today?",
+paras: [
+"The farmers' market. Bought far too many tomatoes and a loaf that was still warm. Ate half of it on the walk home.",
+"Called Dad on the way and he talked for twenty minutes about his garden. I could have listened all afternoon."
+],
+reply: "Warm bread and a long call with your dad sound like a good Saturday. What did he say about the garden that stayed with you?" },
+{ id: 'aug17', month: 'August', year: '2026', day: '17', wd: 'MON', longDate: 'Monday 17 August', ci: 1, lvl: 0.35,
+q: "What are three things you're grateful for today?",
+paras: [
+"One, the first cold morning after weeks of heat. Two, a long lunch with Aoife where we laughed until it hurt. Three, finishing the shelf I started in June. It's slightly crooked and I love it anyway."
+] },
+{ id: 'aug9', month: 'August', year: '2026', day: '9', wd: 'SUN', longDate: 'Sunday 9 August', ci: 2, lvl: 0.45,
+q: "What do you want to let go of?",
+paras: [
+"The idea that I need a perfect plan before I start anything. Most of what I've enjoyed this summer happened because I just began.",
+"Going to start the course I keep bookmarking. This week. Even if it's only one lesson."
+] }
+];
+}
+
+renderVals() {
+const B = '#1450FF', R = '#FF2A12', Y = '#FFD400', O = '#FF7A00', C = '#00C8FF';
+const PAL = [[B, R, Y], [R, O, B], [Y, C, R], [B, Y, O], [O, Y, B], [C, B, Y]];
+const ring = (e, size, t) => {
+const p = PAL[e.ci % PAL.length];
+return '--s:' + size + 'px;--ca:' + p[0] + ';--cb:' + p[1] + ';--cc:' + p[2] + ';--t:' + t + 's';
+};
+const openId = (this.state && this.state.openId) || null;
+const all = this.entries();
+const months = [];
+all.forEach((e, i) => {
+let m = months[months.length - 1];
+if (!m || m.name !== e.month) {
+m = { name: e.month, year: e.year, cards: [], insights: () => { try { window.localStorage.setItem('reverieInsightsMonth', e.year + '-' + String(['January','February','March','April','May','June','July','August','September','October','November','December'].indexOf(e.month) + 1).padStart(2, '0')); } catch (err) { /* no storage */ } } };
+months.push(m);
+}
+m.cards.push({
+day: e.day,
+wd: e.wd,
+preview: e.paras[0],
+ringStyle: ring(e, Math.round(84 + 44 * e.lvl), (i * 2.7).toFixed(1)),
+open: () => { this.setState({ openId: e.id, prog: 0 }); }
+});
+});
+const cur = all.find((e) => e.id === openId);
+const detail = cur ? {
+longDate: cur.longDate,
+q: cur.q,
+paras: cur.paras.map((t) => ({ text: t })),
+hasReply: !!cur.reply,
+reply: cur.reply || '',
+ringStyle: ring(cur, 580, 1.3),
+ringOpacity: (0.1 + 0.9 * ((this.state && this.state.prog) || 0)).toFixed(3),
+ringShift: (() => { const p = (this.state && this.state.prog) || 0; const x = Math.max(0, Math.min(1, (p - 0.1) / 0.9)); return (x * x * (3 - 2 * x) * 160).toFixed(0) + 'px'; })()
+} : { longDate: '', q: '', paras: [], hasReply: false, reply: '', ringStyle: '--s:0px', ringShift: '0px', ringOpacity: '0.1' };
+return {
+ctaClass: (this.savedFlag() && !(this.state && this.state.savedDone)) ? 'is-saved' : '',
+themeClass: this.themeName() === 'light' ? 'theme-light' : 'theme-dark',
+months,
+showDetail: !!cur,
+detail,
+onBack: () => { this.setState({ openId: null, prog: 0 }); },
+onNew: () => SFX.play('tap'),
+onDetailScroll: (ev) => {
+const el = ev && ev.target;
+if (!el) return;
+const max = el.scrollHeight - el.clientHeight;
+const prog = max > 8 ? Math.max(0, Math.min(1, el.scrollTop / max)) : 0;
+if (Math.abs(prog - ((this.state && this.state.prog) || 0)) > 0.01) this.setState({ prog });
+}
+};
+}
+}
+</script>
+</body>
+</html>

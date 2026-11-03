@@ -1,0 +1,361 @@
+/* VoiceComposerMobile — phone composer, orange voice glow that wraps the bottom corners */
+
+.root {
+  width: 100%;
+  font-family: inherit;
+  -webkit-font-smoothing: antialiased;
+}
+/* Pins the composer to the bottom of its container: 12px sides, 16px bottom */
+.pinned {
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 12px 16px;
+}
+
+.dark {
+  --vc-box: #18181a;
+  --vc-box-border: rgba(255, 255, 255, 0.075);
+  --vc-box-border-focus: rgba(255, 255, 255, 0.14);
+  --vc-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35), 0 24px 60px -24px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+  --vc-text: #ededef;
+  --vc-ph: #85858c;
+  --vc-btn: #232326;
+  --vc-btn-border: rgba(255, 255, 255, 0.09);
+  --vc-btn-hover: #2b2b2f;
+  --vc-btn-on: #333338;
+  --vc-btn-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 4px 14px -4px rgba(0, 0, 0, 0.5);
+  --vc-ring: rgba(255, 255, 255, 0.35);
+  --vc-icon: #ececef;
+  --vc-accent-bg: #ff7a1a; /* dark arrow on orange: 7.3:1 */
+  --vc-accent-fg: #1a0e06;
+  --vc-focus: #ff9a5a;
+  --vc-glow-op: 1;
+  --vc-glow-blur: 20px;
+  --vc-c1: #ff5a1f;
+  --vc-c2: #ff8a2b;
+  --vc-c3: #ffb04a;
+  --vc-c4: #ff7322;
+  --vc-c5: #e8461a;
+}
+
+.light {
+  --vc-box: #ffffff;
+  --vc-box-border: rgba(0, 0, 0, 0.07);
+  --vc-box-border-focus: rgba(0, 0, 0, 0.14);
+  --vc-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 18px 44px -20px rgba(20, 20, 30, 0.18), inset 0 -1px 0 rgba(0, 0, 0, 0.02);
+  --vc-text: #17171a;
+  --vc-ph: #6c6c73;
+  --vc-btn: #f5f5f6;
+  --vc-btn-border: rgba(0, 0, 0, 0.07);
+  --vc-btn-hover: #ededef;
+  --vc-btn-on: #e6e6e9;
+  --vc-btn-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 4px 12px -4px rgba(20, 20, 30, 0.12);
+  --vc-ring: rgba(0, 0, 0, 0.22);
+  --vc-icon: #1b1b1e;
+  --vc-accent-bg: #c2410c; /* white arrow on deep orange: 5.2:1 */
+  --vc-accent-fg: #ffffff;
+  --vc-focus: #d9581c;
+  --vc-glow-op: 0.72;
+  --vc-glow-blur: 22px;
+  --vc-c1: #ff6a2a;
+  --vc-c2: #ff9233;
+  --vc-c3: #ffb54d;
+  --vc-c4: #ff7a2e;
+  --vc-c5: #f0521f;
+}
+
+/* ── Box ─────────────────────────────────────────── */
+
+.composer {
+  --p: 0;
+  --amp: 0;
+  --a1: 0;
+  --a2: 0;
+  --a3: 0;
+  --a4: 0;
+  --a5: 0;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 24px;
+  background: var(--vc-box);
+  border: 1px solid var(--vc-box-border);
+  box-shadow: var(--vc-box-shadow);
+  overflow: hidden;
+  isolation: isolate;
+  transition: border-color 0.3s ease;
+}
+.composer:focus-within {
+  border-color: var(--vc-box-border-focus);
+}
+
+/* ── Aurora glow ─────────────────────────────────── */
+
+.glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: calc(var(--p) * var(--vc-glow-op));
+  filter: blur(var(--vc-glow-blur)) saturate(1.15);
+  animation: vcHue 11s ease-in-out infinite alternate;
+}
+.blob {
+  position: absolute;
+  bottom: -112px;
+  height: 196px;
+  animation: vcDrift 8s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.core {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--c) 0%, var(--c) 22%, transparent 100%);
+  transform-origin: 50% 100%;
+  transform: translateY(calc((1 - var(--a)) * 64%)) scale(calc(0.78 + var(--a) * 0.34), calc(0.42 + var(--a) * 0.78));
+  will-change: transform;
+}
+.b1 { left: -8%; width: 44%; --c: var(--vc-c1); --a: var(--a1); animation-duration: 7.4s; animation-delay: -2s; }
+.b2 { left: 14%; width: 40%; --c: var(--vc-c2); --a: var(--a2); animation-duration: 9.1s; animation-delay: -5s; }
+.b3 { left: 32%; width: 40%; --c: var(--vc-c3); --a: var(--a3); animation-duration: 6.6s; animation-delay: -1s; }
+.b4 { left: 50%; width: 40%; --c: var(--vc-c4); --a: var(--a4); animation-duration: 8.3s; animation-delay: -4s; }
+.b5 { left: 66%; width: 44%; --c: var(--vc-c5); --a: var(--a5); animation-duration: 10.2s; animation-delay: -6s; }
+
+/* Edge stroke traces the box outline, fading out ~70px up the sides */
+.edgeWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 23px;
+  -webkit-mask-image: linear-gradient(to top, #000 0, #000 28px, transparent 72px);
+  mask-image: linear-gradient(to top, #000 0, #000 28px, transparent 72px);
+}
+.edge,
+.edgeSoft {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  border-radius: 23px;
+  background: linear-gradient(90deg, var(--vc-c5), var(--vc-c1), var(--vc-c2), var(--vc-c3), var(--vc-c4), var(--vc-c5));
+  background-size: 200% 100%;
+  animation: vcEdge 7s ease-in-out infinite alternate;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.edge {
+  padding: 1px;
+  opacity: calc(var(--p) * (0.4 + var(--amp) * 0.5));
+}
+.edgeSoft {
+  padding: 2px;
+  filter: blur(2.5px);
+  opacity: calc(var(--p) * (0.15 + var(--amp) * 0.3) * var(--vc-glow-op));
+}
+
+/* ── Text ────────────────────────────────────────── */
+
+.fieldWrap {
+  position: relative;
+  z-index: 2;
+  padding: 16px 18px 0;
+  min-height: 48px;
+}
+.field {
+  display: block;
+  width: 100%;
+  height: 48px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  resize: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--vc-text);
+  caret-color: var(--vc-text);
+}
+.field.tall {
+  height: 192px;
+}
+.field::placeholder {
+  color: var(--vc-ph);
+}
+.transcript {
+  font-size: 16px;
+  line-height: 24px;
+  min-height: 48px;
+  color: var(--vc-text);
+}
+.word {
+  display: inline-block;
+  margin-right: 0.27em;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 35%, transparent 65%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 35%, transparent 65%, transparent 100%);
+  -webkit-mask-size: 300% 100%;
+  mask-size: 300% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  will-change: transform, opacity;
+  animation: vcWordIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hint {
+  display: inline-block;
+  color: transparent;
+  background: linear-gradient(90deg, var(--vc-ph) 0%, var(--vc-ph) 35%, var(--vc-text) 50%, var(--vc-ph) 65%, var(--vc-ph) 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: vcShimmer 2.4s linear infinite, vcFadeIn 0.5s ease both;
+}
+
+/* ── Controls ────────────────────────────────────── */
+
+.row {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+.btn {
+  position: relative;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid var(--vc-btn-border);
+  background: var(--vc-btn);
+  box-shadow: var(--vc-btn-shadow);
+  color: var(--vc-icon);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font: inherit;
+  transition: background-color 0.28s ease, border-color 0.28s ease, color 0.28s ease, opacity 0.28s ease,
+    transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.btn:hover {
+  background: var(--vc-btn-hover);
+}
+.btn:active {
+  transform: scale(0.93);
+}
+.btn:focus-visible {
+  outline: 2px solid var(--vc-focus);
+  outline-offset: 2px;
+}
+.btn svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.mic::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 1px solid var(--vc-ring);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.mic.on {
+  background: var(--vc-btn-on);
+}
+.mic.on::after {
+  opacity: calc(var(--p) * (0.25 + var(--amp) * 0.6));
+  transform: scale(calc(1 + var(--amp) * 0.2));
+}
+
+.ic {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.32s ease, transform 0.45s cubic-bezier(0.2, 0.9, 0.25, 1.15);
+}
+.icX {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.5);
+}
+.icUp {
+  opacity: 1;
+  transform: none;
+}
+.mStop .icX {
+  opacity: 1;
+  transform: none;
+}
+.mStop .icUp {
+  opacity: 0;
+  transform: translateY(6px) scale(0.6);
+}
+.mEmpty {
+  cursor: default;
+}
+.mEmpty .icUp {
+  opacity: 0.4;
+}
+.mEmpty:hover {
+  background: var(--vc-btn);
+}
+.mEmpty:active {
+  transform: none;
+}
+.mSend {
+  background: var(--vc-accent-bg);
+  border-color: transparent;
+  color: var(--vc-accent-fg);
+}
+.mSend:hover {
+  background: var(--vc-accent-bg);
+  opacity: 0.9;
+}
+
+/* ── Motion ──────────────────────────────────────── */
+
+@keyframes vcDrift {
+  0% { transform: translateX(-9%); }
+  100% { transform: translateX(9%); }
+}
+@keyframes vcHue {
+  0% { filter: blur(var(--vc-glow-blur)) saturate(1.15) hue-rotate(-6deg); }
+  100% { filter: blur(var(--vc-glow-blur)) saturate(1.15) hue-rotate(8deg); }
+}
+@keyframes vcEdge {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+@keyframes vcWordIn {
+  0% { opacity: 0; transform: translate3d(-6px, 0, 0); -webkit-mask-position: 100% 0; mask-position: 100% 0; }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); -webkit-mask-position: 0% 0; mask-position: 0% 0; }
+}
+@keyframes vcShimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -50% 0; }
+}
+@keyframes vcFadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blob, .glow, .edge, .edgeSoft, .hint { animation: none; }
+  .word { animation-duration: 0.01s; }
+}

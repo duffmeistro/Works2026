@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { useCopyEmail } from '../hooks'
 import { EMAIL, LINKEDIN } from './SiteHeader'
 
@@ -57,6 +58,12 @@ export function MobileMenu({ onClose, onAbout }: MobileMenuProps) {
           <a className="hm-mitem" href={LINKEDIN} target="_blank" rel="noopener noreferrer" onClick={onClose}>
             LinkedIn
           </a>
+          <Link className="hm-mitem" to="/playground" onClick={onClose}>
+            <span className="hm-emoji" aria-hidden="true">
+              👾
+            </span>
+            Playground
+          </Link>
         </nav>
       </div>
     </>
