@@ -1,0 +1,206 @@
+.fig {
+  margin: 0;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #e8e4db;
+}
+
+.fig:fullscreen {
+  border-radius: 0;
+  background-color: #000000;
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  cursor: pointer;
+}
+
+.fig:fullscreen .video {
+  object-fit: contain;
+}
+
+.badge {
+  position: absolute;
+  left: 24px;
+  top: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #111111;
+}
+
+.badgeDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff5a36;
+}
+
+.bar {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  height: 52px;
+  box-sizing: border-box;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 0 0 1px rgba(17, 17, 17, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 18px;
+  font-variant-numeric: tabular-nums;
+  color: #111111;
+}
+
+.btn {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #111111;
+  flex: none;
+  transition: background-color 0.15s;
+}
+
+.btn:hover {
+  background: rgba(17, 17, 17, 0.07);
+}
+
+.btn:focus-visible,
+.scrub:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 2px;
+}
+
+.time {
+  min-width: 34px;
+}
+
+.dur {
+  color: #6b665f;
+}
+
+.scrub {
+  position: relative;
+  flex: 1;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  touch-action: none;
+  border-radius: 6px;
+}
+
+.track {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: #d9d4cb;
+  pointer-events: none;
+}
+
+.fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 2px;
+  background: #111111;
+}
+
+.knob {
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 50%;
+  background: #111111;
+  box-shadow: 0 0 0 3px #ffffff;
+  transform: scale(0.85);
+}
+
+.scrub:hover .knob,
+.scrubOn .knob {
+  transform: scale(1.15);
+}
+
+@media (max-width: 767px) {
+  .fig {
+    border-radius: 14px;
+  }
+
+  .badge {
+    left: 12px;
+    top: 12px;
+    gap: 6px;
+    padding: 4px 10px;
+    font-size: 11px;
+    line-height: 14px;
+  }
+
+  .badgeDot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .bar {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    height: 48px;
+    padding: 0 2px;
+    gap: 4px;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .time {
+    min-width: 28px;
+    text-align: center;
+  }
+
+  .scrub {
+    height: 44px;
+    margin: 0 4px;
+  }
+}

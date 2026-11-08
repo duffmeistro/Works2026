@@ -1,0 +1,186 @@
+/* ---------- Case study (Breeze AI and Voice) ---------- */
+.cs-root {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  color: var(--hm-ink);
+}
+.cs-part {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+.cs-block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cs-tag {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: #e8e4db;
+  color: #111111;
+}
+.cs-tag--teal {
+  background: #00494b;
+  color: #ffffff;
+}
+
+.cs-sec {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--hm-rule);
+}
+.cs-h3 {
+  margin: 0;
+  font-family: var(--hm-serif);
+  font-optical-sizing: auto;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+.cs-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: 20px;
+  line-height: 28px;
+}
+.cs-body p {
+  margin: 0;
+}
+.cs-label {
+  margin: 8px 0 -6px 0 !important;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--hm-muted);
+}
+.cs-list {
+  margin: 0;
+  padding-left: 1.3em;
+  list-style: disc;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cs-callout {
+  margin: 8px 0;
+  padding: 4px 0 4px 28px;
+  border-left: 2px solid currentColor;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: 500;
+}
+.cs-quote {
+  margin: 0;
+  padding: 6px 0 6px 32px;
+  border-left: 2px solid currentColor;
+  max-width: 980px;
+}
+.cs-quote p {
+  margin: 0;
+  font-family: var(--hm-serif);
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 28px;
+  line-height: 1.32;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.cs-quote footer {
+  margin-top: 18px;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--hm-muted);
+}
+
+.cs-fig {
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  background-color: #e8e4db;
+}
+.cs-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.cs-end {
+  padding-top: 24px;
+  border-top: 1px solid var(--hm-rule);
+}
+
+@media (max-width: 767px) {
+  .cs-root,
+  .cs-part {
+    gap: 48px;
+  }
+  .cs-tag {
+    padding: 6px 12px;
+    font-size: 12px;
+    line-height: 17px;
+    white-space: normal;
+  }
+  .cs-sec {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .cs-h3 {
+    font-size: 15px;
+    line-height: 21px;
+  }
+  .cs-body {
+    font-size: 17px;
+    line-height: 25px;
+  }
+  .cs-label {
+    font-size: 12px;
+    line-height: 17px;
+  }
+  .cs-callout {
+    padding-left: 16px;
+    font-size: 18px;
+    line-height: 26px;
+  }
+  .cs-quote {
+    padding-left: 16px;
+  }
+  .cs-quote p {
+    font-size: 19px;
+    line-height: 1.35;
+  }
+  .cs-quote footer {
+    font-size: 12px;
+    line-height: 17px;
+  }
+  .cs-fig {
+    border-radius: 14px;
+  }
+}

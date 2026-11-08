@@ -41,6 +41,7 @@ export default function HomeShell() {
   const match = useMatch('/work/:slug')
   const playItem = useMatch('/playground/:id')
   const playRoot = useMatch('/playground')
+  const study = !!useMatch('/case-study')
   const { setActive } = useActiveProject()
   const homeSeen = useRef(!match)
   if (!match) homeSeen.current = true
@@ -57,7 +58,7 @@ export default function HomeShell() {
   }
   const playing = !!(playItem || playRoot)
 
-  if ((match && slugIndex < 0) || (!match && !playing && location.pathname !== '/')) {
+  if ((match && slugIndex < 0) || (!match && !playing && !study && location.pathname !== '/')) {
     return <Navigate to="/" replace />
   }
   return (
@@ -65,7 +66,7 @@ export default function HomeShell() {
       {match && !homeSeen.current ? (
         <CasePage index={slugIndex} onClose={() => navigate('/')} />
       ) : (
-        <HomePage panelIndex={slugIndex} playing={playing} playId={playItem?.params.id ?? null} onClosePanel={close} />
+        <HomePage panelIndex={slugIndex} playing={playing} playId={playItem?.params.id ?? null} study={study} onClosePanel={close} />
       )}
       <Loader />
     </>

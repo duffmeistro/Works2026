@@ -1,0 +1,25 @@
+.root {
+  position: relative;
+  width: 390px;
+  height: 1240px;
+  background: #212121;
+  overflow: hidden;
+}
+.cyc {
+  position: absolute;
+  inset: 0;
+  animation: cycIn 0.45s ease-out both;
+}
+@keyframes cycIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cyc {
+    animation: none;
+  }
+}
