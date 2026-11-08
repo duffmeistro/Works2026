@@ -4,7 +4,7 @@
   grid-row: 1 / 5;
   align-self: center;
   justify-self: center;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
   position: relative;
   z-index: 2;
   pointer-events: none;
@@ -148,7 +148,7 @@
   }
   .hm-about__inner {
     gap: 10px;
-    padding: 0 20px;
+    padding: 24px 20px 0;
   }
   .hm-about__title {
     font-size: 28px;
