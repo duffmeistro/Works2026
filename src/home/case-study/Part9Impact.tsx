@@ -1,11 +1,7 @@
-import { useElementWidth } from '../hooks'
-import { BreezeFlow } from './BreezeFlow'
 import { DemoVideo } from './DemoVideo'
 import { Part, Quote, Section, Tag } from './primitives'
+import { ReportFigure } from './ReportFigure'
 import s from './Part9Impact.module.css'
-
-const PHONE_W = 308
-const PHONE_H = 648
 
 const STATS = [
   { n: '8.1k', c: 'Voice AI MAUs, about 15% of Breeze AI users (Nov 2026)' },
@@ -24,29 +20,6 @@ const STATS = [
   { n: '+65%', c: 'Latency improvement since the first beta (Oct 2026)' },
   { n: '18%', c: 'Of users prompt through speech to text (Oct 2026)' },
 ]
-
-function FlowFigure() {
-  const [ref, width] = useElementWidth<HTMLElement>(1120)
-  const scale = Math.min(1, (width - 64) / PHONE_W)
-  return (
-    <figure
-      ref={ref}
-      className={s.flowFig}
-      role="img"
-      aria-label="Breeze prototype: from Home, open Breeze, ask about the Campaign Pipeline and get a chart report"
-    >
-      <div className={s.phoneBox} style={{ width: PHONE_W * scale, height: PHONE_H * scale }}>
-        <div className={s.phone} style={{ transform: `scale(${scale})` }}>
-          <div className={s.screen}>
-            <div className={s.flowScale}>
-              <BreezeFlow />
-            </div>
-          </div>
-        </div>
-      </div>
-    </figure>
-  )
-}
 
 export function Part9Impact() {
   return (
@@ -75,7 +48,7 @@ export function Part9Impact() {
         </div>
         <div className="cs-block">
           <Tag tone="teal">Breeze AI flow - generate artifact</Tag>
-          <FlowFigure />
+          <ReportFigure />
         </div>
       </div>
 
