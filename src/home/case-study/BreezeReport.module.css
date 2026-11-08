@@ -1,0 +1,119 @@
+.root {
+  width: 390px;
+  height: 1154px;
+  position: relative;
+  overflow: hidden;
+  font-family: Figtree, system-ui, sans-serif;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+}
+.root header {
+  box-sizing: content-box;
+}
+.tok {
+  opacity: 0;
+  animation: tokIn 0.3s ease-out forwards;
+}
+@keyframes tokIn {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+.fade {
+  opacity: 0;
+  animation: brFade 0.45s ease-out forwards;
+}
+@keyframes brFade {
+  to {
+    opacity: 1;
+  }
+}
+.rise {
+  opacity: 0;
+  animation: brRise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+@keyframes brRise {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.grad {
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 220% 100%;
+  background-position: 0 0;
+}
+.gradLive {
+  animation: gradMove 1.8s linear infinite;
+}
+@keyframes gradMove {
+  from {
+    background-position: 120% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+.shim {
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 220% 100%;
+  animation: gradMove 1.5s linear infinite;
+}
+.caret {
+  display: inline-block;
+  width: 1.5px;
+  height: 20px;
+  background: #ff5c35;
+  animation: blink 1s steps(2) infinite;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.d1 {
+  animation-delay: 0.08s;
+}
+.d2 {
+  animation-delay: 0.16s;
+}
+.d3 {
+  animation-delay: 0.24s;
+}
+.d4 {
+  animation-delay: 0.32s;
+}
+.d5 {
+  animation-delay: 0.4s;
+}
+.seg {
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+}
+.still .tok,
+.still .fade,
+.still .rise {
+  opacity: 1;
+  animation: none;
+}
+.still .gradLive,
+.still .shim,
+.still .caret {
+  animation: none;
+}

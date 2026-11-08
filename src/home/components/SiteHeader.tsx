@@ -1,27 +1,33 @@
 import { Link } from 'react-router-dom'
+import { useActiveProject } from '../ActiveProject'
 import { useCopyEmail } from '../hooks'
 import { ModeButton } from './ModeButton'
 
 export const EMAIL = 'duffyarch@gmail.com'
 export const LINKEDIN = 'https://ie.linkedin.com/in/gavan-duffy'
+export const SHOW_ABOUT = true
+export const SHOW_EMAIL = false
+export const STUDY_LABEL = 'Case study'
 
 export function Brand() {
+  const { setActive } = useActiveProject()
   return (
-    <div className="hm-brand">
+    <Link className="hm-brand" to="/" aria-label="Gavan Duffy, Senior Product Designer: home" onClick={() => setActive(0)}>
       <div>Gavan Duffy_</div>
       <div>Senior _ Product Designer</div>
       <div className="hm-brand__sub">_works [26]</div>
-    </div>
+    </Link>
   )
 }
 
 type SiteHeaderProps = {
   onAbout: () => void
+  onCaseStudy: () => void
   onToggleMenu: () => void
   menuOpen: boolean
 }
 
-export function SiteHeader({ onAbout, onToggleMenu, menuOpen }: SiteHeaderProps) {
+export function SiteHeader({ onAbout, onCaseStudy, onToggleMenu, menuOpen }: SiteHeaderProps) {
   const { copied, copy } = useCopyEmail(EMAIL)
   return (
     <>
@@ -48,23 +54,32 @@ export function SiteHeader({ onAbout, onToggleMenu, menuOpen }: SiteHeaderProps)
         </div>
       </header>
       <nav className="hm-nav" aria-label="Primary">
-        <button type="button" className="hm-navbtn" onClick={onAbout}>
-          About
-        </button>
-        <button
-          type="button"
-          className="hm-navbtn"
-          aria-label={copied ? 'Email address copied' : 'Copy email address'}
-          onClick={copy}
-        >
-          {copied ? 'Copied!' : 'Email'}
-        </button>
-        <span className="hm-sr" role="status">
-          {copied ? 'Email address copied' : ''}
-        </span>
+        {SHOW_ABOUT && (
+          <button type="button" className="hm-navbtn" onClick={onAbout}>
+            About
+          </button>
+        )}
+        {SHOW_EMAIL && (
+          <>
+            <button
+              type="button"
+              className="hm-navbtn"
+              aria-label={copied ? 'Email address copied' : 'Copy email address'}
+              onClick={copy}
+            >
+              {copied ? 'Copied!' : 'Email'}
+            </button>
+            <span className="hm-sr" role="status">
+              {copied ? 'Email address copied' : ''}
+            </span>
+          </>
+        )}
         <a className="hm-navlink" href={LINKEDIN} target="_blank" rel="noopener noreferrer">
           LinkedIn
         </a>
+        <button type="button" className="hm-navbtn" onClick={onCaseStudy}>
+          {STUDY_LABEL}
+        </button>
         <Link className="hm-navlink" to="/playground">
           <span className="hm-emoji" aria-hidden="true">
             👾

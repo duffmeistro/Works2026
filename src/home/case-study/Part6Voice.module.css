@@ -1,0 +1,58 @@
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.lead {
+  margin: 0;
+  font-family: var(--hm-serif);
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+.voiceFigure {
+  height: 760px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.voiceScale {
+  width: 375px;
+  height: 784px;
+  transform: scale(0.6187);
+  transform-origin: 0 0;
+}
+.slack {
+  aspect-ratio: 1512 / 424;
+}
+.slack img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+@media (max-width: 767px) {
+  .lead {
+    font-size: 26px;
+    line-height: 1.2;
+  }
+  .voiceFigure {
+    height: 520px;
+  }
+  .voiceFigure > * {
+    transform: scale(0.88);
+  }
+  .slack {
+    aspect-ratio: 1512 / 560;
+  }
+  .slack img {
+    width: 132%;
+    max-width: none;
+    margin-left: -16%;
+  }
+}

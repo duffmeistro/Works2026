@@ -12,6 +12,7 @@ import { MobileMenu } from './components/MobileMenu'
 import { Panel } from './components/Panel'
 import { BackBar, PlaygroundGrid } from './components/PlaygroundGrid'
 import { PlayContent } from './components/PlayContent'
+import { StudyContent } from './components/StudyContent'
 import { ModeButton } from './components/ModeButton'
 import { SiteHeader } from './components/SiteHeader'
 import { Stage } from './components/Stage'
@@ -31,17 +32,18 @@ type HomePageProps = {
   panelIndex: number
   playing: boolean
   playId: string | null
+  study: boolean
   onClosePanel: () => void
 }
 
-type PanelView = { kind: 'project'; index: number } | { kind: 'play'; tile: Tile }
+type PanelView = { kind: 'project'; index: number } | { kind: 'play'; tile: Tile } | { kind: 'study' }
 
-export default function HomePage({ panelIndex, playing, playId, onClosePanel }: HomePageProps) {
+export default function HomePage({ panelIndex, playing, playId, study, onClosePanel }: HomePageProps) {
   const navigate = useNavigate()
   const isMobile = useMediaQuery('(max-width: 767px)')
   const tiles = isMobile ? mobileTiles : desktopTiles
   const playTile = findTile(tiles, playId ?? undefined) ?? findTile(desktopTiles, playId ?? undefined)
-  const panelOpen = panelIndex >= 0 || !!playTile
+  const panelOpen = panelIndex >= 0 || !!playTile || study
   const { active, setActive, step } = useActiveProject()
   const [menuOpen, setMenuOpen] = useState(false)
   const { dark } = useTheme()
@@ -65,7 +67,8 @@ export default function HomePage({ panelIndex, playing, playId, onClosePanel }: 
 
   const project = projects[active]
   const shown = useRef<PanelView>({ kind: 'project', index: active })
-  if (playTile) shown.current = { kind: 'play', tile: playTile }
+  if (study) shown.current = { kind: 'study' }
+  else if (playTile) shown.current = { kind: 'play', tile: playTile }
   else if (panelIndex >= 0) shown.current = { kind: 'project', index: panelIndex }
   const view = shown.current
   const baseTitle = 'Gavan Duffy — Senior Product Designer'
@@ -74,17 +77,23 @@ export default function HomePage({ panelIndex, playing, playId, onClosePanel }: 
       ? playing
         ? `Playground — ${baseTitle}`
         : baseTitle
-      : view.kind === 'play'
-        ? `${view.tile.title} — Playground — Gavan Duffy`
-        : view.index === 0
-          ? `About — ${baseTitle}`
-          : `${projects[view.index].homeName} — Gavan Duffy`,
+      : view.kind === 'study'
+        ? 'Case study — Gavan Duffy'
+        : view.kind === 'play'
+          ? `${view.tile.title} — Playground — Gavan Duffy`
+          : view.index === 0
+            ? `About — ${baseTitle}`
+            : `${projects[view.index].homeName} — Gavan Duffy`,
   )
   const states = projects.map((_, i) => layerState(i, active))
 
   const openAbout = useCallback(() => {
     setMenuOpen(false)
     navigate('/work/about')
+  }, [navigate])
+  const openStudy = useCallback(() => {
+    setMenuOpen(false)
+    navigate('/case-study')
   }, [navigate])
   const closeMenu = useCallback(() => setMenuOpen(false), [])
 
@@ -111,7 +120,7 @@ export default function HomePage({ panelIndex, playing, playId, onClosePanel }: 
       <div className="hm-halftone" aria-hidden="true" />
 
       <div className="hm-home" {...(panelOpen ? { inert: '' } : {})}>
-        <SiteHeader onAbout={openAbout} onToggleMenu={() => setMenuOpen((o) => !o)} menuOpen={menuOpen} />
+        <SiteHeader onAbout={openAbout} onCaseStudy={openStudy} onToggleMenu={() => setMenuOpen((o) => !o)} menuOpen={menuOpen} />
 
         <div className="hm-stagearea" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
           <div className={active === 0 ? 'hm-bigword hm-hip is-off' : 'hm-bigword hm-hip'} aria-hidden="true">
@@ -145,16 +154,18 @@ export default function HomePage({ panelIndex, playing, playId, onClosePanel }: 
         <PlaygroundGrid tiles={tiles} playing={playing} />
         <BackBar playing={playing} />
 
-        {menuOpen && <MobileMenu onClose={closeMenu} onAbout={openAbout} />}
+        {menuOpen && <MobileMenu onClose={closeMenu} onAbout={openAbout} onCaseStudy={openStudy} />}
       </div>
 
       <Panel
         label={
-          view.kind === 'play'
-            ? `Playground: ${view.tile.title}`
-            : view.index === 0
-              ? 'About Gavan Duffy'
-              : `Case study: ${projects[view.index].homeName}`
+          view.kind === 'study'
+            ? 'Case study'
+            : view.kind === 'play'
+              ? `Playground: ${view.tile.title}`
+              : view.index === 0
+                ? 'About Gavan Duffy'
+                : `Case study: ${projects[view.index].homeName}`
         }
         open={panelOpen}
         onClose={onClosePanel}
@@ -166,7 +177,9 @@ export default function HomePage({ panelIndex, playing, playId, onClosePanel }: 
         }
       >
         {(goNext) =>
-          view.kind === 'play' ? (
+          view.kind === 'study' ? (
+            <StudyContent open={panelOpen} onClose={onClosePanel} />
+          ) : view.kind === 'play' ? (
             <PlayContent tile={view.tile} />
           ) : (
             <CaseContent project={projects[view.index]} index={view.index} open={panelOpen} onNext={goNext} />

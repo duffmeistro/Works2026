@@ -50,9 +50,18 @@
 }
 
 .hm-brand {
+  display: block;
+  align-self: start;
+  justify-self: start;
   font-size: 15px;
   line-height: 20px;
   letter-spacing: 0;
+  color: inherit;
+  text-decoration: none;
+}
+.hm-brand:focus-visible {
+  outline: 2px solid var(--hm-ink);
+  outline-offset: 3px;
 }
 
 .hm-brand__sub {

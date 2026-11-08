@@ -1,0 +1,38 @@
+.fig {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 64px 24px;
+  border-radius: 20px;
+  background-color: #e8e4db;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.shot {
+  display: block;
+  flex: 0 1 234px;
+  width: 234px;
+  min-width: 0;
+  height: auto;
+  aspect-ratio: 375 / 812;
+  border-radius: 32px;
+  box-shadow: 0 0 0 1px rgba(17, 17, 17, 0.08), 0 30px 50px -30px rgba(0, 0, 0, 0.28);
+}
+
+@media (max-width: 767px) {
+  .fig {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 24px;
+    gap: 16px;
+    border-radius: 14px;
+  }
+
+  .shot {
+    width: 100%;
+    border-radius: 18px;
+    box-shadow: 0 0 0 1px rgba(17, 17, 17, 0.08), 0 18px 30px -18px rgba(0, 0, 0, 0.28);
+  }
+}
