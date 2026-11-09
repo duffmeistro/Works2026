@@ -5,10 +5,11 @@ import s from './Part5Next.module.css'
 
 const PROTO_W = 390
 const PROTO_H = 1240
+const MAX_SCALE = 0.72
 
 export function Part5Next() {
   const [boxRef, boxWidth] = useElementWidth<HTMLDivElement>(312)
-  const scale = Math.min(0.8, boxWidth / PROTO_W)
+  const scale = Math.min(MAX_SCALE, boxWidth / PROTO_W)
 
   return (
     <Part label="Case study: Coming next">
