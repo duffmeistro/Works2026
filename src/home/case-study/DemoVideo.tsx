@@ -28,7 +28,7 @@ export function DemoVideo() {
   const scrubbing = useRef(false)
   const userPaused = useRef(false)
   const [time, setTime] = useState(0)
-  const [duration, setDuration] = useState(20)
+  const [duration, setDuration] = useState(98)
   const [playing, setPlaying] = useState(false)
   const [muted, setMuted] = useState(true)
   const [scrub, setScrub] = useState(false)
@@ -54,7 +54,7 @@ export function DemoVideo() {
     const v = vidRef.current
     if (!v || scrubbing.current) return
     setTime(v.currentTime || 0)
-    setDuration(v.duration || 20)
+    setDuration(v.duration || 98)
   }
 
   const toggle = () => {
@@ -103,7 +103,7 @@ export function DemoVideo() {
     const v = vidRef.current
     if (!v) return
     const r = e.currentTarget.getBoundingClientRect()
-    const d = v.duration || 20
+    const d = v.duration || 98
     const t = clamp((e.clientX - r.left) / r.width) * d
     attempt(() => {
       v.currentTime = t
@@ -135,7 +135,7 @@ export function DemoVideo() {
   const key = (e: KeyboardEvent<HTMLDivElement>) => {
     const v = vidRef.current
     if (!v) return
-    const d = v.duration || 20
+    const d = v.duration || 98
     const t = v.currentTime || 0
     let n: number | null = null
     if (e.key === 'ArrowRight' || e.key === 'ArrowUp') n = Math.min(d, t + 1)
@@ -162,7 +162,7 @@ export function DemoVideo() {
   const still = scrub || vt < 0.3
 
   return (
-    <figure ref={figRef} className={s.fig} aria-label="Product video: Breeze voice in use (placeholder)">
+    <figure ref={figRef} className={s.fig} aria-label="Product video: Breeze voice in use">
       <video
         ref={vidRef}
         className={s.video}
@@ -178,11 +178,11 @@ export function DemoVideo() {
         onPause={() => setPlaying(false)}
         onVolumeChange={(e) => setMuted(e.currentTarget.muted)}
         onClick={toggle}
-        aria-label="Breeze voice on a phone: connecting, ready to chat, a voice conversation and the voice settings"
+        aria-label="Breeze voice live demo: talking to Breeze Assistant on a phone in the car"
       />
       <span className={s.badge}>
         <span className={s.badgeDot} />
-        Video · 0:20
+        Video · 1:37
       </span>
       <div className={s.bar}>
         <button type="button" className={s.btn} onClick={toggle} aria-label={playing ? 'Pause' : 'Play'}>
