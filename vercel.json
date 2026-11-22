@@ -1,3 +1,12 @@
 {
+  "redirects": [
+    { "source": "/beyond-the-tap", "destination": "/beyond-the-tap/", "permanent": false }
+  ],
+  "headers": [
+    {
+      "source": "/beyond-the-tap/(.*)",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }]
+    }
+  ],
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
